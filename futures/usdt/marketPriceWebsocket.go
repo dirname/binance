@@ -10,7 +10,7 @@ import (
 
 // FuturesMarketPriceWebsocketClient responsible to handle market price data from websocket
 type FuturesMarketPriceWebsocketClient struct {
-	Binance.WebsocketClient
+	binance.WebsocketClient
 }
 
 // NewUSDTFuturesMarketPriceWebsocketClient Factory function
@@ -82,7 +82,7 @@ func (u *FuturesMarketPriceWebsocketClient) GetSubscribe(id uint) {
 }
 
 // SetHandler set callback handler
-func (u *FuturesMarketPriceWebsocketClient) SetHandler(connectHandler Binance.ConnectedHandler, responseHandler Binance.ResponseHandler) {
+func (u *FuturesMarketPriceWebsocketClient) SetHandler(connectHandler binance.ConnectedHandler, responseHandler binance.ResponseHandler) {
 	u.WebsocketClient.SetConnectedHandler(connectHandler)
 	u.WebsocketClient.SetResponseHandler(responseHandler)
 	u.WebsocketClient.SetMessageHandler(u.handleMessage)

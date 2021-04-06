@@ -1,2 +1,4 @@
 ignore:
   - "websocket.go"
+  - "example/"
+  - "*Websocket*.go"

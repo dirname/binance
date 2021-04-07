@@ -460,7 +460,7 @@ func TestWebsocketClient_SetMessageHandler(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &WebsocketClient{
+			u := &WebsocketClient{
 				host:                 tt.fields.host,
 				stream:               tt.fields.stream,
 				conn:                 tt.fields.conn,
@@ -477,6 +477,9 @@ func TestWebsocketClient_SetMessageHandler(t *testing.T) {
 				establishmentTime:    tt.fields.establishmentTime,
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
+			u.SetMessageHandler(func(message []byte) (interface{}, error) {
+				return nil, nil
+			})
 		})
 	}
 }

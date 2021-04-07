@@ -22,6 +22,7 @@ func TestDPanic(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			DPanic(tt.args.format, tt.args.args)
 		})
 	}
 }
@@ -43,6 +44,7 @@ func TestDebug(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			Debug(tt.args.format, tt.args.args)
 		})
 	}
 }
@@ -64,27 +66,7 @@ func TestError(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-		})
-	}
-}
-
-func TestFatal(t *testing.T) {
-	type args struct {
-		format string
-		args   []interface{}
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		{name: "Fatal Logger", args: args{
-			format: "%s",
-			args:   []interface{}{"Fatal Logger"},
-		}},
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+			Error(tt.args.format, tt.args.args)
 		})
 	}
 }
@@ -106,27 +88,7 @@ func TestInfo(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-		})
-	}
-}
-
-func TestPanic(t *testing.T) {
-	type args struct {
-		format string
-		args   []interface{}
-	}
-	tests := []struct {
-		name string
-		args args
-	}{
-		{name: "Panic Logger", args: args{
-			format: "%s",
-			args:   []interface{}{"Panic Logger"},
-		}},
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+			Info(tt.args.format, tt.args.args)
 		})
 	}
 }
@@ -146,6 +108,7 @@ func TestSetLevel(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			SetLevel(tt.args.level)
 		})
 	}
 }
@@ -167,6 +130,7 @@ func TestWarn(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			Warn(tt.args.format, tt.args.args)
 		})
 	}
 }

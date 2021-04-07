@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestFuturesMarketPriceWebsocketClient_GetCombined(t *testing.T) {
+func TestFuturesCandlestickWebsocketClient_GetCombined(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -20,7 +20,7 @@ func TestFuturesMarketPriceWebsocketClient_GetCombined(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesMarketPriceWebsocketClient_GetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestFuturesCandlestickWebsocketClient_GetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			b:  false,
 			id: 0,
 		}},
@@ -28,15 +28,15 @@ func TestFuturesMarketPriceWebsocketClient_GetCombined(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesMarketPriceWebsocketClient{
+			u := &FuturesCandlestickWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.GetSubscribe(tt.args.id)
+			u.GetCombined(tt.args.b, tt.args.id)
 		})
 	}
 }
 
-func TestFuturesMarketPriceWebsocketClient_GetSubscribe(t *testing.T) {
+func TestFuturesCandlestickWebsocketClient_GetSubscribe(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -48,12 +48,12 @@ func TestFuturesMarketPriceWebsocketClient_GetSubscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesMarketPriceWebsocketClient_GetSubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{id: 0}},
+		{"TestFuturesCandlestickWebsocketClient_GetSubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{id: 0}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesMarketPriceWebsocketClient{
+			u := &FuturesCandlestickWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.GetSubscribe(tt.args.id)
@@ -61,7 +61,7 @@ func TestFuturesMarketPriceWebsocketClient_GetSubscribe(t *testing.T) {
 	}
 }
 
-func TestFuturesMarketPriceWebsocketClient_SetCombined(t *testing.T) {
+func TestFuturesCandlestickWebsocketClient_SetCombined(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -74,7 +74,7 @@ func TestFuturesMarketPriceWebsocketClient_SetCombined(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesMarketPriceWebsocketClient_SetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestFuturesCandlestickWebsocketClient_SetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			b:  false,
 			id: 0,
 		}},
@@ -82,7 +82,7 @@ func TestFuturesMarketPriceWebsocketClient_SetCombined(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesMarketPriceWebsocketClient{
+			u := &FuturesCandlestickWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.SetCombined(tt.args.b, tt.args.id)
@@ -90,7 +90,7 @@ func TestFuturesMarketPriceWebsocketClient_SetCombined(t *testing.T) {
 	}
 }
 
-func TestFuturesMarketPriceWebsocketClient_SetHandler(t *testing.T) {
+func TestFuturesCandlestickWebsocketClient_SetHandler(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -103,7 +103,7 @@ func TestFuturesMarketPriceWebsocketClient_SetHandler(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesMarketPriceWebsocketClient_SetHandler", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestFuturesCandlestickWebsocketClient_SetHandler", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			connectHandler:  nil,
 			responseHandler: nil,
 		}},
@@ -111,7 +111,7 @@ func TestFuturesMarketPriceWebsocketClient_SetHandler(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesMarketPriceWebsocketClient{
+			u := &FuturesCandlestickWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.SetHandler(tt.args.connectHandler, tt.args.responseHandler)
@@ -119,7 +119,7 @@ func TestFuturesMarketPriceWebsocketClient_SetHandler(t *testing.T) {
 	}
 }
 
-func TestFuturesMarketPriceWebsocketClient_Subscribe(t *testing.T) {
+func TestFuturesCandlestickWebsocketClient_Subscribe(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -132,7 +132,7 @@ func TestFuturesMarketPriceWebsocketClient_Subscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesMarketPriceWebsocketClient_Subscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestFuturesCandlestickWebsocketClient_Subscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			id:     0,
 			params: nil,
 		}},
@@ -140,7 +140,7 @@ func TestFuturesMarketPriceWebsocketClient_Subscribe(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesMarketPriceWebsocketClient{
+			u := &FuturesCandlestickWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.Subscribe(tt.args.id, "")
@@ -148,7 +148,7 @@ func TestFuturesMarketPriceWebsocketClient_Subscribe(t *testing.T) {
 	}
 }
 
-func TestFuturesMarketPriceWebsocketClient_Unsubscribe(t *testing.T) {
+func TestFuturesCandlestickWebsocketClient_Unsubscribe(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -161,7 +161,7 @@ func TestFuturesMarketPriceWebsocketClient_Unsubscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesMarketPriceWebsocketClient_Unsubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestFuturesCandlestickWebsocketClient_Unsubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			id:     0,
 			params: nil,
 		}},
@@ -169,15 +169,15 @@ func TestFuturesMarketPriceWebsocketClient_Unsubscribe(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesMarketPriceWebsocketClient{
+			u := &FuturesCandlestickWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.Subscribe(tt.args.id, "")
+			u.Unsubscribe(tt.args.id, "")
 		})
 	}
 }
 
-func TestFuturesMarketPriceWebsocketClient_handleMessage(t *testing.T) {
+func TestFuturesCandlestickWebsocketClient_handleMessage(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -191,7 +191,7 @@ func TestFuturesMarketPriceWebsocketClient_handleMessage(t *testing.T) {
 		want    interface{}
 		wantErr bool
 	}{
-		{"TestFuturesMarketPriceWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"code\":0,\"msg\":\"Unknown property\",\"id\":0}")}, model.WebsocketErrorResponse{
+		{"TestFuturesCandlestickWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"code\":0,\"msg\":\"Unknown property\",\"id\":0}")}, model.WebsocketErrorResponse{
 			Code:    0,
 			Message: "Unknown property",
 		}, false},
@@ -199,7 +199,7 @@ func TestFuturesMarketPriceWebsocketClient_handleMessage(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesMarketPriceWebsocketClient{
+			u := &FuturesCandlestickWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			got, err := u.handleMessage(tt.args.msg)
@@ -214,22 +214,22 @@ func TestFuturesMarketPriceWebsocketClient_handleMessage(t *testing.T) {
 	}
 }
 
-func TestNewUSDTFuturesMarketPriceWebsocketClient(t *testing.T) {
+func TestNewUSDTFuturesCandlestickWebsocketClient(t *testing.T) {
 	type args struct {
 		streams []string
 	}
 	tests := []struct {
 		name string
 		args args
-		want *FuturesMarketPriceWebsocketClient
+		want *FuturesCandlestickWebsocketClient
 	}{
-		{"TestNewUSDTFuturesMarketPriceWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
+		{"TestNewUSDTFuturesCandlestickWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewUSDTFuturesMarketPriceWebsocketClient(tt.args.streams...); reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewUSDTFuturesMarketPriceWebsocketClient() = %v, want %v", got, tt.want)
+			if got := NewUSDTFuturesCandlestickWebsocketClient(tt.args.streams...); reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewUSDTFuturesCandlestickWebsocketClient() = %v, want %v", got, tt.want)
 			}
 		})
 	}

@@ -20,7 +20,7 @@ func TestFuturesAggTradeWebsocketClient_GetCombined(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesAggTradeWebsocketClient", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestFuturesAggTradeWebsocketClient_GetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			b:  false,
 			id: 0,
 		}},
@@ -28,9 +28,10 @@ func TestFuturesAggTradeWebsocketClient_GetCombined(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &FuturesAggTradeWebsocketClient{
+			u := &FuturesAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
+			u.GetSubscribe(tt.args.id)
 		})
 	}
 }
@@ -47,14 +48,15 @@ func TestFuturesAggTradeWebsocketClient_GetSubscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesAggTradeWebsocketClient", fields{WebsocketClient: binance.WebsocketClient{}}, args{id: 0}},
+		{"TestFuturesAggTradeWebsocketClient_GetSubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{id: 0}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &FuturesAggTradeWebsocketClient{
+			u := &FuturesAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
+			u.GetSubscribe(tt.args.id)
 		})
 	}
 }
@@ -72,7 +74,7 @@ func TestFuturesAggTradeWebsocketClient_SetCombined(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesAggTradeWebsocketClient", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestFuturesAggTradeWebsocketClient_SetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			b:  false,
 			id: 0,
 		}},
@@ -80,9 +82,10 @@ func TestFuturesAggTradeWebsocketClient_SetCombined(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &FuturesAggTradeWebsocketClient{
+			u := &FuturesAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
+			u.SetCombined(tt.args.b, tt.args.id)
 		})
 	}
 }
@@ -100,7 +103,7 @@ func TestFuturesAggTradeWebsocketClient_SetHandler(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesAggTradeWebsocketClient", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestFuturesAggTradeWebsocketClient_SetHandler", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			connectHandler:  nil,
 			responseHandler: nil,
 		}},
@@ -108,9 +111,10 @@ func TestFuturesAggTradeWebsocketClient_SetHandler(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &FuturesAggTradeWebsocketClient{
+			u := &FuturesAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
+			u.SetHandler(tt.args.connectHandler, tt.args.responseHandler)
 		})
 	}
 }
@@ -128,7 +132,7 @@ func TestFuturesAggTradeWebsocketClient_Subscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesAggTradeWebsocketClient", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestFuturesAggTradeWebsocketClient_Subscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			id:     0,
 			params: nil,
 		}},
@@ -136,9 +140,10 @@ func TestFuturesAggTradeWebsocketClient_Subscribe(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &FuturesAggTradeWebsocketClient{
+			u := &FuturesAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
+			u.Subscribe(tt.args.id, "")
 		})
 	}
 }
@@ -156,7 +161,7 @@ func TestFuturesAggTradeWebsocketClient_Unsubscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesAggTradeWebsocketClient", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestFuturesAggTradeWebsocketClient_Unsubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			id:     0,
 			params: nil,
 		}},
@@ -164,9 +169,10 @@ func TestFuturesAggTradeWebsocketClient_Unsubscribe(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &FuturesAggTradeWebsocketClient{
+			u := &FuturesAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
+			u.Unsubscribe(tt.args.id, "")
 		})
 	}
 }
@@ -185,7 +191,7 @@ func TestFuturesAggTradeWebsocketClient_handleMessage(t *testing.T) {
 		want    interface{}
 		wantErr bool
 	}{
-		{"TestFuturesAggTradeWebsocketClient", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"code\":0,\"msg\":\"Unknown property\",\"id\":0}")}, model.WebsocketErrorResponse{
+		{"TestFuturesAggTradeWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"code\":0,\"msg\":\"Unknown property\",\"id\":0}")}, model.WebsocketErrorResponse{
 			Code:    0,
 			Message: "Unknown property",
 		}, false},

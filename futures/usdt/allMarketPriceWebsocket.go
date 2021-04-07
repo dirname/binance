@@ -91,7 +91,7 @@ func (u *FuturesAllMarketPriceWebsocketClient) SetHandler(connectHandler binance
 func (u *FuturesAllMarketPriceWebsocketClient) handleMessage(msg []byte) (interface{}, error) {
 	var parser map[string]interface{}
 	var err error
-	if string(msg)[0:1] == "[" {
+	if msg[0] == 91 {
 		var result []AllMarketPriceResponse
 		err = json.Unmarshal(msg, &result)
 		return result, err

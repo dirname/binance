@@ -36,12 +36,12 @@ func TestWebsocketClient_Close(t *testing.T) {
 			connectedHandler:     nil,
 			messageHandler:       nil,
 			responseHandler:      nil,
-			stopReadChannel:      nil,
-			stopTickerChannel:    nil,
-			stopKeepAliveChannel: nil,
-			keepAliveTicker:      nil,
-			ticker:               nil,
-			sendMutex:            nil,
+			stopReadChannel:      make(chan int, 1),
+			stopTickerChannel:    make(chan int, 1),
+			stopKeepAliveChannel: make(chan int, 1),
+			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
+			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
 			keepAliveInterval:    0,
@@ -50,7 +50,7 @@ func TestWebsocketClient_Close(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &WebsocketClient{
+			u := &WebsocketClient{
 				host:                 tt.fields.host,
 				stream:               tt.fields.stream,
 				conn:                 tt.fields.conn,
@@ -67,6 +67,7 @@ func TestWebsocketClient_Close(t *testing.T) {
 				establishmentTime:    tt.fields.establishmentTime,
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
+			u.Close()
 		})
 	}
 }
@@ -98,27 +99,27 @@ func TestWebsocketClient_Connect(t *testing.T) {
 		args   args
 	}{
 		{"TestWebsocketClient_Connect", fields{
-			host:                 "",
+			host:                 "wss://echo.websocket.org",
 			stream:               "",
 			conn:                 nil,
 			connectedHandler:     nil,
 			messageHandler:       nil,
 			responseHandler:      nil,
-			stopReadChannel:      nil,
-			stopTickerChannel:    nil,
-			stopKeepAliveChannel: nil,
-			keepAliveTicker:      nil,
-			ticker:               nil,
-			sendMutex:            nil,
+			stopReadChannel:      make(chan int, 1),
+			stopTickerChannel:    make(chan int, 1),
+			stopKeepAliveChannel: make(chan int, 1),
+			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
+			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
-			keepAliveInterval:    0,
+			keepAliveInterval:    10,
 		}, args{autoReconnect: false}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &WebsocketClient{
+			u := &WebsocketClient{
 				host:                 tt.fields.host,
 				stream:               tt.fields.stream,
 				conn:                 tt.fields.conn,
@@ -135,6 +136,8 @@ func TestWebsocketClient_Connect(t *testing.T) {
 				establishmentTime:    tt.fields.establishmentTime,
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
+			u.Connect(tt.args.autoReconnect)
+			u.Close()
 		})
 	}
 }
@@ -175,7 +178,7 @@ func TestWebsocketClient_Init(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &WebsocketClient{
+			u := &WebsocketClient{
 				host:                 tt.fields.host,
 				stream:               tt.fields.stream,
 				conn:                 tt.fields.conn,
@@ -192,6 +195,7 @@ func TestWebsocketClient_Init(t *testing.T) {
 				establishmentTime:    tt.fields.establishmentTime,
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
+			u.Init("wss://echo.websocket.org", "")
 		})
 	}
 }

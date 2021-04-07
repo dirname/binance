@@ -163,8 +163,8 @@ func (w *WebsocketClient) SendJSON(data interface{}) {
 
 // Close close the connection to server
 func (w *WebsocketClient) Close() {
-	w.stopTicker()
 	w.stopKeepAliveTicker()
+	w.stopTicker()
 	w.disconnectWebsocket()
 }
 

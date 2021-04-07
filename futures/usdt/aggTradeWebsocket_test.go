@@ -1,4 +1,4 @@
-package usdt
+package FuturesUSDT
 
 import (
 	binance "github.com/dirname/Binance"

@@ -8,16 +8,16 @@ import (
 )
 
 func main() {
-	client := usdt.NewUSDTFuturesAggTradeWebsocketClient("btcusdt@aggTrade")
+	client := FuturesUSDT.NewUSDTFuturesAggTradeWebsocketClient("btcusdt@aggTrade")
 	client.SetHandler(func() {
 		client.Subscribe(123, "btcusdt@aggTrade", "ltcusdt@aggTrade")
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case usdt.AggTradeResponse:
-			logger.Info("AggTrade Response: %v", response.(usdt.AggTradeResponse))
-		case usdt.AggTradeCombinedResponse:
-			logger.Info("AggTradeCombinedResponse: %v", response.(usdt.AggTradeCombinedResponse))
+		case FuturesUSDT.AggTradeResponse:
+			logger.Info("AggTrade Response: %v", response.(FuturesUSDT.AggTradeResponse))
+		case FuturesUSDT.AggTradeCombinedResponse:
+			logger.Info("AggTradeCombinedResponse: %v", response.(FuturesUSDT.AggTradeCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:

@@ -1,4 +1,4 @@
-package usdt
+package FuturesUSDT
 
 // AggTradeResponse json parser
 type AggTradeResponse struct {

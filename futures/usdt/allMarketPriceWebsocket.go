@@ -91,30 +91,26 @@ func (u *FuturesAllMarketPriceWebsocketClient) SetHandler(connectHandler binance
 func (u *FuturesAllMarketPriceWebsocketClient) handleMessage(msg []byte) (interface{}, error) {
 	var parser map[string]interface{}
 	var err error
-	err = json.Unmarshal(msg, &parser)
-	if err != nil {
-
+	if string(msg)[0:1] == "[" {
+		var result []AllMarketPriceResponse
+		err = json.Unmarshal(msg, &result)
+		return result, err
 	}
-	logger.Debug("res: %s", string(msg))
-	//if _, ok := parser["stream"]; ok {
-	//	result := MarketPriceCombinedResponse{}
-	//	err = json.Unmarshal(msg, &result)
-	//	return result, err
-	//}
-	//if _, ok := parser["result"]; ok {
-	//	result := model.WebsocketCommonResponse{}
-	//	err = json.Unmarshal(msg, &result)
-	//	return result, err
-	//}
-	//if _, ok := parser["e"]; ok {
-	//	result := MarketPriceResponse{}
-	//	err = json.Unmarshal(msg, &result)
-	//	return result, err
-	//}
-	//if _, ok := parser["code"]; ok {
-	//	result := model.WebsocketErrorResponse{}
-	//	err = json.Unmarshal(msg, &result)
-	//	return result, err
-	//}
+	err = json.Unmarshal(msg, &parser)
+	if _, ok := parser["stream"]; ok {
+		result := AllMarketPriceCombinedResponse{}
+		err = json.Unmarshal(msg, &result)
+		return result, err
+	}
+	if _, ok := parser["result"]; ok {
+		result := model.WebsocketCommonResponse{}
+		err = json.Unmarshal(msg, &result)
+		return result, err
+	}
+	if _, ok := parser["code"]; ok {
+		result := model.WebsocketErrorResponse{}
+		err = json.Unmarshal(msg, &result)
+		return result, err
+	}
 	return parser, err
 }

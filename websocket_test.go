@@ -227,27 +227,27 @@ func TestWebsocketClient_Send(t *testing.T) {
 		args   args
 	}{
 		{"TestWebsocketClient_Send", fields{
-			host:                 "",
+			host:                 "wss://echo.websocket.org",
 			stream:               "",
 			conn:                 nil,
 			connectedHandler:     nil,
 			messageHandler:       nil,
 			responseHandler:      nil,
-			stopReadChannel:      nil,
-			stopTickerChannel:    nil,
-			stopKeepAliveChannel: nil,
-			keepAliveTicker:      nil,
-			ticker:               nil,
-			sendMutex:            nil,
+			stopReadChannel:      make(chan int, 1),
+			stopTickerChannel:    make(chan int, 1),
+			stopKeepAliveChannel: make(chan int, 1),
+			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
+			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
-			keepAliveInterval:    0,
-		}, args{""}},
+			keepAliveInterval:    10,
+		}, args{"test"}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &WebsocketClient{
+			u := &WebsocketClient{
 				host:                 tt.fields.host,
 				stream:               tt.fields.stream,
 				conn:                 tt.fields.conn,
@@ -264,6 +264,9 @@ func TestWebsocketClient_Send(t *testing.T) {
 				establishmentTime:    tt.fields.establishmentTime,
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
+			u.Connect(false)
+			u.Send(tt.args.data)
+			u.Close()
 		})
 	}
 }
@@ -295,27 +298,27 @@ func TestWebsocketClient_SendJSON(t *testing.T) {
 		args   args
 	}{
 		{"TestWebsocketClient_SendJSON", fields{
-			host:                 "",
+			host:                 "wss://echo.websocket.org",
 			stream:               "",
 			conn:                 nil,
 			connectedHandler:     nil,
 			messageHandler:       nil,
 			responseHandler:      nil,
-			stopReadChannel:      nil,
-			stopTickerChannel:    nil,
-			stopKeepAliveChannel: nil,
-			keepAliveTicker:      nil,
-			ticker:               nil,
-			sendMutex:            nil,
+			stopReadChannel:      make(chan int, 1),
+			stopTickerChannel:    make(chan int, 1),
+			stopKeepAliveChannel: make(chan int, 1),
+			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
+			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
-			keepAliveInterval:    0,
-		}, args{nil}},
+			keepAliveInterval:    10,
+		}, args{"{\"msg\":\"test\"}"}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &WebsocketClient{
+			u := &WebsocketClient{
 				host:                 tt.fields.host,
 				stream:               tt.fields.stream,
 				conn:                 tt.fields.conn,
@@ -332,6 +335,9 @@ func TestWebsocketClient_SendJSON(t *testing.T) {
 				establishmentTime:    tt.fields.establishmentTime,
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
+			u.Connect(false)
+			u.SendJSON(tt.args.data)
+			u.Close()
 		})
 	}
 }
@@ -383,7 +389,7 @@ func TestWebsocketClient_SetConnectedHandler(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_ = &WebsocketClient{
+			u := &WebsocketClient{
 				host:                 tt.fields.host,
 				stream:               tt.fields.stream,
 				conn:                 tt.fields.conn,
@@ -400,6 +406,9 @@ func TestWebsocketClient_SetConnectedHandler(t *testing.T) {
 				establishmentTime:    tt.fields.establishmentTime,
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
+			u.SetConnectedHandler(func() {
+
+			})
 		})
 	}
 }

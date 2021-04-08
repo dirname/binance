@@ -11,7 +11,7 @@ type BLVTInfoResponse struct {
 	Baskets     []struct {
 		Symbol  string          `json:"s"` // Futures symbol
 		Numbers decimal.Decimal `json:"n"` // position
-	} `json:"b"`                              // Baskets
+	} `json:"b"` // Baskets
 	NetValue       decimal.Decimal `json:"n"` // BLVT NAV
 	RealLeverage   decimal.Decimal `json:"l"` // Real leverage
 	TargetLeverage decimal.Decimal `json:"t"` // Target leverage

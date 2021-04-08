@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/dirname/Binance/futures/usdt/websocket"
+	"github.com/dirname/Binance/futures/usdt/websocket/market"
 	logger "github.com/dirname/Binance/logging"
 	"github.com/dirname/Binance/model"
 )

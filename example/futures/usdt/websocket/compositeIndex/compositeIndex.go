@@ -8,16 +8,16 @@ import (
 )
 
 func main() {
-	client := futuresusdt.NewUSDTFuturesSymbolMiniTickerWebsocketClient("btcusdt@miniTicker")
+	client := futuresusdt.NewUSDTFuturesCompositeIndexWebsocketClient("defiusdt@compositeIndex")
 	client.SetHandler(func() {
-		client.Subscribe(123, "btcusdt@miniTicker", "ltcusdt@miniTicker")
+		client.Subscribe(123, "defiusdt@compositeIndex", "defiusdt@compositeIndex")
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case futuresusdt.SymbolMiniTickerResponse:
-			logger.Info("SymbolMiniTicker: %v", response.(futuresusdt.SymbolMiniTickerResponse))
-		case futuresusdt.SymbolMiniTickerCombinedResponse:
-			logger.Info("SymbolMiniTickerCombinedResponse: %v", response.(futuresusdt.SymbolMiniTickerCombinedResponse))
+		case futuresusdt.CompositeIndexResponse:
+			logger.Info("CompositeIndex: %v", response.(futuresusdt.CompositeIndexResponse))
+		case futuresusdt.CompositeIndexCombinedResponse:
+			logger.Info("CompositeIndexCombinedResponse: %v", response.(futuresusdt.CompositeIndexCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:
@@ -29,7 +29,7 @@ func main() {
 	client.Connect(true)
 	fmt.Scanln()
 
-	client.Unsubscribe(123, "btcusdt@miniTicker", "ltcusdt@miniTicker")
+	client.Unsubscribe(123, "defiusdt@compositeIndex", "defiusdt@compositeIndex")
 	client.Close()
 	logger.Info("Client closed")
 }

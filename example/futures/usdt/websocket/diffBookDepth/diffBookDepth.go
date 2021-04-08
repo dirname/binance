@@ -8,16 +8,16 @@ import (
 )
 
 func main() {
-	client := futuresusdt.NewUSDTFuturesSymbolMiniTickerWebsocketClient("btcusdt@miniTicker")
+	client := futuresusdt.NewUSDTFuturesDiffBookDepthWebsocketClient("btcusdt@depth")
 	client.SetHandler(func() {
-		client.Subscribe(123, "btcusdt@miniTicker", "ltcusdt@miniTicker")
+		client.Subscribe(123, "btcusdt@depth", "ltcusdt@depth")
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case futuresusdt.SymbolMiniTickerResponse:
-			logger.Info("SymbolMiniTicker: %v", response.(futuresusdt.SymbolMiniTickerResponse))
-		case futuresusdt.SymbolMiniTickerCombinedResponse:
-			logger.Info("SymbolMiniTickerCombinedResponse: %v", response.(futuresusdt.SymbolMiniTickerCombinedResponse))
+		case futuresusdt.DiffBookDepthResponse:
+			logger.Info("DiffBookDepth Response: %v", response.(futuresusdt.DiffBookDepthResponse))
+		case futuresusdt.DiffBookDepthCombinedResponse:
+			logger.Info("DiffBookDepthCombinedResponse: %v", response.(futuresusdt.DiffBookDepthCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:
@@ -29,7 +29,7 @@ func main() {
 	client.Connect(true)
 	fmt.Scanln()
 
-	client.Unsubscribe(123, "btcusdt@miniTicker", "ltcusdt@miniTicker")
+	client.Unsubscribe(123, "btcusdt@depth", "ltcusdt@depth")
 	client.Close()
 	logger.Info("Client closed")
 }

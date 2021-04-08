@@ -8,4 +8,10 @@
 [![GoDoc](https://img.shields.io/badge/reference-007d9c?style=flat-square&logo=Go&logoColor=F9F9F9&labelColor=5C5C5C&labelWidth=80)](https://pkg.go.dev/github.com/dirname/Binance)
 [![Release](https://img.shields.io/github/release/dirname/Binance.svg?style=flat-square)](https://github.com/dirname/Binance/releases)
 
-This repo is some SDK of Binance
+This is a Binance Go language sdk that uses a method similar
+to [HuobiRDCenter/huobi_Golang](https://github.com/huobirdcenter/huobi_golang)
+
+# Official Documents
+
+Make sure you have read [Binance API document](https://binance-docs.github.io/apidocs/)
+before continuing.

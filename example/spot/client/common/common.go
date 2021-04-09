@@ -7,10 +7,11 @@ import (
 	"github.com/dirname/Binance/spot/client"
 )
 
-var client *spotclient.CommonClient
+var commonClient *spotclient.CommonClient
 
 func init() {
-	client = spotclient.NewCommonClient(config.SpotRestHost)
+	logger.Enable(false)
+	commonClient = spotclient.NewCommonClient(config.SpotRestHost)
 }
 
 func main() {
@@ -22,7 +23,7 @@ func main() {
 }
 
 func getWAPISystemStatus() {
-	response, err := client.GetWAPISystemStatus()
+	response, err := commonClient.GetWAPISystemStatus()
 	if err != nil {
 		logger.Error("getWAPISystemStatus err: %s", err.Error())
 	}
@@ -37,13 +38,13 @@ func getWAPISystemStatus() {
 }
 
 func getSAPISystemStatus() {
-	response, err := client.GetSAPISystemStatus()
+	response, err := commonClient.GetSAPISystemStatus()
 	if err != nil {
 		logger.Error("getSAPISystemStatus err: %s", err.Error())
 	}
 	switch response.(type) {
 	case model.APIErrorResponse:
-		logger.Info("getSAPISystemStatus WAPI error: %v", response.(model.APIErrorResponse))
+		logger.Info("getSAPISystemStatus SAPI error: %v", response.(model.APIErrorResponse))
 	case spotclient.SystemStatusResponse:
 		logger.Info("getSAPISystemStatus: %v", response.(spotclient.SystemStatusResponse))
 	default:
@@ -52,7 +53,7 @@ func getSAPISystemStatus() {
 }
 
 func ping() {
-	response, err := client.Ping()
+	response, err := commonClient.Ping()
 	if err != nil {
 		logger.Error("ping response err: %s", err.Error())
 	}
@@ -62,7 +63,7 @@ func ping() {
 }
 
 func getServerTime() {
-	response, err := client.GetServerTime()
+	response, err := commonClient.GetServerTime()
 	if err != nil {
 		logger.Error("getServerTime error: %s", err.Error())
 	}
@@ -70,7 +71,7 @@ func getServerTime() {
 }
 
 func getExchangeInfo() {
-	response, err := client.GetExchangeInfo()
+	response, err := commonClient.GetExchangeInfo()
 	if err != nil {
 		logger.Error("getExchangeInfo err: %s", err.Error())
 	}

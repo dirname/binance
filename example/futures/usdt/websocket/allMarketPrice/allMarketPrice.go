@@ -14,8 +14,8 @@ func main() {
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case []futuresusdt.AllMarketPriceResponse:
-			logger.Info("AllMarket Response: %v", response.([]futuresusdt.AllMarketPriceResponse))
+		case futuresusdt.AllMarketPriceResponse:
+			logger.Info("AllMarket Response: %v", response.(futuresusdt.AllMarketPriceResponse))
 		case futuresusdt.AllMarketPriceCombinedResponse:
 			logger.Info("AllMarketCombinedResponse: %v", response.(futuresusdt.AllMarketPriceCombinedResponse))
 		case model.WebsocketCommonResponse:

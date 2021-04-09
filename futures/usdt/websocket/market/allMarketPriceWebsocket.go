@@ -92,7 +92,7 @@ func (u *FuturesAllMarketPriceWebsocketClient) handleMessage(msg []byte) (interf
 	var parser map[string]interface{}
 	var err error
 	if msg[0] == 91 {
-		var result []AllMarketPriceResponse
+		var result AllMarketPriceResponse
 		err = json.Unmarshal(msg, &result)
 		return result, err
 	}

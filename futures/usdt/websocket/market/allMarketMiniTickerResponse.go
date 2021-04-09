@@ -1,7 +1,7 @@
 package futuresusdt
 
 // AllMarketMiniTickerResponse json parser
-type AllMarketMiniTickerResponse struct {
+type AllMarketMiniTickerResponse []struct {
 	EventType   string `json:"e"` // Event type
 	EventTime   int64  `json:"E"` // Event time stamp
 	Symbol      string `json:"s"` // Symbol

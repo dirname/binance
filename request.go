@@ -13,17 +13,12 @@ import (
 
 // Signer calculating signature
 type Signer struct {
-	key []byte
-}
-
-// SetSecret Signature's key
-func (s *Signer) SetSecret(secret string) {
-	s.key = []byte(secret)
+	Key []byte
 }
 
 // Sum Generation signature
 func (s *Signer) Sum(queryString string) string {
-	h := hmac.New(sha256.New, s.key)
+	h := hmac.New(sha256.New, s.Key)
 	h.Write([]byte(queryString))
 	return hex.EncodeToString(h.Sum(nil))
 }
@@ -38,6 +33,7 @@ type PrivateUrlBuilder struct {
 	host      string
 	appKey    string
 	appSecret string
+	signer    *Signer
 }
 
 // NewPublicUrlBuilder factory function
@@ -51,6 +47,7 @@ func NewPrivateUrlBuilder(host, appKey, appSecret string) *PrivateUrlBuilder {
 		host:      host,
 		appKey:    appKey,
 		appSecret: appSecret,
+		signer:    &Signer{Key: []byte(appSecret)},
 	}
 }
 
@@ -65,13 +62,20 @@ func (p *PublicUrlBuilder) Build(method, path, params string) (*http.Request, er
 }
 
 // Build build a private url
-func (p *PrivateUrlBuilder) Build(method, path, params string, signer *Signer) (*http.Request, error) {
+func (p *PrivateUrlBuilder) Build(method, path, params string, sign bool, timeStamp bool, recv time.Duration) (*http.Request, error) {
 	var err error
 	var req *http.Request
-	if signer != nil {
-		signer.SetSecret(p.appSecret)
+	if timeStamp {
 		params += fmt.Sprintf("&timestamp=%d", time.Now().UnixNano()/1e6)
-		params += "&signature=" + signer.Sum(params)
+	}
+	if recv > 0 {
+		if recv > 60*time.Second {
+			recv = 60 * time.Second
+		}
+		params += fmt.Sprintf("&recvWindow=%d", recv.Milliseconds())
+	}
+	if sign {
+		params += "&signature=" + p.signer.Sum(params)
 	}
 	switch params {
 	case "":

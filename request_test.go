@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"reflect"
 	"testing"
+	"time"
 )
 
 func TestHttpRequest(t *testing.T) {
@@ -78,56 +79,6 @@ func TestNewPublicUrlBuilder(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := NewPublicUrlBuilder(tt.args.host); reflect.DeepEqual(got, tt.want) {
 				t.Errorf("NewPublicUrlBuilder() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestPrivateUrlBuilder_Build(t *testing.T) {
-	type fields struct {
-		host      string
-		appKey    string
-		appSecret string
-	}
-	type args struct {
-		method string
-		path   string
-		params string
-		signer *Signer
-	}
-	tests := []struct {
-		name    string
-		fields  fields
-		args    args
-		want    *http.Request
-		wantErr bool
-	}{
-		{"TestPrivateUrlBuilder_Build", fields{
-			host:      "",
-			appKey:    "",
-			appSecret: "",
-		}, args{
-			method: "",
-			path:   "",
-			params: "",
-			signer: nil,
-		}, nil, false},
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			p := &PrivateUrlBuilder{
-				host:      tt.fields.host,
-				appKey:    tt.fields.appKey,
-				appSecret: tt.fields.appSecret,
-			}
-			got, err := p.Build(tt.args.method, tt.args.path, tt.args.params, tt.args.signer)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("Build() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if reflect.DeepEqual(got, tt.want) {
-				t.Errorf("Build() got = %v, want %v", got, tt.want)
 			}
 		})
 	}
@@ -210,31 +161,6 @@ func TestPublicUrlBuilder_Build(t *testing.T) {
 	}
 }
 
-func TestSigner_SetSecret(t *testing.T) {
-	type fields struct {
-		key []byte
-	}
-	type args struct {
-		secret string
-	}
-	tests := []struct {
-		name   string
-		fields fields
-		args   args
-	}{
-		{"TestSigner_SetSecret", fields{[]byte("")}, args{secret: ""}},
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			s := &Signer{
-				key: tt.fields.key,
-			}
-			s.SetSecret(tt.args.secret)
-		})
-	}
-}
-
 func TestSigner_Sum(t *testing.T) {
 	type fields struct {
 		key []byte
@@ -254,10 +180,67 @@ func TestSigner_Sum(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			s := &Signer{
-				key: tt.fields.key,
+				Key: tt.fields.key,
 			}
 			if got := s.Sum(tt.args.queryString); got != tt.want {
 				t.Errorf("Sum() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestPrivateUrlBuilder_Build(t *testing.T) {
+	type fields struct {
+		host      string
+		appKey    string
+		appSecret string
+		signer    *Signer
+	}
+	type args struct {
+		method    string
+		path      string
+		params    string
+		sign      bool
+		timeStamp bool
+		recv      time.Duration
+	}
+	tests := []struct {
+		name    string
+		fields  fields
+		args    args
+		want    *http.Request
+		wantErr bool
+	}{
+		{"TestPrivateUrlBuilder_Build", fields{
+			host:      "",
+			appKey:    "",
+			appSecret: "",
+			signer:    nil,
+		}, args{
+			method:    "",
+			path:      "",
+			params:    "",
+			sign:      false,
+			timeStamp: false,
+			recv:      0,
+		}, nil, false},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			p := &PrivateUrlBuilder{
+				host:      tt.fields.host,
+				appKey:    tt.fields.appKey,
+				appSecret: tt.fields.appSecret,
+				signer:    tt.fields.signer,
+			}
+			got, err := p.Build(tt.args.method, tt.args.path, tt.args.params, tt.args.sign, tt.args.timeStamp, tt.args.recv)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Build() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Build() got = %v, want %v", got, tt.want)
 			}
 		})
 	}

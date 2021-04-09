@@ -1,6 +1,7 @@
 package binance
 
 import (
+	"github.com/dirname/Binance/config"
 	"github.com/gorilla/websocket"
 	"sync"
 	"testing"
@@ -115,6 +116,23 @@ func TestWebsocketClient_Connect(t *testing.T) {
 			establishmentTime:    time.Time{},
 			keepAliveInterval:    10 * time.Second,
 		}, args{autoReconnect: false}},
+		{"TestWebsocketClient_Connect", fields{
+			host:                 "echo.websocket.org",
+			stream:               "",
+			conn:                 nil,
+			connectedHandler:     nil,
+			messageHandler:       nil,
+			responseHandler:      nil,
+			stopReadChannel:      make(chan int, 1),
+			stopTickerChannel:    make(chan int, 1),
+			stopKeepAliveChannel: make(chan int, 1),
+			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
+			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			sendMutex:            &sync.Mutex{},
+			lastReceivedTime:     time.Time{},
+			establishmentTime:    time.Time{},
+			keepAliveInterval:    10 * time.Second,
+		}, args{autoReconnect: true}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -173,6 +191,30 @@ func TestWebsocketClient_Init(t *testing.T) {
 			name:   "TestWebsocketClient_Init",
 			fields: fields{},
 			args:   args{},
+		},
+		{
+			name:   "TestWebsocketClient_Init",
+			fields: fields{},
+			args: args{
+				host:   config.SpotWssHost,
+				stream: []string{"test", "test"},
+			},
+		},
+		{
+			name:   "TestWebsocketClient_Init",
+			fields: fields{},
+			args: args{
+				host:   config.CoinFuturesWssHost,
+				stream: []string{"test", "test"},
+			},
+		},
+		{
+			name:   "TestWebsocketClient_Init",
+			fields: fields{},
+			args: args{
+				host:   config.USDTFuturesWssHost,
+				stream: []string{"test", "test"},
+			},
 		},
 		// TODO: Add test cases.
 	}
@@ -371,7 +413,7 @@ func TestWebsocketClient_SetConnectedHandler(t *testing.T) {
 		{"TestWebsocketClient_SetConnectedHandler", fields{
 			host:                 "",
 			stream:               "",
-			conn:                 nil,
+			conn:                 &websocket.Conn{},
 			connectedHandler:     nil,
 			messageHandler:       nil,
 			responseHandler:      nil,
@@ -513,7 +555,7 @@ func TestWebsocketClient_SetPingHandler(t *testing.T) {
 		{"TestWebsocketClient_SetPingHandler", fields{
 			host:                 "",
 			stream:               "",
-			conn:                 nil,
+			conn:                 &websocket.Conn{},
 			connectedHandler:     nil,
 			messageHandler:       nil,
 			responseHandler:      nil,
@@ -584,7 +626,7 @@ func TestWebsocketClient_SetPongHandler(t *testing.T) {
 		{"TestWebsocketClient_SetPongHandler", fields{
 			host:                 "",
 			stream:               "",
-			conn:                 nil,
+			conn:                 &websocket.Conn{},
 			connectedHandler:     nil,
 			messageHandler:       nil,
 			responseHandler:      nil,
@@ -724,6 +766,25 @@ func TestWebsocketClient_connectWebsocket(t *testing.T) {
 			stream:               "",
 			conn:                 nil,
 			connectedHandler:     nil,
+			messageHandler:       nil,
+			responseHandler:      nil,
+			stopReadChannel:      make(chan int, 1),
+			stopTickerChannel:    make(chan int, 1),
+			stopKeepAliveChannel: make(chan int, 1),
+			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
+			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			sendMutex:            &sync.Mutex{},
+			lastReceivedTime:     time.Time{},
+			establishmentTime:    time.Time{},
+			keepAliveInterval:    10 * time.Second,
+		}},
+		{"TestWebsocketClient_connectWebsocket", fields{
+			host:   "echo.websocket.org",
+			stream: "",
+			conn:   nil,
+			connectedHandler: func() {
+				return
+			},
 			messageHandler:       nil,
 			responseHandler:      nil,
 			stopReadChannel:      make(chan int, 1),

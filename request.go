@@ -8,6 +8,7 @@ import (
 	"github.com/dirname/Binance/logging"
 	"io/ioutil"
 	http "net/http"
+	"time"
 )
 
 // Signer calculating signature
@@ -15,9 +16,9 @@ type Signer struct {
 	key []byte
 }
 
-// SetKey Signature's key
-func (s *Signer) SetKey(key string) {
-	s.key = []byte(key)
+// SetSecret Signature's key
+func (s *Signer) SetSecret(secret string) {
+	s.key = []byte(secret)
 }
 
 // Sum Generation signature
@@ -32,9 +33,25 @@ type PublicUrlBuilder struct {
 	host string
 }
 
+// PrivateUrlBuilder build private url
+type PrivateUrlBuilder struct {
+	host      string
+	appKey    string
+	appSecret string
+}
+
 // NewPublicUrlBuilder factory function
 func NewPublicUrlBuilder(host string) *PublicUrlBuilder {
 	return &PublicUrlBuilder{host: host}
+}
+
+// NewPrivateUrlBuilder factory function
+func NewPrivateUrlBuilder(host, appKey, appSecret string) *PrivateUrlBuilder {
+	return &PrivateUrlBuilder{
+		host:      host,
+		appKey:    appKey,
+		appSecret: appSecret,
+	}
 }
 
 // Build build a public url
@@ -45,6 +62,41 @@ func (p *PublicUrlBuilder) Build(method, path, params string) (*http.Request, er
 	default:
 		return http.NewRequest(method, fmt.Sprintf("https://%s%s?%s", p.host, path, params), nil)
 	}
+}
+
+// Build build a private url
+func (p *PrivateUrlBuilder) Build(method, path, params string, signer *Signer) (*http.Request, error) {
+	var err error
+	var req *http.Request
+	if signer != nil {
+		signer.SetSecret(p.appSecret)
+		params += fmt.Sprintf("&timestamp=%d", time.Now().UnixNano()/1e6)
+		params += "&signature=" + signer.Sum(params)
+	}
+	switch params {
+	case "":
+		req, err = http.NewRequest(method, fmt.Sprintf("https://%s%s", p.host, path), nil)
+	default:
+		req, err = http.NewRequest(method, fmt.Sprintf("https://%s%s?%s", p.host, path, params), nil)
+	}
+	req.Header.Set("X-MBX-APIKEY", p.appKey)
+	switch method {
+	case http.MethodGet:
+		break
+	case http.MethodPost:
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	case http.MethodPut:
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	case http.MethodDelete:
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	}
+	return req, err
+}
+
+// SetAPIKey set API information
+func (p *PrivateUrlBuilder) SetAPIKey(appKey, appSecret string) {
+	p.appKey = appKey
+	p.appSecret = appSecret
 }
 
 // HttpRequest send a http request

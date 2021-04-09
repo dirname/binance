@@ -16,7 +16,7 @@ func TestEnable(t *testing.T) {
 		name string
 		args args
 	}{
-		{name: "TestEnable", args: args{false}},
+		{name: "TestEnable", args: args{true}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -36,6 +36,7 @@ func TestGetInstance(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			Enable(true)
 			if got := GetInstance(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetInstance() = %v, want %v", got, tt.want)
 			}
@@ -66,6 +67,7 @@ func TestPerformanceLogger_Start(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			Enable(true)
 			p := &PerformanceLogger{
 				logger: tt.fields.logger,
 				enable: tt.fields.enable,
@@ -109,6 +111,7 @@ func TestPerformanceLogger_StopAndLog(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			Enable(true)
 			p := &PerformanceLogger{
 				logger: tt.fields.logger,
 				enable: tt.fields.enable,

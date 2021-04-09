@@ -13,6 +13,7 @@ func TestHttpRequest(t *testing.T) {
 		request *http.Request
 	}
 	req, _ := http.NewRequest(http.MethodGet, "https://"+config.SpotRestHost+"/api/v3/ping", nil)
+	req2, _ := http.NewRequest(http.MethodGet, "unknown", nil)
 	tests := []struct {
 		name    string
 		args    args
@@ -20,7 +21,7 @@ func TestHttpRequest(t *testing.T) {
 		wantErr bool
 	}{
 		{"TestHttpRequest", args{request: req}, []byte("{}"), false},
-		{"TestHttpRequest", args{request: req}, nil, true},
+		{"TestHttpRequest", args{request: req2}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -233,9 +234,9 @@ func TestPrivateUrlBuilder_Build(t *testing.T) {
 		}, nil, false},
 		{"TestPrivateUrlBuilder_Build", fields{
 			host:      "",
-			appKey:    "",
-			appSecret: "",
-			signer:    nil,
+			appKey:    "test",
+			appSecret: "test",
+			signer:    &Signer{Key: []byte("test")},
 		}, args{
 			method:    http.MethodPost,
 			path:      "test",

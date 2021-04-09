@@ -18,9 +18,50 @@ to [HuobiRDCenter/huobi_Golang](https://github.com/huobirdcenter/huobi_golang)
 Please make sure you have read the [Binance API document](https://binance-docs.github.io/apidocs/)
 before continuing.
 
+# Precautions
+
+You are very welcome to submit issues or pull requests to share with this project to make the project more perfect
+
+- [spot/client/wallet.go:Line602](https://github.com/dirname/Binance/blob/main/spot/client/wallet.go#L602)
+
+  *The result types returned by minWithdrawAmount and withdrawFee are sometimes inconsistent, leading to running bugs.
+  Currently, it has been parsed as interface{}. It is recommended to use this method of SAPI instead of this method.*
+
 # List of implemented APIs
 
 The following table shows the functions included in this SDK
+
+## Spot/Margin/Savings/Mining
+
+Category | Client | Access Type
+:------------: | :------------: | :------------:
+Wallet | System Status | RESTful API
+| | System Status (SAPI) | RESTful API
+| | All Coin's Information | RESTful API
+| | Daily Account Snapshot | RESTful API
+| | Disabled/Enabled Fast Withdraw | RESTful API
+| | Withdraw (SAPI) | RESTful API
+| | Withdraw | RESTful API
+| | Deposit History(supporting network) | RESTful API
+| | Deposit History | RESTful API
+| | Withdraw History(supporting network) | RESTful API
+| | Withdraw History | RESTful API
+| | Deposit Address(supporting network) | RESTful API
+| | Deposit Address | RESTful API
+| | Account Status | RESTful API
+| | Account Status (SAPI) | RESTful API
+| | Account API Trading Status | RESTful API
+| | Account API Trading Status (SAPI) | RESTful API
+| | DustLog | RESTful API
+| | DustLog (SAPI) | RESTful API
+| | Dust Transfer | RESTful API
+| | Asset Dividend Record | RESTful API
+| | Asset Detail | RESTful API
+| | Asset Detail (SAPI) | RESTful API
+| | Trade Fee | RESTful API
+| | Trade Fee (SAPI) | RESTful API
+| | User Universal Transfer | RESTful API
+| | Query User Universal Transfer History | RESTful API
 
 ## USDⓈ-M Futures
 
@@ -46,6 +87,43 @@ Market | Aggregate Trade | WebSocket
 # Usage
 
 Below are some examples of usage
+
+## RESTful wallet transfer
+
+Examples of user transfers in the universal
+
+```go
+package spotclient
+
+import (
+	binance "github.com/dirname/Binance"
+	"github.com/dirname/Binance/config"
+	"github.com/shopspring/decimal"
+	"reflect"
+	"testing"
+	"time"
+)
+
+func init() {
+	logger.Enable(false)
+	walletClient = spotclient.NewWalletClient(config.SpotRestHost, config.AppKey, config.AppSecret)
+}
+
+func universalTransfer() {
+	response, err := walletClient.UniversalTransfer("UMFUTURE_MAIN", "USDT", "10", 0)
+	if err != nil {
+		logger.Error("universalTransfer err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("universalTransfer API error: %v", response.(model.APIErrorResponse))
+	case spotclient.UniversalTransferResponse:
+		logger.Info("universalTransfer: %v", response.(spotclient.UniversalTransferResponse))
+	default:
+		logger.Info("universalTransfer Unknown response: %v", response)
+	}
+}
+```
 
 ## WebSocket market quotes
 

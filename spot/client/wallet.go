@@ -184,13 +184,13 @@ func (w *WalletClient) SAPIWithdraw(coin, clientID, network, address, addressTag
 	if addressTag != "" {
 		params += fmt.Sprintf("&addressTag=%s", addressTag)
 	}
-	if amount.LessThanOrEqual(decimal.NewFromInt(0)) {
-		err = errors.New("amount can not less than or equal zero")
-		return nil, err
-	}
 	params += fmt.Sprintf("&transactionFeeFlag=%t", transactionFeeFlag)
 	if name != "" {
 		params += fmt.Sprintf("&name=%s", name)
+	}
+	if amount.LessThanOrEqual(decimal.NewFromInt(0)) {
+		err = errors.New("amount can not less than or equal zero")
+		return nil, err
 	}
 	req, err := w.Builder.Build(http.MethodPost, "/sapi/v1/capital/withdraw/apply", "", true, true, recv)
 	if err != nil {
@@ -232,14 +232,14 @@ func (w *WalletClient) WAPIWithdraw(coin, clientID, network, address, addressTag
 	if addressTag != "" {
 		params += fmt.Sprintf("&addressTag=%s", addressTag)
 	}
+	if name != "" {
+		params += fmt.Sprintf("&name=%s", name)
+	}
 	if amount.LessThanOrEqual(decimal.NewFromInt(0)) {
 		err = errors.New("amount can not less than or equal zero")
 		return nil, err
 	}
 	params += fmt.Sprintf("&transactionFeeFlag=%t", transactionFeeFlag)
-	if name != "" {
-		params += fmt.Sprintf("&name=%s", name)
-	}
 	req, err := w.Builder.Build(http.MethodPost, "/wapi/v3/withdraw.html", "", true, true, recv)
 	if err != nil {
 		logger.Error("Failed to build url: %s", err.Error())

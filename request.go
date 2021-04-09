@@ -110,6 +110,9 @@ func HttpRequest(request *http.Request) ([]byte, error) {
 	logger.Start()
 	client := &http.Client{}
 	response, err := client.Do(request)
+	if err != nil {
+		return nil, err
+	}
 	defer response.Body.Close()
 	body, err := ioutil.ReadAll(response.Body)
 	logger.StopAndLog(request.Method, request.URL.String())

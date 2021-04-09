@@ -19,8 +19,14 @@ func main() {
 	//getSpotSnapshot()
 	//getMarginSnapshot()
 	//getFuturesSnapshot()
-	disableFastWithdraw()
-	enableFastWithdraw()
+	//disableFastWithdraw()
+	//enableFastWithdraw()
+	getDepositHistoryNetwork()
+	getDepositHistory()
+	getWithdrawHistoryNetwork()
+	getWithdraw()
+	getDepositAddressNetwork()
+	getDepositAddress()
 }
 
 func getAllCoinsInfo() {
@@ -97,4 +103,87 @@ func enableFastWithdraw() {
 		logger.Error("enableFastWithdraw err: %s", err.Error())
 	}
 	logger.Info("%v", response)
+}
+
+func getDepositHistoryNetwork() {
+	response, err := walletClient.DepositHistoryNetwork("", -1, 0, 0, 0, 0, 0)
+	if err != nil {
+		logger.Error("getDepositHistoryNetwork err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("getDepositHistoryNetwork API error: %v", response.(model.APIErrorResponse))
+	case spotclient.DepositHistoryNetworkResponse:
+		logger.Info("getDepositHistoryNetwork: %v", response.(spotclient.DepositHistoryNetworkResponse))
+	default:
+		logger.Info("getDepositHistoryNetwork Unknown response: %v", response)
+	}
+}
+
+func getDepositHistory() {
+	response, err := walletClient.DepositHistory("", -1, 0, 0, 0)
+	if err != nil {
+		logger.Error("getDepositHistory err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.WAPIErrorResponse:
+		logger.Info("getDepositHistory WAPI error: %v", response.(model.APIErrorResponse))
+	case spotclient.DepositHistoryResponse:
+		logger.Info("getDepositHistory: %v", response.(spotclient.DepositHistoryResponse))
+	default:
+		logger.Info("getDepositHistory Unknown response: %v", response)
+	}
+}
+
+func getWithdrawHistoryNetwork() {
+	response, err := walletClient.WithdrawHistoryNetwork("", -1, 0, 0, 0, 0, 0)
+	if err != nil {
+		logger.Error("getWithdrawHistoryNetwork err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("getWithdrawHistoryNetwork API error: %v", response.(model.APIErrorResponse))
+	case spotclient.WithdrawHistoryNetworkResponse:
+		logger.Info("getWithdrawHistoryNetwork: %v", response.(spotclient.WithdrawHistoryNetworkResponse))
+	default:
+		logger.Info("getWithdrawHistoryNetwork Unknown response: %v", response)
+	}
+}
+
+func getWithdraw() {
+	response, err := walletClient.WithdrawHistory("", -1, 0, 0, 0)
+	if err != nil {
+		logger.Error("getWithdraw err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.WAPIErrorResponse:
+		logger.Info("getWithdraw WAPI error: %v", response.(model.APIErrorResponse))
+	case spotclient.WithdrawHistoryResponse:
+		logger.Info("getWithdraw: %v", response.(spotclient.WithdrawHistoryResponse))
+	default:
+		logger.Info("getWithdraw Unknown response: %v", response)
+	}
+}
+
+func getDepositAddressNetwork() {
+	response, err := walletClient.DepositAddressNetwork("BTC", "", 0)
+	if err != nil {
+		logger.Error("getDepositAddressNetwork err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("getDepositAddressNetwork API error: %v", response.(model.APIErrorResponse))
+	case spotclient.DepositAddressNetworkResponse:
+		logger.Info("getDepositAddressNetwork: %v", response.(spotclient.DepositAddressNetworkResponse))
+	default:
+		logger.Info("getDepositAddressNetwork Unknown response: %v", response)
+	}
+}
+
+func getDepositAddress() {
+	response, err := walletClient.DepositAddress("BNB", false, 0)
+	if err != nil {
+		logger.Error("getDepositAddress err: %s", err.Error())
+	}
+	logger.Info("getDepositAddress response: %v", response)
 }

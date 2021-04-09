@@ -103,3 +103,90 @@ type MarginSnapshotResponse struct {
 		UpdateTime int64  `json:"updateTime"`
 	} `json:"snapshotVos"`
 }
+
+// SAPIWithdrawResponse sapi withdraw response
+type SAPIWithdrawResponse struct {
+	ID string `json:"id"`
+}
+
+// WAPIWithdrawResponse wapi withdraw response
+type WAPIWithdrawResponse struct {
+	Msg     string `json:"msg"`
+	Success bool   `json:"success"`
+	ID      string `json:"id"`
+}
+
+// DepositHistoryNetworkResponse DepositHistoryNetwork response
+type DepositHistoryNetworkResponse []struct {
+	Amount       string `json:"amount"`
+	Coin         string `json:"coin"`
+	Network      string `json:"network"`
+	Status       int    `json:"status"`
+	Address      string `json:"address"`
+	AddressTag   string `json:"addressTag"`
+	TxID         string `json:"txId"`
+	InsertTime   int64  `json:"insertTime"`
+	TransferType int    `json:"transferType"`
+	ConfirmTimes string `json:"confirmTimes"`
+}
+
+// DepositHistoryResponse DepositHistory response
+type DepositHistoryResponse struct {
+	DepositList []struct {
+		InsertTime int64   `json:"insertTime"`
+		Amount     float64 `json:"amount"`
+		Asset      string  `json:"asset"`
+		Address    string  `json:"address"`
+		TxID       string  `json:"txId"`
+		Status     int     `json:"status"`
+		AddressTag string  `json:"addressTag,omitempty"`
+	} `json:"depositList"`
+	Success bool `json:"success"`
+}
+
+// WithdrawHistoryNetworkResponse withdraw network response
+type WithdrawHistoryNetworkResponse []struct {
+	Address         string `json:"address"`
+	Amount          string `json:"amount"`
+	ApplyTime       string `json:"applyTime"`
+	Coin            string `json:"coin"`
+	ID              string `json:"id"`
+	WithdrawOrderID string `json:"withdrawOrderId,omitempty"`
+	Network         string `json:"network"`
+	TransferType    int    `json:"transferType,omitempty"`
+	Status          int    `json:"status"`
+	TxID            string `json:"txId"`
+}
+
+// WithdrawHistoryResponse withdraw response
+type WithdrawHistoryResponse struct {
+	WithdrawList []struct {
+		ID              string      `json:"id"`
+		WithdrawOrderID interface{} `json:"withdrawOrderId"`
+		Amount          float64     `json:"amount"`
+		TransactionFee  float64     `json:"transactionFee"`
+		Address         string      `json:"address"`
+		Asset           string      `json:"asset"`
+		TxID            string      `json:"txId"`
+		ApplyTime       int64       `json:"applyTime"`
+		Status          int         `json:"status"`
+		AddressTag      string      `json:"addressTag,omitempty"`
+	} `json:"withdrawList"`
+	Success bool `json:"success"`
+}
+
+// DepositAddressNetworkResponse deposit address response
+type DepositAddressNetworkResponse struct {
+	Address string `json:"address"`
+	Coin    string `json:"coin"`
+	Tag     string `json:"tag"`
+	Url     string `json:"url"`
+}
+
+// DepositAddressResponse deposit address response
+type DepositAddressResponse struct {
+	Address    string `json:"address"`
+	Success    bool   `json:"success"`
+	AddressTag string `json:"addressTag"`
+	Asset      string `json:"asset"`
+}

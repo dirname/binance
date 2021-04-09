@@ -164,7 +164,7 @@ func (w *WalletClient) FastWithdrawSwitch(status bool, recv time.Duration) (inte
 // SAPIWithdraw withdraw
 func (w *WalletClient) SAPIWithdraw(coin, clientID, network, address, addressTag, name string, amount decimal.Decimal, transactionFeeFlag bool, recv time.Duration) (interface{}, error) {
 	var err error
-	var params string
+	params := ""
 	if coin == "" {
 		err = errors.New("coin can not be empty")
 		return nil, err
@@ -212,7 +212,7 @@ func (w *WalletClient) SAPIWithdraw(coin, clientID, network, address, addressTag
 // WAPIWithdraw withdraw
 func (w *WalletClient) WAPIWithdraw(coin, clientID, network, address, addressTag, name string, amount decimal.Decimal, transactionFeeFlag bool, recv time.Duration) (interface{}, error) {
 	var err error
-	var params string
+	params := ""
 	if coin == "" {
 		err = errors.New("coin can not be empty")
 		return nil, err

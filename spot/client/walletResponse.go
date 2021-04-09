@@ -207,7 +207,7 @@ type SAPIAccountResponse struct {
 
 // AccountWAPIAPIStatusResponse account API trading status response
 type AccountWAPIAPIStatusResponse struct {
-	Success bool `json:"success"`
+	Success bool     `json:"success"`
 	Status  struct { // API trading status detail
 		IsLocked           bool `json:"isLocked"`
 		PlannedRecoverTime int  `json:"plannedRecoverTime"` // If API trading function is locked, this is the planned recover time

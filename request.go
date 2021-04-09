@@ -4,6 +4,7 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
+	"errors"
 	"fmt"
 	"github.com/dirname/Binance/logging"
 	"io/ioutil"
@@ -108,6 +109,9 @@ func HttpRequest(request *http.Request) ([]byte, error) {
 	logger := logging.GetInstance()
 	logger.Start()
 	client := &http.Client{}
+	if request == nil {
+		return nil, errors.New("invalid http request null pointer")
+	}
 	response, err := client.Do(request)
 	defer response.Body.Close()
 	body, err := ioutil.ReadAll(response.Body)

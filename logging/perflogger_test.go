@@ -37,7 +37,7 @@ func TestGetInstance(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			Enable(true)
-			if got := GetInstance(); !reflect.DeepEqual(got, tt.want) {
+			if got := GetInstance(); reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetInstance() = %v, want %v", got, tt.want)
 			}
 		})
@@ -92,20 +92,25 @@ func TestPerformanceLogger_StopAndLog(t *testing.T) {
 		method string
 		url    string
 	}
+	fileName := time.Now().Format("20060102_150405.txt")
+	file, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	if err != nil {
+		t.Fatal("Failed to open file: ", fileName)
+	}
 	tests := []struct {
 		name   string
 		fields fields
 		args   args
 	}{
 		{"TestPerformanceLogger_StopAndLog", fields{
-			logger: nil,
+			logger: log.New(file, "", 0),
 			enable: false,
 			file:   nil,
-			index:  0,
+			index:  1,
 			start:  time.Time{},
 		}, args{
-			method: "",
-			url:    "",
+			method: "test",
+			url:    "test",
 		}},
 		// TODO: Add test cases.
 	}

@@ -13,4 +13,8 @@ const (
 	SpotWssHost = "stream.binance.com:9443"
 	// SpotRestHost spot trading restful host
 	SpotRestHost = "api.binance.com"
+	// AppKey API key
+	AppKey = ""
+	// AppSecret API Secret
+	AppSecret = ""
 )

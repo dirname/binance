@@ -1,5 +1,7 @@
 package spotclient
 
+import "github.com/shopspring/decimal"
+
 // AllCoinInfoResponse all coin info response
 type AllCoinInfoResponse []struct {
 	Coin             string `json:"coin"`
@@ -133,13 +135,13 @@ type DepositHistoryNetworkResponse []struct {
 // DepositHistoryResponse DepositHistory response
 type DepositHistoryResponse struct {
 	DepositList []struct {
-		InsertTime int64   `json:"insertTime"`
-		Amount     float64 `json:"amount"`
-		Asset      string  `json:"asset"`
-		Address    string  `json:"address"`
-		TxID       string  `json:"txId"`
-		Status     int     `json:"status"`
-		AddressTag string  `json:"addressTag,omitempty"`
+		InsertTime int64           `json:"insertTime"`
+		Amount     decimal.Decimal `json:"amount"`
+		Asset      string          `json:"asset"`
+		Address    string          `json:"address"`
+		TxID       string          `json:"txId"`
+		Status     int             `json:"status"`
+		AddressTag string          `json:"addressTag,omitempty"`
 	} `json:"depositList"`
 	Success bool `json:"success"`
 }
@@ -161,16 +163,16 @@ type WithdrawHistoryNetworkResponse []struct {
 // WithdrawHistoryResponse withdraw response
 type WithdrawHistoryResponse struct {
 	WithdrawList []struct {
-		ID              string      `json:"id"`
-		WithdrawOrderID interface{} `json:"withdrawOrderId"`
-		Amount          float64     `json:"amount"`
-		TransactionFee  float64     `json:"transactionFee"`
-		Address         string      `json:"address"`
-		Asset           string      `json:"asset"`
-		TxID            string      `json:"txId"`
-		ApplyTime       int64       `json:"applyTime"`
-		Status          int         `json:"status"`
-		AddressTag      string      `json:"addressTag,omitempty"`
+		ID              string          `json:"id"`
+		WithdrawOrderID interface{}     `json:"withdrawOrderId"`
+		Amount          decimal.Decimal `json:"amount"`
+		TransactionFee  decimal.Decimal `json:"transactionFee"`
+		Address         string          `json:"address"`
+		Asset           string          `json:"asset"`
+		TxID            string          `json:"txId"`
+		ApplyTime       int64           `json:"applyTime"`
+		Status          int             `json:"status"`
+		AddressTag      string          `json:"addressTag,omitempty"`
 	} `json:"withdrawList"`
 	Success bool `json:"success"`
 }
@@ -189,4 +191,181 @@ type DepositAddressResponse struct {
 	Success    bool   `json:"success"`
 	AddressTag string `json:"addressTag"`
 	Asset      string `json:"asset"`
+}
+
+// WAPIAccountResponse account response
+type WAPIAccountResponse struct {
+	Msg     string   `json:"msg"`
+	Success bool     `json:"success"`
+	Objs    []string `json:"objs"`
+}
+
+// SAPIAccountResponse account response
+type SAPIAccountResponse struct {
+	Data string `json:"data"`
+}
+
+// AccountWAPIAPIStatusResponse account API trading status response
+type AccountWAPIAPIStatusResponse struct {
+	Success bool `json:"success"`
+	Status  struct { // API trading status detail
+		IsLocked           bool `json:"isLocked"`
+		PlannedRecoverTime int  `json:"plannedRecoverTime"` // If API trading function is locked, this is the planned recover time
+		TriggerCondition   struct {
+			GCR  int `json:"gcr"`  // Number of GTC orders
+			IFER int `json:"ifer"` // Number of FOK/IOC orders
+			UFR  int `json:"ufr"`  // Number of orders
+		} `json:"triggerCondition"`
+		Indicators map[string][]struct {
+			Unfilled     string          `json:"i"` // Unfilled Ratio (UFR)
+			Count        int64           `json:"c"` // Count of all order
+			Value        decimal.Decimal `json:"v"` // Current value
+			TriggerValue decimal.Decimal `json:"t"` // Trigger value
+		} `json:"indicators"`
+		UpdateTime int64 `json:"updateTime"`
+	} `json:"status"`
+}
+
+// AccountSAPIStatusResponse account API trading status response
+type AccountSAPIStatusResponse struct {
+	Data struct {
+		IsLocked           bool `json:"isLocked"`
+		PlannedRecoverTime int  `json:"plannedRecoverTime"` // If API trading function is locked, this is the planned recover time
+		TriggerCondition   struct {
+			GCR  int `json:"GCR"`  // Number of GTC orders
+			IFER int `json:"IFER"` // Number of FOK/IOC orders
+			UFR  int `json:"UFR"`  // Number of orders
+		} `json:"triggerCondition"`
+		Indicators map[string][]struct {
+			Unfilled     string          `json:"i"` // Unfilled Ratio (UFR)
+			Count        int64           `json:"c"` // Count of all order
+			Value        decimal.Decimal `json:"v"` // Current value
+			TriggerValue decimal.Decimal `json:"t"` // Trigger value
+		} `json:"indicators"`
+		UpdateTime int64 `json:"updateTime"`
+	} `json:"data"`
+}
+
+// DustLogWAPIResponse Fetch small amounts of assets exchanged BNB records
+type DustLogWAPIResponse struct {
+	Success bool `json:"success"`
+	Results struct {
+		Total int `json:"total"`
+		Rows  []struct {
+			TransferredTotal   string `json:"transfered_total"`
+			ServiceChargeTotal string `json:"service_charge_total"`
+			TranID             int    `json:"tran_id"`
+			Logs               []struct {
+				TranID              int    `json:"tranId"`
+				ServiceChargeAmount string `json:"serviceChargeAmount"`
+				Uid                 string `json:"uid"`
+				Amount              string `json:"amount"`
+				OperateTime         string `json:"operateTime"`
+				TransferredAmount   string `json:"transferedAmount"`
+				FromAsset           string `json:"fromAsset"`
+			} `json:"logs"`
+			OperateTime string `json:"operate_time"`
+		} `json:"rows"`
+	} `json:"results"`
+}
+
+// DustLogSAPIResponse Fetch small amounts of assets exchanged BNB records
+type DustLogSAPIResponse struct {
+	Total             int `json:"total"`
+	UserAssetDriblets []struct {
+		TotalTransferredAmount   string `json:"totalTransferedAmount"`
+		TotalServiceChargeAmount string `json:"totalServiceChargeAmount"`
+		TransId                  int64  `json:"transId"`
+		UserAssetDribletDetails  []struct {
+			TransId             int         `json:"transId"`
+			ServiceChargeAmount string      `json:"serviceChargeAmount"`
+			Amount              string      `json:"amount"`
+			OperateTime         interface{} `json:"operateTime"`
+			TransferredAmount   string      `json:"transferedAmount"`
+			FromAsset           string      `json:"fromAsset"`
+		} `json:"userAssetDribbletDetails"`
+		OperateTime int64 `json:"operateTime,omitempty"`
+	} `json:"userAssetDribblets"`
+}
+
+// DustTransferResponse Convert dust assets to BNB.
+type DustTransferResponse struct {
+	TotalServiceCharge string `json:"totalServiceCharge"`
+	TotalTransferred   string `json:"totalTransfered"`
+	TransferResult     []struct {
+		Amount              string `json:"amount"`
+		FromAsset           string `json:"fromAsset"`
+		OperateTime         int64  `json:"operateTime"`
+		ServiceChargeAmount string `json:"serviceChargeAmount"`
+		TranId              int64  `json:"tranId"`
+		TransferredAmount   string `json:"transferedAmount"`
+	} `json:"transferResult"`
+}
+
+// AccountDividendRecordResponse Query asset dividend record.
+type AccountDividendRecordResponse struct {
+	Rows []struct {
+		Amount  string `json:"amount"`
+		Asset   string `json:"asset"`
+		DivTime int64  `json:"divTime"`
+		EnInfo  string `json:"enInfo"`
+		TranID  int64  `json:"tranId"`
+	} `json:"rows"`
+	Total int `json:"total"`
+}
+
+// WAPIAssetDetailResponse Fetch details of assets supported on Binance.
+type WAPIAssetDetailResponse struct {
+	Success     bool `json:"success"`
+	AssetDetail map[string]struct {
+		MinWithdrawAmount interface{} `json:"minWithdrawAmount"`
+		DepositStatus     bool        `json:"depositStatus"`
+		WithdrawFee       interface{} `json:"withdrawFee"`
+		WithdrawStatus    bool        `json:"withdrawStatus"`
+		DepositTip        string      `json:"depositTip"`
+	} `json:"assetDetail"`
+}
+
+// SAPIAssetDetailResponse Fetch details of assets supported on Binance.
+type SAPIAssetDetailResponse map[string]struct {
+	MinWithdrawAmount string `json:"minWithdrawAmount"`
+	DepositStatus     bool   `json:"depositStatus"`
+	WithdrawFee       string `json:"withdrawFee"`
+	WithdrawStatus    bool   `json:"withdrawStatus"`
+	DepositTip        string `json:"depositTip"`
+}
+
+// WAPITradeFeeResponse Fetch trade fee, values in percentage.
+type WAPITradeFeeResponse struct {
+	TradeFee []struct {
+		Symbol string          `json:"symbol"`
+		Maker  decimal.Decimal `json:"maker"`
+		Taker  decimal.Decimal `json:"taker"`
+	} `json:"tradeFee"`
+	Success bool `json:"success"`
+}
+
+// SAPITradeFeeResponse Fetch trade fee, values in percentage.
+type SAPITradeFeeResponse []struct {
+	Symbol          string          `json:"symbol"`
+	MakerCommission decimal.Decimal `json:"makerCommission"`
+	TakerCommission decimal.Decimal `json:"takerCommission"`
+}
+
+// UniversalTransferResponse universal transfer
+type UniversalTransferResponse struct {
+	TranID int64 `json:"tranId"`
+}
+
+// UniversalTransferRecordResponse universal transfer record
+type UniversalTransferRecordResponse struct {
+	Total int `json:"total"`
+	Rows  []struct {
+		Asset     string `json:"asset"`
+		Amount    string `json:"amount"`
+		Type      string `json:"type"`
+		Status    string `json:"status"`
+		TranID    int64  `json:"tranId"`
+		Timestamp int64  `json:"timestamp"`
+	} `json:"rows"`
 }

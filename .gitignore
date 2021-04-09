@@ -18,4 +18,4 @@
 .idea/
 
 # API Key and API Secret
-config/ignoreFile.go
+config/API.ini

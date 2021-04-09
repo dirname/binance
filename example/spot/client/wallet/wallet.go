@@ -15,18 +15,32 @@ func init() {
 }
 
 func main() {
-	//getAllCoinsInfo()
-	//getSpotSnapshot()
-	//getMarginSnapshot()
-	//getFuturesSnapshot()
-	//disableFastWithdraw()
-	//enableFastWithdraw()
+	getAllCoinsInfo()
+	getSpotSnapshot()
+	getMarginSnapshot()
+	getFuturesSnapshot()
+	disableFastWithdraw()
+	enableFastWithdraw()
 	getDepositHistoryNetwork()
 	getDepositHistory()
 	getWithdrawHistoryNetwork()
 	getWithdraw()
 	getDepositAddressNetwork()
 	getDepositAddress()
+	getWAPIAccountStatus()
+	getSAPIAccountStatus()
+	getWAPIAccountAPIStatus()
+	getSAPIAccountAPIStatus()
+	getWAPIDustLog()
+	getSAPIDustLog()
+	dustTransfer()
+	getDividendRecord()
+	getWAPIAssetDetail()
+	getSAPIAssetDetail()
+	getWAPITradeFee()
+	getSAPITradeFee()
+	universalTransfer()
+	getUniversalTransferRecord()
 }
 
 func getAllCoinsInfo() {
@@ -125,14 +139,7 @@ func getDepositHistory() {
 	if err != nil {
 		logger.Error("getDepositHistory err: %s", err.Error())
 	}
-	switch response.(type) {
-	case model.WAPIErrorResponse:
-		logger.Info("getDepositHistory WAPI error: %v", response.(model.APIErrorResponse))
-	case spotclient.DepositHistoryResponse:
-		logger.Info("getDepositHistory: %v", response.(spotclient.DepositHistoryResponse))
-	default:
-		logger.Info("getDepositHistory Unknown response: %v", response)
-	}
+	logger.Info("getDepositHistory response: %v", response)
 }
 
 func getWithdrawHistoryNetwork() {
@@ -155,14 +162,7 @@ func getWithdraw() {
 	if err != nil {
 		logger.Error("getWithdraw err: %s", err.Error())
 	}
-	switch response.(type) {
-	case model.WAPIErrorResponse:
-		logger.Info("getWithdraw WAPI error: %v", response.(model.APIErrorResponse))
-	case spotclient.WithdrawHistoryResponse:
-		logger.Info("getWithdraw: %v", response.(spotclient.WithdrawHistoryResponse))
-	default:
-		logger.Info("getWithdraw Unknown response: %v", response)
-	}
+	logger.Info("getWithdraw response: %v", response)
 }
 
 func getDepositAddressNetwork() {
@@ -186,4 +186,179 @@ func getDepositAddress() {
 		logger.Error("getDepositAddress err: %s", err.Error())
 	}
 	logger.Info("getDepositAddress response: %v", response)
+}
+
+func getWAPIAccountStatus() {
+	response, err := walletClient.WAPIAccountStatus(0)
+	if err != nil {
+		logger.Error("getWAPIAccountStatus err: %s", err.Error())
+	}
+	logger.Info("getWAPIAccountStatus response: %v", response)
+}
+
+func getSAPIAccountStatus() {
+	response, err := walletClient.SAPIAccountStatus(0)
+	if err != nil {
+		logger.Error("getSAPIAccountStatus err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("getSAPIAccountStatus API error: %v", response.(model.APIErrorResponse))
+	case spotclient.SAPIAccountResponse:
+		logger.Info("getSAPIAccountStatus: %v", response.(spotclient.SAPIAccountResponse))
+	default:
+		logger.Info("getSAPIAccountStatus Unknown response: %v", response)
+	}
+}
+
+func getWAPIAccountAPIStatus() {
+	response, err := walletClient.WAPIAccountAPIStatus(0)
+	if err != nil {
+		logger.Error("getWAPIAccountAPIStatus err: %s", err.Error())
+	}
+	logger.Info("getWAPIAccountAPIStatus response: %v", response)
+}
+
+func getSAPIAccountAPIStatus() {
+	response, err := walletClient.SAPIAccountAPIStatus(0)
+	if err != nil {
+		logger.Error("getSAPIAccountAPIStatus err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("getSAPIAccountAPIStatus API error: %v", response.(model.APIErrorResponse))
+	case spotclient.AccountSAPIStatusResponse:
+		logger.Info("getSAPIAccountAPIStatus: %v", response.(spotclient.AccountSAPIStatusResponse))
+	default:
+		logger.Info("getSAPIAccountStatus Unknown response: %v", response)
+	}
+}
+
+func getWAPIDustLog() {
+	response, err := walletClient.WAPIDustLog(0)
+	if err != nil {
+		logger.Error("getWAPIDustLog err: %s", err.Error())
+	}
+	logger.Info("getWAPIDustLog response: %v", response)
+}
+
+func getSAPIDustLog() {
+	response, err := walletClient.SAPIDustLog(0)
+	if err != nil {
+		logger.Error("getSAPIDustLog err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("getSAPIDustLog API error: %v", response.(model.APIErrorResponse))
+	case spotclient.DustLogSAPIResponse:
+		logger.Info("getSAPIDustLog: %v", response.(spotclient.DustLogSAPIResponse))
+	default:
+		logger.Info("getSAPIAccountStatus Unknown response: %v", response)
+	}
+}
+
+func dustTransfer() {
+	response, err := walletClient.DustTransfer([]string{"BTC"}, 0)
+	if err != nil {
+		logger.Error("dustTransfer err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("dustTransfer API error: %v", response.(model.APIErrorResponse))
+	case spotclient.DustTransferResponse:
+		logger.Info("dustTransfer: %v", response.(spotclient.DustTransferResponse))
+	default:
+		logger.Info("getSAPIAccountStatus Unknown response: %v", response)
+	}
+}
+
+func getDividendRecord() {
+	response, err := walletClient.AccountDividendRecord("", 0, 0, 30, 0)
+	if err != nil {
+		logger.Error("getDividendRecord err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("getDividendRecord API error: %v", response.(model.APIErrorResponse))
+	case spotclient.AccountDividendRecordResponse:
+		logger.Info("getDividendRecord: %v", response.(spotclient.AccountDividendRecordResponse))
+	default:
+		logger.Info("getSAPIAccountStatus Unknown response: %v", response)
+	}
+}
+
+func getWAPIAssetDetail() {
+	response, err := walletClient.WAPIAssetDetail(0)
+	if err != nil {
+		logger.Error("getWAPIAssetDetail err: %s", err.Error())
+	}
+	logger.Info("getWAPIAssetDetail response: %v", response)
+}
+
+func getSAPIAssetDetail() {
+	response, err := walletClient.SAPIAssetDetail(0)
+	if err != nil {
+		logger.Error("getSAPIAssetDetail err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("getSAPIAssetDetail API error: %v", response.(model.APIErrorResponse))
+	case spotclient.SAPIAssetDetailResponse:
+		logger.Info("getSAPIAssetDetail: %v", response.(spotclient.SAPIAssetDetailResponse))
+	default:
+		logger.Info("getSAPIAccountStatus Unknown response: %v", response)
+	}
+}
+
+func getWAPITradeFee() {
+	response, err := walletClient.WAPITradeFee("", 0)
+	if err != nil {
+		logger.Error("getWAPITradeFee err: %s", err.Error())
+	}
+	logger.Info("getWAPITradeFee response: %v", response)
+}
+
+func getSAPITradeFee() {
+	response, err := walletClient.SAPITradeFee("", 0)
+	if err != nil {
+		logger.Error("getSAPITradeFee err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("getSAPITradeFee API error: %v", response.(model.APIErrorResponse))
+	case spotclient.SAPITradeFeeResponse:
+		logger.Info("getSAPITradeFee: %v", response.(spotclient.SAPITradeFeeResponse))
+	default:
+		logger.Info("getSAPITradeFee Unknown response: %v", response)
+	}
+}
+
+func universalTransfer() {
+	response, err := walletClient.UniversalTransfer("UMFUTURE_MAIN", "USDT", "10", 0)
+	if err != nil {
+		logger.Error("universalTransfer err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("universalTransfer API error: %v", response.(model.APIErrorResponse))
+	case spotclient.UniversalTransferResponse:
+		logger.Info("universalTransfer: %v", response.(spotclient.UniversalTransferResponse))
+	default:
+		logger.Info("universalTransfer Unknown response: %v", response)
+	}
+}
+
+func getUniversalTransferRecord() {
+	response, err := walletClient.UniversalTransferRecord("UMFUTURE_MAIN", 0, 0, 0, 0, 0)
+	if err != nil {
+		logger.Error("getUniversalTransferRecord err: %s", err.Error())
+	}
+	switch response.(type) {
+	case model.APIErrorResponse:
+		logger.Info("getUniversalTransferRecord API error: %v", response.(model.APIErrorResponse))
+	case spotclient.UniversalTransferRecordResponse:
+		logger.Info("getUniversalTransferRecord: %v", response.(spotclient.UniversalTransferRecordResponse))
+	default:
+		logger.Info("getUniversalTransferRecord Unknown response: %v", response)
+	}
 }

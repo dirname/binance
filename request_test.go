@@ -20,6 +20,7 @@ func TestHttpRequest(t *testing.T) {
 		wantErr bool
 	}{
 		{"TestHttpRequest", args{request: req}, []byte("{}"), false},
+		{"TestHttpRequest", args{request: req}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -228,6 +229,19 @@ func TestPrivateUrlBuilder_Build(t *testing.T) {
 			params:    "",
 			sign:      false,
 			timeStamp: false,
+			recv:      0,
+		}, nil, false},
+		{"TestPrivateUrlBuilder_Build", fields{
+			host:      "",
+			appKey:    "",
+			appSecret: "",
+			signer:    nil,
+		}, args{
+			method:    http.MethodPost,
+			path:      "test",
+			params:    "test",
+			sign:      true,
+			timeStamp: true,
 			recv:      0,
 		}, nil, false},
 		// TODO: Add test cases.

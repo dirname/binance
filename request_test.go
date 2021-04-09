@@ -142,6 +142,12 @@ func TestPublicUrlBuilder_Build(t *testing.T) {
 			path:   "",
 			params: "",
 		}, nil, false},
+		{
+			"TestPublicUrlBuilder_Build", fields{host: ""}, args{
+			method: "",
+			path:   "",
+			params: "test",
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

@@ -9,7 +9,6 @@ import (
 	"github.com/dirname/Binance/model"
 	"github.com/shopspring/decimal"
 	"net/http"
-	"strconv"
 	"time"
 )
 
@@ -188,12 +187,12 @@ func (w *WalletClient) SAPIWithdraw(coin, clientID, network, address, addressTag
 	if name != "" {
 		params += fmt.Sprintf("&name=%s", name)
 	}
-	params += fmt.Sprintf("&transactionFeeFlag=%s", strconv.FormatBool(transactionFeeFlag))
 	if amount.LessThanOrEqual(decimal.NewFromInt(0)) {
 		err = errors.New("amount can not less than or equal zero")
 		return nil, err
 	}
-	req, err := w.Builder.Build(http.MethodPost, "/sapi/v1/capital/withdraw/apply", "", true, true, recv)
+	params += fmt.Sprintf("&transactionFeeFlag=%t", transactionFeeFlag)
+	req, err := w.Builder.Build(http.MethodPost, "/sapi/v1/capital/withdraw/apply", params, true, true, recv)
 	if err != nil {
 		logger.Error("Failed to build url: %s", err.Error())
 	}
@@ -241,7 +240,7 @@ func (w *WalletClient) WAPIWithdraw(coin, clientID, network, address, addressTag
 		return nil, err
 	}
 	params += fmt.Sprintf("&transactionFeeFlag=%t", transactionFeeFlag)
-	req, err := w.Builder.Build(http.MethodPost, "/wapi/v3/withdraw.html", "", true, true, recv)
+	req, err := w.Builder.Build(http.MethodPost, "/wapi/v3/withdraw.html", params, true, true, recv)
 	if err != nil {
 		logger.Error("Failed to build url: %s", err.Error())
 	}

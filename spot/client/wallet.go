@@ -187,9 +187,7 @@ func (w *WalletClient) SAPIWithdraw(coin, clientID, network, address, addressTag
 	if name != "" {
 		params += fmt.Sprintf("&name=%s", name)
 	}
-	if transactionFeeFlag {
-		params += fmt.Sprintf("&transactionFeeFlag=%t", transactionFeeFlag)
-	}
+	params += fmt.Sprintf("&transactionFeeFlag=%t", transactionFeeFlag)
 	if amount.LessThanOrEqual(decimal.NewFromInt(0)) {
 		err = errors.New("amount can not less than or equal zero")
 		return nil, err

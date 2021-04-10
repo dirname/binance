@@ -87,7 +87,7 @@ func TestMarketClient_GetAggregateTrades(t *testing.T) {
 			formID:    2000,
 			startTime: 2000,
 			endTime:   2000,
-		}, nil, true},
+		}, AggregateTradeResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

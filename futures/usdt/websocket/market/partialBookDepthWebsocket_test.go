@@ -141,7 +141,7 @@ func TestFuturesPartialBookDepthWebsocketClient_Subscribe(t *testing.T) {
 			u := &FuturesPartialBookDepthWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.Subscribe(tt.args.id, "")
+			u.Subscribe(tt.args.id, tt.args.params...)
 		})
 	}
 }

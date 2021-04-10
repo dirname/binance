@@ -1,4 +1,4 @@
-package futuresusdt
+package spotclient
 
 import (
 	binance "github.com/dirname/Binance"
@@ -7,7 +7,28 @@ import (
 	"testing"
 )
 
-func TestFuturesBLVTCandlestickWebsocketClient_GetCombined(t *testing.T) {
+func TestNewSpotAggTradeWebsocketClient(t *testing.T) {
+	type args struct {
+		streams []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want *SpotAggTradeWebsocketClient
+	}{
+		{"TestNewSpotAggTradeWebsocketClient", args{nil}, nil},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := NewSpotAggTradeWebsocketClient(tt.args.streams...); reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewSpotAggTradeWebsocketClient() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestSpotAggTradeWebsocketClient_GetCombined(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -19,22 +40,20 @@ func TestFuturesBLVTCandlestickWebsocketClient_GetCombined(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesBLVTCandlestickWebsocketClient_GetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{
-			id: 0,
-		}},
+		{"TestSpotAggTradeWebsocketClient_GetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{0}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesBLVTCandlestickWebsocketClient{
+			u := &SpotAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.GetSubscribe(tt.args.id)
+			u.GetCombined(tt.args.id)
 		})
 	}
 }
 
-func TestFuturesBLVTCandlestickWebsocketClient_GetSubscribe(t *testing.T) {
+func TestSpotAggTradeWebsocketClient_GetSubscribe(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -46,12 +65,12 @@ func TestFuturesBLVTCandlestickWebsocketClient_GetSubscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesBLVTCandlestickWebsocketClient_GetSubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{0}},
+		{"TestSpotAggTradeWebsocketClient_GetSubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{0}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesBLVTCandlestickWebsocketClient{
+			u := &SpotAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.GetSubscribe(tt.args.id)
@@ -59,7 +78,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_GetSubscribe(t *testing.T) {
 	}
 }
 
-func TestFuturesBLVTCandlestickWebsocketClient_SetCombined(t *testing.T) {
+func TestSpotAggTradeWebsocketClient_SetCombined(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -72,7 +91,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_SetCombined(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesBLVTCandlestickWebsocketClient_SetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestSpotAggTradeWebsocketClient_SetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			b:  false,
 			id: 0,
 		}},
@@ -80,7 +99,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_SetCombined(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesBLVTCandlestickWebsocketClient{
+			u := &SpotAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.SetCombined(tt.args.b, tt.args.id)
@@ -88,7 +107,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_SetCombined(t *testing.T) {
 	}
 }
 
-func TestFuturesBLVTCandlestickWebsocketClient_SetHandler(t *testing.T) {
+func TestSpotAggTradeWebsocketClient_SetHandler(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -101,7 +120,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_SetHandler(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesBLVTCandlestickWebsocketClient_SetHandler", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestSpotAggTradeWebsocketClient_SetHandler", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			connectHandler:  nil,
 			responseHandler: nil,
 		}},
@@ -109,7 +128,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_SetHandler(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesBLVTCandlestickWebsocketClient{
+			u := &SpotAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.SetHandler(tt.args.connectHandler, tt.args.responseHandler)
@@ -117,7 +136,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_SetHandler(t *testing.T) {
 	}
 }
 
-func TestFuturesBLVTCandlestickWebsocketClient_Subscribe(t *testing.T) {
+func TestSpotAggTradeWebsocketClient_Subscribe(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -130,7 +149,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_Subscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesBLVTCandlestickWebsocketClient_Subscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestSpotAggTradeWebsocketClient_Subscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			id:     0,
 			params: nil,
 		}},
@@ -138,7 +157,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_Subscribe(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesBLVTCandlestickWebsocketClient{
+			u := &SpotAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.Subscribe(tt.args.id, tt.args.params...)
@@ -146,7 +165,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_Subscribe(t *testing.T) {
 	}
 }
 
-func TestFuturesBLVTCandlestickWebsocketClient_Unsubscribe(t *testing.T) {
+func TestSpotAggTradeWebsocketClient_Unsubscribe(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -159,7 +178,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_Unsubscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestFuturesBLVTCandlestickWebsocketClient_Unsubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestSpotAggTradeWebsocketClient_Unsubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			id:     0,
 			params: nil,
 		}},
@@ -167,15 +186,15 @@ func TestFuturesBLVTCandlestickWebsocketClient_Unsubscribe(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesBLVTCandlestickWebsocketClient{
+			u := &SpotAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.Unsubscribe(tt.args.id, "")
+			u.Unsubscribe(tt.args.id, tt.args.params...)
 		})
 	}
 }
 
-func TestFuturesBLVTCandlestickWebsocketClient_handleMessage(t *testing.T) {
+func TestSpotAggTradeWebsocketClient_handleMessage(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -189,15 +208,16 @@ func TestFuturesBLVTCandlestickWebsocketClient_handleMessage(t *testing.T) {
 		want    interface{}
 		wantErr bool
 	}{
-		{"TestFuturesBLVTCandlestickWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"code\":0,\"msg\":\"Unknown property\",\"id\":0}")}, model.WebsocketErrorResponse{
+		{"TestSpotAggTradeWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"code\":0,\"msg\":\"Unknown property\",\"id\":0}")}, model.WebsocketErrorResponse{
 			Code:    0,
 			Message: "Unknown property",
 		}, false},
 		// TODO: Add test cases.
+		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &FuturesBLVTCandlestickWebsocketClient{
+			u := &SpotAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			got, err := u.handleMessage(tt.args.msg)
@@ -207,27 +227,6 @@ func TestFuturesBLVTCandlestickWebsocketClient_handleMessage(t *testing.T) {
 			}
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("handleMessage() got = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
-func TestNewUSDTFuturesBLVTCandlestickWebsocketClient(t *testing.T) {
-	type args struct {
-		streams []string
-	}
-	tests := []struct {
-		name string
-		args args
-		want *FuturesBLVTCandlestickWebsocketClient
-	}{
-		{"TestNewUSDTFuturesBLVTCandlestickWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := NewUSDTFuturesBLVTCandlestickWebsocketClient(tt.args.streams...); reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewUSDTFuturesBLVTCandlestickWebsocketClient() = %v, want %v", got, tt.want)
 			}
 		})
 	}

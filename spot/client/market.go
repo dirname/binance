@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-// MarketClient responsible to get wallet information
+// MarketClient responsible to get market information
 type MarketClient struct {
 	Builder *binance.PublicUrlBuilder
 	AppKey  string

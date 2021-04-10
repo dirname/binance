@@ -141,7 +141,7 @@ func TestFuturesBLVTInfoWebsocketClient_Subscribe(t *testing.T) {
 			u := &FuturesBLVTInfoWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.Subscribe(tt.args.id, "")
+			u.Subscribe(tt.args.id, tt.args.params...)
 		})
 	}
 }

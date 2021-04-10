@@ -141,7 +141,7 @@ func TestFuturesAllMarketPriceWebsocketClient_Subscribe(t *testing.T) {
 			u := &FuturesAllMarketPriceWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.Subscribe(tt.args.id, "")
+			u.Subscribe(tt.args.id, tt.args.params...)
 		})
 	}
 }

@@ -141,7 +141,7 @@ func TestFuturesAllMarketLiquidationOrderWebsocketClient_Subscribe(t *testing.T)
 			u := &FuturesAllMarketLiquidationOrderWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.Subscribe(tt.args.id, "")
+			u.Subscribe(tt.args.id, tt.args.params...)
 		})
 	}
 }

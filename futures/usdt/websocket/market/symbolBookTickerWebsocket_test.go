@@ -141,7 +141,7 @@ func TestFuturesSymbolBookTickerWebsocketClient_Subscribe(t *testing.T) {
 			u := &FuturesSymbolBookTickerWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.Subscribe(tt.args.id, "")
+			u.Subscribe(tt.args.id, tt.args.params...)
 		})
 	}
 }

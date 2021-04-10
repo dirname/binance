@@ -157,7 +157,6 @@ func (w *WalletClient) FastWithdrawSwitch(status bool, recv time.Duration) (inte
 	res, err := binance.HttpRequest(req)
 	var parser interface{}
 	err = json.Unmarshal(res, &parser)
-	logger.Debug("msg: %s", string(res))
 	return parser, err
 }
 

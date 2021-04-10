@@ -8,16 +8,16 @@ import (
 )
 
 func main() {
-	client := spotclient.NewSpotAggTradeWebsocketClient("btcusdt@aggTrade")
+	client := spotclient.NewSpotDiffDepthDepthWebsocketClient("btcusdt@depth@100ms")
 	client.SetHandler(func() {
-		client.Subscribe(123, "btcusdt@aggTrade", "ltcusdt@aggTrade")
+		client.Subscribe(123, "btcusdt@depth@100ms", "ltcusdt@depth@100ms")
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case spotclient.AggTradeResponse:
-			logger.Info("AggTrade Response: %v", response.(spotclient.AggTradeResponse))
-		case spotclient.AggTradeCombinedResponse:
-			logger.Info("AggTradeCombinedResponse: %v", response.(spotclient.AggTradeCombinedResponse))
+		case spotclient.DiffBookDepthResponse:
+			logger.Info("DiffDepth Response: %v", response.(spotclient.DiffBookDepthResponse))
+		case spotclient.DiffBookDepthCombinedResponse:
+			logger.Info("DiffDepthCombinedResponse: %v", response.(spotclient.DiffBookDepthCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:
@@ -29,7 +29,7 @@ func main() {
 	client.Connect(true)
 	fmt.Scanln()
 
-	client.Unsubscribe(123, "btcusdt@aggTrade", "ltcusdt@aggTrade")
+	client.Unsubscribe(123, "btcusdt@depth@100ms", "ltcusdt@depth@100ms")
 	client.Close()
 	logger.Info("Client closed")
 

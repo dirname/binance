@@ -4,20 +4,20 @@ import (
 	"fmt"
 	logger "github.com/dirname/Binance/logging"
 	"github.com/dirname/Binance/model"
-	"github.com/dirname/Binance/spot/websocket/market"
+	spotclient "github.com/dirname/Binance/spot/websocket/market"
 )
 
 func main() {
-	client := spotclient.NewSpotAggTradeWebsocketClient("btcusdt@aggTrade")
+	client := spotclient.NewSpotAllBookTickerWebsocketClient("!bookTicker")
 	client.SetHandler(func() {
-		client.Subscribe(123, "btcusdt@aggTrade", "ltcusdt@aggTrade")
+		//client.Subscribe(123, "!bookTicker")
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case spotclient.AggTradeResponse:
-			logger.Info("AggTrade Response: %v", response.(spotclient.AggTradeResponse))
-		case spotclient.AggTradeCombinedResponse:
-			logger.Info("AggTradeCombinedResponse: %v", response.(spotclient.AggTradeCombinedResponse))
+		case spotclient.AllBookTickerResponse:
+			logger.Info("AllBookTicker Response: %v", response.(spotclient.AllBookTickerResponse))
+		case spotclient.AllBookTickerCombinedResponse:
+			logger.Info("AllBookTickerCombinedResponse: %v", response.(spotclient.AllBookTickerCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:
@@ -29,8 +29,7 @@ func main() {
 	client.Connect(true)
 	fmt.Scanln()
 
-	client.Unsubscribe(123, "btcusdt@aggTrade", "ltcusdt@aggTrade")
+	//client.Unsubscribe(123, "!bookTicker")
 	client.Close()
 	logger.Info("Client closed")
-
 }

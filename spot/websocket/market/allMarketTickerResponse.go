@@ -1,4 +1,4 @@
-package futuresusdt
+package spotclient
 
 // AllMarketTickerResponse json parser
 type AllMarketTickerResponse []struct {
@@ -8,8 +8,13 @@ type AllMarketTickerResponse []struct {
 	PriceChange        string `json:"p"` // Price change
 	PriceChangePercent string `json:"P"` // Price change percent
 	AverageWeighted    string `json:"w"` // Weighted average price
+	FistTradeFPrice    string `json:"x"` // First trade(F)-1 price (first trade before the 24hr rolling window)
 	LastPrice          string `json:"c"` // Last price
 	LastQuantity       string `json:"Q"` // Last quantity
+	BestBidPrice       string `json:"b"` // BestBidPrice
+	BestBidQuantity    string `json:"B"` // BestBidQuantity
+	BestAskPrice       string `json:"a"` // BestAskPrice
+	BestAskQuantity    string `json:"A"` // BestAskQuantity
 	OpenPrice          string `json:"o"` // Open price
 	HighPrice          string `json:"h"` // Highest price
 	LowPrice           string `json:"l"` // Lowest price
@@ -24,6 +29,6 @@ type AllMarketTickerResponse []struct {
 
 // AllMarketTickerCombinedResponse json parser
 type AllMarketTickerCombinedResponse struct {
-	StreamName string                    `json:"stream"` // Stream Name
+	StreamName string                  `json:"stream"` // Stream Name
 	Data       AllMarketTickerResponse `json:"data"`   // data
 }

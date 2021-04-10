@@ -8,16 +8,16 @@ import (
 )
 
 func main() {
-	client := spotclient.NewSpotAggTradeWebsocketClient("btcusdt@aggTrade")
+	client := spotclient.NewSpotSymbolMiniTickerWebsocketClient("btcusdt@miniTicker")
 	client.SetHandler(func() {
-		client.Subscribe(123, "btcusdt@aggTrade", "ltcusdt@aggTrade")
+		client.Subscribe(123, "btcusdt@miniTicker", "ltcusdt@miniTicker")
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case spotclient.AggTradeResponse:
-			logger.Info("AggTrade Response: %v", response.(spotclient.AggTradeResponse))
-		case spotclient.AggTradeCombinedResponse:
-			logger.Info("AggTradeCombinedResponse: %v", response.(spotclient.AggTradeCombinedResponse))
+		case spotclient.SymbolMiniTickerResponse:
+			logger.Info("SymbolMiniTicker Response: %v", response.(spotclient.SymbolMiniTickerResponse))
+		case spotclient.SymbolMiniTickerCombinedResponse:
+			logger.Info("SymbolMiniTickerCombinedResponse: %v", response.(spotclient.SymbolMiniTickerCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:
@@ -29,7 +29,7 @@ func main() {
 	client.Connect(true)
 	fmt.Scanln()
 
-	client.Unsubscribe(123, "btcusdt@aggTrade", "ltcusdt@aggTrade")
+	client.Unsubscribe(123, "btcusdt@miniTicker", "ltcusdt@miniTicker")
 	client.Close()
 	logger.Info("Client closed")
 

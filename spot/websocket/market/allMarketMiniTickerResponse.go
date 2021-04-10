@@ -1,4 +1,4 @@
-package futuresusdt
+package spotclient
 
 // AllMarketMiniTickerResponse json parser
 type AllMarketMiniTickerResponse []struct {
@@ -18,3 +18,4 @@ type AllMarketMiniTickerCombinedResponse struct {
 	StreamName string                        `json:"stream"` // Stream Name
 	Data       AllMarketMiniTickerResponse `json:"data"`   // data
 }
+

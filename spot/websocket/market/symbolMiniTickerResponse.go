@@ -1,7 +1,7 @@
-package futuresusdt
+package spotclient
 
-// AllMarketMiniTickerResponse json parser
-type AllMarketMiniTickerResponse []struct {
+// SymbolMiniTickerResponse json parser
+type SymbolMiniTickerResponse struct {
 	EventType   string `json:"e"` // Event type
 	EventTime   int64  `json:"E"` // Event time stamp
 	Symbol      string `json:"s"` // Symbol
@@ -13,8 +13,8 @@ type AllMarketMiniTickerResponse []struct {
 	QuoteVolume string `json:"q"` // Total traded quote asset volume
 }
 
-// AllMarketMiniTickerCombinedResponse json parser
-type AllMarketMiniTickerCombinedResponse struct {
-	StreamName string                        `json:"stream"` // Stream Name
-	Data       AllMarketMiniTickerResponse `json:"data"`   // data
+// SymbolMiniTickerCombinedResponse json parser
+type SymbolMiniTickerCombinedResponse struct {
+	StreamName string                   `json:"stream"` // Stream Name
+	Data       SymbolMiniTickerResponse `json:"data"`   // data
 }

@@ -55,7 +55,7 @@ type WebsocketClient struct {
 func (w *WebsocketClient) Init(host string, stream ...string) {
 	w.host = host
 	if len(stream) == 0 {
-		logger.Fatal("Stream cannot be empty")
+		logger.Error("Stream cannot be empty")
 		return
 	}
 	streams := "/ws/" + stream[0]

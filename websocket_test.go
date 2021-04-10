@@ -220,24 +220,8 @@ func TestWebsocketClient_Init(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &WebsocketClient{
-				host:                 tt.fields.host,
-				stream:               tt.fields.stream,
-				conn:                 tt.fields.conn,
-				connectedHandler:     tt.fields.connectedHandler,
-				messageHandler:       tt.fields.messageHandler,
-				responseHandler:      tt.fields.responseHandler,
-				stopReadChannel:      tt.fields.stopReadChannel,
-				stopTickerChannel:    tt.fields.stopTickerChannel,
-				stopKeepAliveChannel: tt.fields.stopKeepAliveChannel,
-				keepAliveTicker:      tt.fields.keepAliveTicker,
-				ticker:               tt.fields.ticker,
-				sendMutex:            tt.fields.sendMutex,
-				lastReceivedTime:     tt.fields.lastReceivedTime,
-				establishmentTime:    tt.fields.establishmentTime,
-				keepAliveInterval:    tt.fields.keepAliveInterval,
-			}
-			u.Init("echo.websocket.org", "")
+			u := &WebsocketClient{}
+			u.Init(tt.args.host, tt.args.stream...)
 		})
 	}
 }

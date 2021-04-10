@@ -19,7 +19,6 @@ func main() {
 	getSAPISystemStatus()
 	ping()
 	getServerTime()
-	getExchangeInfo()
 }
 
 func getWAPISystemStatus() {
@@ -68,19 +67,4 @@ func getServerTime() {
 		logger.Error("getServerTime error: %s", err.Error())
 	}
 	logger.Info("serverTime: %d", response)
-}
-
-func getExchangeInfo() {
-	response, err := commonClient.GetExchangeInfo()
-	if err != nil {
-		logger.Error("getExchangeInfo err: %s", err.Error())
-	}
-	switch response.(type) {
-	case model.APIErrorResponse:
-		logger.Info("getExchangeInfo API error: %v", response.(model.APIErrorResponse))
-	case spotclient.ExchangeInfoResponse:
-		logger.Info("getExchangeInfo: %v", response.(spotclient.ExchangeInfoResponse))
-	default:
-		logger.Info("getExchangeInfo Unknown response: %v", response)
-	}
 }

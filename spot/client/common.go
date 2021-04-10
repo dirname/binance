@@ -92,23 +92,3 @@ func (c *CommonClient) GetServerTime() (int64, error) {
 	}
 	return 0, err
 }
-
-// GetExchangeInfo get exchange info
-func (c *CommonClient) GetExchangeInfo() (interface{}, error) {
-	var err error
-	req, err := c.Builder.Build(http.MethodGet, "/api/v3/exchangeInfo", "")
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	var parser map[string]interface{}
-	err = json.Unmarshal(res, &parser)
-	if _, ok := parser["code"]; ok {
-		result := model.APIErrorResponse{}
-		err = json.Unmarshal(res, &result)
-		return result, err
-	}
-	result := ExchangeInfoResponse{}
-	err = json.Unmarshal(res, &result)
-	return result, err
-}

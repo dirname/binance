@@ -35,9 +35,11 @@ The following table shows the functions included in this SDK
 
 Category | Client | Access Type
 :------------: | :------------: | :------------:
-Wallet | System Status | RESTful API
+Common | System Status | RESTful API
 | | System Status (SAPI) | RESTful API
-| | All Coin's Information | RESTful API
+| | Test Connectivity | RESTful API
+| | Check ServerTime | RESTful API
+Wallet | All Coin's Information | RESTful API
 | | Daily Account Snapshot | RESTful API
 | | Disabled/Enabled Fast Withdraw | RESTful API
 | | Withdraw (SAPI) | RESTful API

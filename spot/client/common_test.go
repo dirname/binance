@@ -8,36 +8,6 @@ import (
 	"time"
 )
 
-func TestCommonClient_GetExchangeInfo(t *testing.T) {
-	type fields struct {
-		Builder *binance.PublicUrlBuilder
-	}
-	tests := []struct {
-		name    string
-		fields  fields
-		want    interface{}
-		wantErr bool
-	}{
-		{"TestCommonClient_GetExchangeInfo", fields{Builder: binance.NewPublicUrlBuilder(config.SpotRestHost)}, nil, false},
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			c := &CommonClient{
-				Builder: tt.fields.Builder,
-			}
-			got, err := c.GetExchangeInfo()
-			if (err != nil) != tt.wantErr {
-				t.Errorf("GetExchangeInfo() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetExchangeInfo() got = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestCommonClient_GetSAPISystemStatus(t *testing.T) {
 	type fields struct {
 		Builder *binance.PublicUrlBuilder

@@ -23,9 +23,16 @@ before continuing.
 You are very welcome to submit issues or pull requests to share with this project to make the project more perfect
 
 - [spot/client/wallet.go:Line602](https://github.com/dirname/Binance/blob/main/spot/client/wallet.go#L602)
+  `WAPIAssetDetail()`
 
   *The result types returned by minWithdrawAmount and withdrawFee are sometimes inconsistent, leading to running bugs.
   Currently, it has been parsed as interface{}. It is recommended to use this method of SAPI instead of this method.*
+
+- [spot/client/market.go:Line185](https://github.com/dirname/Binance/blob/main/spot/client/market.go#L185)
+  `GetCandlestick()`
+
+  *It is not recommended using this method, this method may have type errors, please use websocket subscription to
+  obtain data.*
 
 # List of implemented APIs
 

@@ -78,6 +78,16 @@ func TestMarketClient_GetAggregateTrades(t *testing.T) {
 			startTime: 0,
 			endTime:   0,
 		}, nil, true},
+		{"TestMarketClient_GetAggregateTrades", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:    "test",
+			limit:     2000,
+			formID:    2000,
+			startTime: 2000,
+			endTime:   2000,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

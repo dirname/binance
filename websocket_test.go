@@ -1039,8 +1039,8 @@ func TestWebsocketClient_startKeepAliveTicker(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Now(),
 			establishmentTime:    time.Now(),
@@ -1068,6 +1068,7 @@ func TestWebsocketClient_startKeepAliveTicker(t *testing.T) {
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
 			u.startKeepAliveTicker()
+			time.Sleep(2 * time.Second)
 			u.stopKeepAliveTicker()
 		})
 	}
@@ -1437,8 +1438,8 @@ func TestWebsocketClient_tickerLoop(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Now(),
 			establishmentTime:    time.Now(),
@@ -1466,6 +1467,7 @@ func TestWebsocketClient_tickerLoop(t *testing.T) {
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
 			go u.tickerLoop()
+			time.Sleep(2 * time.Second)
 			u.stopTicker()
 		})
 	}

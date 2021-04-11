@@ -29,7 +29,7 @@ func TestFuturesSymbolMiniTickerWebsocketClient_GetCombined(t *testing.T) {
 			u := &FuturesSymbolMiniTickerWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.GetSubscribe(tt.args.id)
+			u.GetCombined(tt.args.id)
 		})
 	}
 }

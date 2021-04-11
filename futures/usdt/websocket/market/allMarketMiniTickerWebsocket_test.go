@@ -29,7 +29,7 @@ func TestFuturesAllMarketMiniTickerWebsocketClient_GetCombined(t *testing.T) {
 			u := &FuturesAllMarketMiniTickerWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.GetSubscribe(tt.args.id)
+			u.GetCombined(tt.args.id)
 		})
 	}
 }

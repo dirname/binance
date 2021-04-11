@@ -29,7 +29,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_GetCombined(t *testing.T) {
 			u := &FuturesBLVTCandlestickWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.GetSubscribe(tt.args.id)
+			u.GetCombined(tt.args.id)
 		})
 	}
 }

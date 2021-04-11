@@ -73,7 +73,7 @@ func TestSpotAggTradeWebsocketClient_GetSubscribe(t *testing.T) {
 			u := &SpotAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.GetSubscribe(tt.args.id)
+			u.GetCombined(tt.args.id)
 		})
 	}
 }

@@ -29,7 +29,7 @@ func TestFuturesAggTradeWebsocketClient_GetCombined(t *testing.T) {
 			u := &FuturesAggTradeWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.GetSubscribe(tt.args.id)
+			u.GetCombined(tt.args.id)
 		})
 	}
 }

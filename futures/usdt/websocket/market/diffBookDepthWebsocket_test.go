@@ -29,7 +29,7 @@ func TestFuturesDiffBookDepthWebsocketClient_GetCombined(t *testing.T) {
 			u := &FuturesDiffBookDepthWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.GetSubscribe(tt.args.id)
+			u.GetCombined(tt.args.id)
 		})
 	}
 }

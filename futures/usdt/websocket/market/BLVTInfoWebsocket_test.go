@@ -29,7 +29,7 @@ func TestFuturesBLVTInfoWebsocketClient_GetCombined(t *testing.T) {
 			u := &FuturesBLVTInfoWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
-			u.GetSubscribe(tt.args.id)
+			u.GetCombined(tt.args.id)
 		})
 	}
 }

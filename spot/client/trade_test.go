@@ -162,6 +162,10 @@ func TestTradeClient_DeleteOpenOrders(t1 *testing.T) {
 		{"TestTradeClient_DeleteOpenOrders", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol: "",
 			recv:   0,
+		}, false, true},
+		{"TestTradeClient_DeleteOpenOrders", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol: "test",
+			recv:   0,
 		}, nil, true},
 		// TODO: Add test cases.
 	}
@@ -175,7 +179,7 @@ func TestTradeClient_DeleteOpenOrders(t1 *testing.T) {
 				t1.Errorf("DeleteOpenOrders() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t1.Errorf("DeleteOpenOrders() got = %v, want %v", got, tt.want)
 			}
 		})
@@ -206,6 +210,13 @@ func TestTradeClient_DeleteOrder(t1 *testing.T) {
 			newClientOrderID:  "",
 			orderID:           0,
 			recv:              0,
+		}, true, true},
+		{"TestTradeClient_DeleteOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:            "test",
+			origClientOrderID: "test",
+			newClientOrderID:  "test",
+			orderID:           1,
+			recv:              0,
 		}, nil, true},
 		// TODO: Add test cases.
 	}
@@ -219,7 +230,7 @@ func TestTradeClient_DeleteOrder(t1 *testing.T) {
 				t1.Errorf("DeleteOrder() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t1.Errorf("DeleteOrder() got = %v, want %v", got, tt.want)
 			}
 		})
@@ -391,7 +402,15 @@ func TestTradeClient_GetAllOrder(t1 *testing.T) {
 			endTime:   0,
 			limit:     0,
 			recv:      0,
-		}, nil, true},
+		}, false, true},
+		{"TestTradeClient_GetAllOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:    "test",
+			orderID:   1000,
+			startTime: 1000,
+			endTime:   1000,
+			limit:     1000,
+			recv:      1000,
+		}, false, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -404,7 +423,7 @@ func TestTradeClient_GetAllOrder(t1 *testing.T) {
 				t1.Errorf("GetAllOrder() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t1.Errorf("GetAllOrder() got = %v, want %v", got, tt.want)
 			}
 		})
@@ -508,7 +527,11 @@ func TestTradeClient_GetOpenOrder(t1 *testing.T) {
 		{"TestTradeClient_GetOpenOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol: "",
 			recv:   0,
-		}, nil, true},
+		}, false, true},
+		{"TestTradeClient_GetOpenOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol: "test",
+			recv:   0,
+		}, false, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -521,7 +544,7 @@ func TestTradeClient_GetOpenOrder(t1 *testing.T) {
 				t1.Errorf("GetOpenOrder() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t1.Errorf("GetOpenOrder() got = %v, want %v", got, tt.want)
 			}
 		})
@@ -550,6 +573,12 @@ func TestTradeClient_GetOrder(t1 *testing.T) {
 			origClientOrderID: "",
 			orderID:           0,
 			recv:              0,
+		}, false, true},
+		{"TestTradeClient_GetOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:            "test",
+			origClientOrderID: "test",
+			orderID:           10,
+			recv:              0,
 		}, nil, true},
 		// TODO: Add test cases.
 	}
@@ -563,7 +592,7 @@ func TestTradeClient_GetOrder(t1 *testing.T) {
 				t1.Errorf("GetOrder() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t1.Errorf("GetOrder() got = %v, want %v", got, tt.want)
 			}
 		})
@@ -612,7 +641,55 @@ func TestTradeClient_NewOCO(t1 *testing.T) {
 			stopLimitPrice:       decimal.Decimal{},
 			stopIcebergQty:       decimal.Decimal{},
 			recv:                 0,
-		}, nil, true},
+		}, false, true},
+		{"TestTradeClient_NewOCO", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:               "test",
+			listClientOrderID:    "test",
+			side:                 "test",
+			limitClientOrderId:   "test",
+			stopClientOrderId:    "test",
+			stopLimitTimeInForce: "test",
+			newOrderRespType:     "test",
+			quantity:             decimal.Decimal{},
+			price:                decimal.Decimal{},
+			limitIcebergQty:      decimal.Decimal{},
+			stopPrice:            decimal.Decimal{},
+			stopLimitPrice:       decimal.Decimal{},
+			stopIcebergQty:       decimal.Decimal{},
+			recv:                 0,
+		}, false, true},
+		{"TestTradeClient_NewOCO", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:               "test",
+			listClientOrderID:    "test",
+			side:                 "test",
+			limitClientOrderId:   "test",
+			stopClientOrderId:    "test",
+			stopLimitTimeInForce: "",
+			newOrderRespType:     "test",
+			quantity:             decimal.Decimal{},
+			price:                decimal.Decimal{},
+			limitIcebergQty:      decimal.Decimal{},
+			stopPrice:            decimal.Decimal{},
+			stopLimitPrice:       decimal.NewFromInt(100),
+			stopIcebergQty:       decimal.Decimal{},
+			recv:                 0,
+		}, false, true},
+		{"TestTradeClient_NewOCO", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:               "test",
+			listClientOrderID:    "test",
+			side:                 "test",
+			limitClientOrderId:   "test",
+			stopClientOrderId:    "test",
+			stopLimitTimeInForce: "test",
+			newOrderRespType:     "test",
+			quantity:             decimal.NewFromInt(100),
+			price:                decimal.NewFromInt(100),
+			limitIcebergQty:      decimal.NewFromInt(100),
+			stopPrice:            decimal.NewFromInt(100),
+			stopLimitPrice:       decimal.NewFromInt(100),
+			stopIcebergQty:       decimal.NewFromInt(100),
+			recv:                 0,
+		}, false, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -625,7 +702,7 @@ func TestTradeClient_NewOCO(t1 *testing.T) {
 				t1.Errorf("NewOCO() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t1.Errorf("NewOCO() got = %v, want %v", got, tt.want)
 			}
 		})

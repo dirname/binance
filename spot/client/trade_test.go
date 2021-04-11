@@ -46,7 +46,21 @@ func TestNewOrder(t1 *testing.T) {
 			stopPrice:        decimal.Decimal{},
 			icebergQTY:       decimal.Decimal{},
 			recv:             0,
-		}, nil, true},
+		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        "test",
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: "test",
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -59,7 +73,7 @@ func TestNewOrder(t1 *testing.T) {
 				t1.Errorf("TestNewOrder() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t1.Errorf("TestNewOrder() got = %v, want %v", got, tt.want)
 			}
 		})

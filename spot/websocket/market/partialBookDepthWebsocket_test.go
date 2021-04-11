@@ -212,6 +212,15 @@ func TestSpotPartialBookDepthWebsocketClient_handleMessage(t *testing.T) {
 			Code:    0,
 			Message: "Unknown property",
 		}, false},
+		{"TestSpotPartialBookDepthWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\":\"test\"}")}, PartialBookDepthCombinedResponse{
+			StreamName: "test",
+		}, false},
+		{"TestSpotPartialBookDepthWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"lastUpdateId\":12345}")}, PartialBookDepthResponse{
+			LastUpdateID: 12345,
+		}, false},
+		{"TestSpotPartialBookDepthWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"result\":\"test\"}")}, model.WebsocketCommonResponse{
+			Result: "test",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

@@ -212,6 +212,15 @@ func TestSpotAllBookTickerWebsocketClient_handleMessage(t *testing.T) {
 			Code:    0,
 			Message: "Unknown property",
 		}, false},
+		{"TestSpotAllBookTickerWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\":\"test\"}")}, AllBookTickerCombinedResponse{
+			StreamName: "test",
+		}, false},
+		{"TestSpotAllBookTickerWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"u\":12345}")}, AllBookTickerResponse{
+			OrderUpdateID: 12345,
+		}, false},
+		{"TestSpotAllBookTickerWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"result\":\"test\"}")}, model.WebsocketCommonResponse{
+			Result: "test",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

@@ -120,7 +120,7 @@ func TestPerformanceLogger_StopAndLog(t *testing.T) {
 			start:  time.Time{},
 		}, args{
 			method: "test",
-			url:    "?test",
+			url:    "https://google.com?test",
 		}},
 		// TODO: Add test cases.
 	}

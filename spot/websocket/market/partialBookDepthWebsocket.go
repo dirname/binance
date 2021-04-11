@@ -102,7 +102,7 @@ func (u *SpotPartialBookDepthWebsocketClient) handleMessage(msg []byte) (interfa
 		err = json.Unmarshal(msg, &result)
 		return result, err
 	}
-	if _, ok := parser["e"]; ok {
+	if _, ok := parser["lastUpdateId"]; ok {
 		result := PartialBookDepthResponse{}
 		err = json.Unmarshal(msg, &result)
 		return result, err

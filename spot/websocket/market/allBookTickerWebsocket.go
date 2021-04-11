@@ -102,7 +102,7 @@ func (u *SpotAllBookTickerWebsocketClient) handleMessage(msg []byte) (interface{
 		err = json.Unmarshal(msg, &result)
 		return result, err
 	}
-	if _, ok := parser["e"]; ok {
+	if _, ok := parser["u"]; ok {
 		result := AllBookTickerResponse{}
 		err = json.Unmarshal(msg, &result)
 		return result, err

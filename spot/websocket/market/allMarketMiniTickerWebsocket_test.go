@@ -213,6 +213,15 @@ func TestSpotAllMarketMiniTickerWebsocketClient_handleMessage(t *testing.T) {
 			Code:    0,
 			Message: "Unknown property",
 		}, false},
+		{"TestSpotAllMarketMiniTickerWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\":\"test\"}")}, AllMarketMiniTickerCombinedResponse{
+			StreamName: "test",
+		}, false},
+		{"TestSpotAllMarketMiniTickerWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("[{\"e\":\"test\"}]")}, AllMarketMiniTickerResponse{{
+			EventType: "test",
+		}}, false},
+		{"TestSpotAllMarketMiniTickerWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"result\":\"test\"}")}, model.WebsocketCommonResponse{
+			Result: "test",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

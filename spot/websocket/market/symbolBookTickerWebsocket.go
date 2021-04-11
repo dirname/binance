@@ -102,7 +102,7 @@ func (u *SpotSymbolBookTickerWebsocketClient) handleMessage(msg []byte) (interfa
 		err = json.Unmarshal(msg, &result)
 		return result, err
 	}
-	if _, ok := parser["e"]; ok {
+	if _, ok := parser["u"]; ok {
 		result := SymbolBookTickerResponse{}
 		err = json.Unmarshal(msg, &result)
 		return result, err

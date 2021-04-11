@@ -72,7 +72,7 @@ Wallet | All Coin's Information | RESTful API
 | | User Universal Transfer | RESTful API
 | | Query User Universal Transfer History | RESTful API
 Market | Order Book | RESTful API
-| | Recent Trades List | RESTful APi
+| | Recent Trades List | RESTful API
 | | Old Trade Lookup | RESTful API
 | | Aggregate Trade | RESTful API
 | | Candlestick | RESTful API
@@ -91,6 +91,20 @@ Market | Order Book | RESTful API
 | | All Book Tickers | WebSocket
 | | Partial Book Depth | WebSocket
 | | Diff. Book Depth | WebSocket
+Trade | Test New Order | RESTful API
+| | New order | RESTful API
+| | Cancel order | RESTful API
+| | Cancel all order | RESTful API
+| | Query order | RESTful API
+| | Current open orders | RESTful API
+| | All orders | RESTful API
+| | New OCO | RESTful API
+| | Cancel OCO | RESTful API
+| | Query OCO | RESTful API
+| | Query all OCO | RESTful API
+| | Query Open OCO | RESTful API
+| | Account Information | RESTful API
+| | Account Trade List | RESTful API
 
 ## USDⓈ-M Futures
 

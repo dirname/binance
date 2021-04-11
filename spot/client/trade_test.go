@@ -2,6 +2,7 @@ package spotclient
 
 import (
 	binance "github.com/dirname/Binance"
+	"github.com/dirname/Binance/spot/client/orderRespType"
 	"github.com/dirname/Binance/spot/client/orderType"
 	"github.com/shopspring/decimal"
 	"reflect"
@@ -833,7 +834,7 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 		want    interface{}
 		wantErr bool
 	}{
-		{"TestTradeClient_NewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "",
 			side:             "",
 			orderType:        "",
@@ -846,7 +847,105 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 			stopPrice:        decimal.Decimal{},
 			icebergQTY:       decimal.Decimal{},
 			recv:             0,
-		}, nil, true},
+		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        orderType.LimitMarker,
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: orderRespType.Result,
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        orderType.Limit,
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: orderRespType.ACK,
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        orderType.Market,
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: orderRespType.Full,
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        orderType.StopLoss,
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: "test",
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        orderType.StopLossLimit,
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: "test",
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        orderType.TakeProfitLimit,
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: "test",
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        orderType.TakeProfit,
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: "test",
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -859,7 +958,7 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 				t1.Errorf("NewOrder() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t1.Errorf("NewOrder() got = %v, want %v", got, tt.want)
 			}
 		})

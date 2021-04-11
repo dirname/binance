@@ -200,7 +200,7 @@ func TestFuturesAggTradeWebsocketClient_handleMessage(t *testing.T) {
 			EventType: "test",
 		}, false},
 		{"TestFuturesAggTradeWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"result\":\"test\"}")}, model.WebsocketCommonResponse{
-			Result: "Unknown property",
+			Result: "test",
 		}, false},
 		// TODO: Add test cases.
 	}

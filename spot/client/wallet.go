@@ -154,7 +154,9 @@ func (w *WalletClient) FastWithdrawSwitch(status bool, recv time.Duration) (inte
 	if err != nil {
 		logger.Error("Failed to build url: %s", err.Error())
 	}
+	logger.Debug("Url: %s", req.URL.String())
 	res, err := binance.HttpRequest(req)
+	logger.Debug("Res: %v", res)
 	var parser interface{}
 	err = json.Unmarshal(res, &parser)
 	return parser, err

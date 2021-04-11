@@ -5,6 +5,7 @@ import (
 	binance "github.com/dirname/Binance"
 	logger "github.com/dirname/Binance/logging"
 	"github.com/dirname/Binance/model"
+	"github.com/dirname/Binance/spot/client/orderRespType"
 	"github.com/shopspring/decimal"
 	"net/http"
 	"time"
@@ -63,17 +64,23 @@ func (t *TradeClient) NewOrder(symbol, side, orderType, timeInForce, newClientOd
 		err = json.Unmarshal(res, &result)
 		return result, err
 	}
-	if _, ok := parser["fills"]; ok {
-		result := NewOrderResponseFull{}
+	switch newOrderRespType {
+	case orderRespType.Result:
+		if _, ok := parser["status"]; ok {
+			result := NewOrderResponseResult{}
+			err = json.Unmarshal(res, &result)
+			return result, err
+		}
+	case orderRespType.Full:
+		if _, ok := parser["fills"]; ok {
+			result := NewOrderResponseFull{}
+			err = json.Unmarshal(res, &result)
+			return result, err
+		}
+	case orderRespType.ACK:
+		result := NewOrderResponseACK{}
 		err = json.Unmarshal(res, &result)
-		return result, err
+		return parser, err
 	}
-	if _, ok := parser["status"]; ok {
-		result := NewOrderResponseResult{}
-		err = json.Unmarshal(res, &result)
-		return result, err
-	}
-	result := NewOrderResponseACK{}
-	err = json.Unmarshal(res, &result)
 	return parser, err
 }

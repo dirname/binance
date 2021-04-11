@@ -112,6 +112,16 @@ func TestPerformanceLogger_StopAndLog(t *testing.T) {
 			method: "test",
 			url:    "test",
 		}},
+		{"TestPerformanceLogger_StopAndLog", fields{
+			logger: log.New(file, "", 0),
+			enable: false,
+			file:   nil,
+			index:  1,
+			start:  time.Time{},
+		}, args{
+			method: "test",
+			url:    "?test",
+		}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

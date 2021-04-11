@@ -193,6 +193,15 @@ func TestFuturesLiquidationOrderWebsocketClient_handleMessage(t *testing.T) {
 			Code:    0,
 			Message: "Unknown property",
 		}, false},
+		{"TestFuturesLiquidationOrderWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\":\"test\"}")}, LiquidationOrderCombinedResponse{
+			StreamName: "test",
+		}, false},
+		{"TestFuturesLiquidationOrderWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"e\":\"test\"}")}, LiquidationOrderResponse{
+			EventType: "test",
+		}, false},
+		{"TestFuturesLiquidationOrderWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"result\":\"test\"}")}, model.WebsocketCommonResponse{
+			Result: "test",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

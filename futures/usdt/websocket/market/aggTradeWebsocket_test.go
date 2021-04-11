@@ -195,7 +195,6 @@ func TestFuturesAggTradeWebsocketClient_handleMessage(t *testing.T) {
 		}, false},
 		{"TestFuturesAggTradeWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\":\"test\"}")}, AggTradeCombinedResponse{
 			StreamName: "test",
-			Data:       AggTradeResponse{},
 		}, false},
 		{"TestFuturesAggTradeWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"e\":\"test\"}")}, AggTradeResponse{
 			EventType: "test",

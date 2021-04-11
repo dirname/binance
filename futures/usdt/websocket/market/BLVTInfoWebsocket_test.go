@@ -193,6 +193,15 @@ func TestFuturesBLVTInfoWebsocketClient_handleMessage(t *testing.T) {
 			Code:    0,
 			Message: "Unknown property",
 		}, false},
+		{"TestFuturesBLVTInfoWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\":\"test\"}")}, BLVTInfoCombinedResponse{
+			StreamName: "test",
+		}, false},
+		{"TestFuturesBLVTInfoWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"e\":\"test\"}")}, BLVTInfoResponse{
+			EventType: "test",
+		}, false},
+		{"TestFuturesBLVTInfoWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"result\":\"test\"}")}, model.WebsocketCommonResponse{
+			Result: "test",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

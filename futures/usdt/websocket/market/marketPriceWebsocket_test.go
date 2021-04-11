@@ -193,6 +193,15 @@ func TestFuturesMarketPriceWebsocketClient_handleMessage(t *testing.T) {
 			Code:    0,
 			Message: "Unknown property",
 		}, false},
+		{"TestFuturesMarketPriceWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\":\"test\"}")}, MarketPriceCombinedResponse{
+			StreamName: "test",
+		}, false},
+		{"TestFuturesMarketPriceWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"e\":\"test\"}")}, MarketPriceResponse{
+			EventType: "test",
+		}, false},
+		{"TestFuturesMarketPriceWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"result\":\"test\"}")}, model.WebsocketCommonResponse{
+			Result: "test",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

@@ -193,6 +193,15 @@ func TestFuturesSymbolTickerWebsocketClient_handleMessage(t *testing.T) {
 			Code:    0,
 			Message: "Unknown property",
 		}, false},
+		{"TestFuturesSymbolTickerWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\":\"test\"}")}, SymbolTickerCombinedResponse{
+			StreamName: "test",
+		}, false},
+		{"TestFuturesSymbolTickerWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"e\":\"test\"}")}, SymbolTickerResponse{
+			EventType: "test",
+		}, false},
+		{"TestFuturesSymbolTickerWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"result\":\"test\"}")}, model.WebsocketCommonResponse{
+			Result: "test",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

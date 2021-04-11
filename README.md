@@ -71,6 +71,26 @@ Wallet | All Coin's Information | RESTful API
 | | Trade Fee (SAPI) | RESTful API
 | | User Universal Transfer | RESTful API
 | | Query User Universal Transfer History | RESTful API
+Market | Order Book | RESTful API
+| | Recent Trades List | RESTful APi
+| | Old Trade Lookup | RESTful API
+| | Aggregate Trade | RESTful API
+| | Candlestick | RESTful API
+| | Current Average Price | RESTful API
+| | 24h Ticker Price Change | RESTful API
+| | Symbol Price Ticker | RESTful API
+| | Symbol Order Book Ticker | RESTful API
+| | Aggregate Trade | WebSocket
+| | Trade | WebSocket
+| | Candlestick | WebSocket
+| | Individual Symbol Mini Ticker | WebSocket
+| | All Market Mini Tickers | WebSocket
+| | Individual Symbol Ticker | WebSocket
+| | All Market Tickers | WebSocket
+| | Individual Symbol Book Ticker | WebSocket
+| | All Book Tickers | WebSocket
+| | Partial Book Depth | WebSocket
+| | Diff. Book Depth | WebSocket
 
 ## USDⓈ-M Futures
 

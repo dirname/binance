@@ -15,6 +15,6 @@ type AllMarketMiniTickerResponse []struct {
 
 // AllMarketMiniTickerCombinedResponse json parser
 type AllMarketMiniTickerCombinedResponse struct {
-	StreamName string                        `json:"stream"` // Stream Name
+	StreamName string                      `json:"stream"` // Stream Name
 	Data       AllMarketMiniTickerResponse `json:"data"`   // data
 }

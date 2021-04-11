@@ -14,6 +14,6 @@ type AllMarketPriceResponse []struct {
 
 // AllMarketPriceCombinedResponse json parser
 type AllMarketPriceCombinedResponse struct {
-	StreamName string                   `json:"stream"` // Stream Name
+	StreamName string                 `json:"stream"` // Stream Name
 	Data       AllMarketPriceResponse `json:"data"`   // data
 }

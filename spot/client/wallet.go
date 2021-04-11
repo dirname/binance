@@ -165,7 +165,7 @@ func (w *WalletClient) SAPIWithdraw(coin, clientID, network, address, addressTag
 	var err error
 	params := ""
 	if coin == "" {
-		err = errors.New("coin can not be empty")
+		err = errors.New(CoinEmpty)
 		return nil, err
 	}
 	params += fmt.Sprintf("coin=%s", coin)
@@ -176,7 +176,7 @@ func (w *WalletClient) SAPIWithdraw(coin, clientID, network, address, addressTag
 		params += fmt.Sprintf("&network=%s", network)
 	}
 	if address == "" {
-		err = errors.New("address can not be empty")
+		err = errors.New(AddressEmpty)
 		return nil, err
 	}
 	params += fmt.Sprintf("&address=%s", address)
@@ -187,7 +187,7 @@ func (w *WalletClient) SAPIWithdraw(coin, clientID, network, address, addressTag
 		params += fmt.Sprintf("&name=%s", name)
 	}
 	if amount.LessThanOrEqual(decimal.NewFromInt(0)) {
-		err = errors.New("amount can not less than or equal zero")
+		err = errors.New(AmountInvalid)
 		return nil, err
 	}
 	params += fmt.Sprintf("&transactionFeeFlag=%t", transactionFeeFlag)
@@ -213,7 +213,7 @@ func (w *WalletClient) WAPIWithdraw(coin, clientID, network, address, addressTag
 	var err error
 	params := ""
 	if coin == "" {
-		err = errors.New("coin can not be empty")
+		err = errors.New(CoinEmpty)
 		return nil, err
 	}
 	params += fmt.Sprintf("coin=%s", coin)
@@ -224,7 +224,7 @@ func (w *WalletClient) WAPIWithdraw(coin, clientID, network, address, addressTag
 		params += fmt.Sprintf("&network=%s", network)
 	}
 	if address == "" {
-		err = errors.New("address can not be empty")
+		err = errors.New(AddressEmpty)
 		return nil, err
 	}
 	params += fmt.Sprintf("&address=%s", address)
@@ -235,7 +235,7 @@ func (w *WalletClient) WAPIWithdraw(coin, clientID, network, address, addressTag
 		params += fmt.Sprintf("&name=%s", name)
 	}
 	if amount.LessThanOrEqual(decimal.NewFromInt(0)) {
-		err = errors.New("amount can not less than or equal zero")
+		err = errors.New(AmountInvalid)
 		return nil, err
 	}
 	params += fmt.Sprintf("&transactionFeeFlag=%t", transactionFeeFlag)
@@ -384,7 +384,7 @@ func (w *WalletClient) DepositAddressNetwork(coin, network string, recv time.Dur
 	var err error
 	var params string
 	if coin == "" {
-		err = errors.New("coin can not be empty")
+		err = errors.New(CoinEmpty)
 		return nil, err
 	}
 	params = fmt.Sprintf("coin=%s", coin)
@@ -413,7 +413,7 @@ func (w *WalletClient) DepositAddress(asset string, status bool, recv time.Durat
 	var err error
 	var params string
 	if asset == "" {
-		err = errors.New("asset can not be empty")
+		err = errors.New(AssetEmpty)
 		return nil, err
 	}
 	params = fmt.Sprintf("asset=%s", asset)
@@ -701,7 +701,7 @@ typeName:
 func (w *WalletClient) UniversalTransfer(typeName, asset, amount string, recv time.Duration) (interface{}, error) {
 	var err error
 	if typeName == "" || asset == "" || amount == "" {
-		err = errors.New("miss params")
+		err = errors.New(MissParameters)
 		return nil, err
 	}
 	params := ""
@@ -753,7 +753,7 @@ typeName:
 func (w *WalletClient) UniversalTransferRecord(typeName string, startTime, endTime int64, current, size int32, recv time.Duration) (interface{}, error) {
 	var err error
 	if typeName == "" {
-		err = errors.New("miss params")
+		err = errors.New(MissParameters)
 		return nil, err
 	}
 	params := ""

@@ -95,7 +95,7 @@ func TestSpotAllMarketMiniTickerWebsocketClient_SetCombined(t *testing.T) {
 			b:  false,
 			id: 0,
 		},
-			// TODO: Add test cases.
+		// TODO: Add test cases.
 		},
 	}
 	for _, tt := range tests {

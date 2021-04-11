@@ -339,3 +339,90 @@ func Test_isInArray(t *testing.T) {
 		})
 	}
 }
+
+func Test_buildDecimalParam(t *testing.T) {
+	type args struct {
+		paramName string
+		param     decimal.Decimal
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"Test_buildDecimalParam", args{
+			paramName: "",
+			param:     decimal.NewFromInt(0),
+		}, ""},
+		{"Test_buildDecimalParam", args{
+			paramName: "",
+			param:     decimal.NewFromInt(1),
+		}, "&=1"},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := buildDecimalParam(tt.args.paramName, tt.args.param); got != tt.want {
+				t.Errorf("buildDecimalParam() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_buildStringParam(t *testing.T) {
+	type args struct {
+		paramName string
+		param     string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"Test_buildStringParam", args{
+			paramName: "",
+			param:     "",
+		}, ""},
+		{"Test_buildStringParam", args{
+			paramName: "",
+			param:     "1",
+		}, "&=1"},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := buildStringParam(tt.args.paramName, tt.args.param); got != tt.want {
+				t.Errorf("buildStringParam() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_buildInt64Param(t *testing.T) {
+	type args struct {
+		paramName string
+		param     int64
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"Test_buildInt64Param", args{
+			paramName: "",
+			param:     0,
+		}, ""},
+		{"Test_buildInt64Param", args{
+			paramName: "",
+			param:     1,
+		}, "&=1"},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := buildInt64Param(tt.args.paramName, tt.args.param); got != tt.want {
+				t.Errorf("buildInt64Param() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

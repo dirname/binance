@@ -13,4 +13,5 @@ const (
 	StopPriceInvalid               = "stopPrice cannot less than or equal zero"
 	QuantityInvalid                = "quantity cannot less than or equal zero"
 	QuantityOrQuoteOrderQtyInvalid = "quantity or quoteOrderQty cannot less than or equal zero"
+	InvalidParameters              = "invalid parameters"
 )

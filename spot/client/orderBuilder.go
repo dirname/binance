@@ -113,3 +113,24 @@ func buildNewOrderRespType(newOrderRespType string) string {
 	}
 	return ""
 }
+
+func buildStringParam(paramName, param string) string {
+	if param != "" {
+		return fmt.Sprintf("&%s=%s", paramName, param)
+	}
+	return ""
+}
+
+func buildDecimalParam(paramName string, param decimal.Decimal) string {
+	if param.LessThanOrEqual(decimal.NewFromInt(0)) {
+		return ""
+	}
+	return fmt.Sprintf("&%s=%s", paramName, param)
+}
+
+func buildInt64Param(paramName string, param int64) string {
+	if param > 0 {
+		return fmt.Sprintf("&%s=%d", paramName, param)
+	}
+	return ""
+}

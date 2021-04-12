@@ -9,7 +9,7 @@ type ExchangeInfoResponse struct {
 		Interval      string `json:"interval"`      // interval
 		IntervalNum   int64  `json:"intervalNum"`   // intervalNum
 		Limit         int64  `json:"limit"`         // limit
-	} `json:"rateLimits"` // rate limits
+	} `json:"rateLimits"`                                  // rate limits
 	ExchangeFilters []interface{} `json:"exchangeFilters"` // exchangeFilters
 	Symbols         []struct {
 		Symbol                 string   `json:"symbol"`                 // symbol
@@ -29,7 +29,7 @@ type ExchangeInfoResponse struct {
 			MinPrice   string `json:"minPrice"`   // minPrice
 			MaxPrice   string `json:"maxPrice"`   // maxPrice
 			TickSize   string `json:"tickSize"`   // tickSize
-		} `json:"filters"` // Filters
+		} `json:"filters"`                        // Filters
 		Permissions []string `json:"permissions"` // Permissions
 	} `json:"symbols"` // symbols
 }
@@ -76,7 +76,7 @@ type AggregateTradeResponse []struct {
 }
 
 // CandlestickResponse kline response
-type CandlestickResponse [][]interface{}
+type CandlestickResponse []interface{}
 
 // CurrentAveragePriceResponse Current average price for a symbol.
 type CurrentAveragePriceResponse struct {

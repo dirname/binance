@@ -111,13 +111,6 @@ type SAPIWithdrawResponse struct {
 	ID string `json:"id"`
 }
 
-// WAPIWithdrawResponse wapi withdraw response
-type WAPIWithdrawResponse struct {
-	Msg     string `json:"msg"`
-	Success bool   `json:"success"`
-	ID      string `json:"id"`
-}
-
 // DepositHistoryNetworkResponse DepositHistoryNetwork response
 type DepositHistoryNetworkResponse []struct {
 	Amount       string `json:"amount"`
@@ -193,37 +186,9 @@ type DepositAddressResponse struct {
 	Asset      string `json:"asset"`
 }
 
-// WAPIAccountResponse account response
-type WAPIAccountResponse struct {
-	Msg     string   `json:"msg"`
-	Success bool     `json:"success"`
-	Objs    []string `json:"objs"`
-}
-
 // SAPIAccountResponse account response
 type SAPIAccountResponse struct {
 	Data string `json:"data"`
-}
-
-// AccountWAPIAPIStatusResponse account API trading status response
-type AccountWAPIAPIStatusResponse struct {
-	Success bool     `json:"success"`
-	Status  struct { // API trading status detail
-		IsLocked           bool `json:"isLocked"`
-		PlannedRecoverTime int  `json:"plannedRecoverTime"` // If API trading function is locked, this is the planned recover time
-		TriggerCondition   struct {
-			GCR  int `json:"gcr"`  // Number of GTC orders
-			IFER int `json:"ifer"` // Number of FOK/IOC orders
-			UFR  int `json:"ufr"`  // Number of orders
-		} `json:"triggerCondition"`
-		Indicators map[string][]struct {
-			Unfilled     string          `json:"i"` // Unfilled Ratio (UFR)
-			Count        int64           `json:"c"` // Count of all order
-			Value        decimal.Decimal `json:"v"` // Current value
-			TriggerValue decimal.Decimal `json:"t"` // Trigger value
-		} `json:"indicators"`
-		UpdateTime int64 `json:"updateTime"`
-	} `json:"status"`
 }
 
 // AccountSAPIStatusResponse account API trading status response
@@ -244,29 +209,6 @@ type AccountSAPIStatusResponse struct {
 		} `json:"indicators"`
 		UpdateTime int64 `json:"updateTime"`
 	} `json:"data"`
-}
-
-// DustLogWAPIResponse Fetch small amounts of assets exchanged BNB records
-type DustLogWAPIResponse struct {
-	Success bool `json:"success"`
-	Results struct {
-		Total int `json:"total"`
-		Rows  []struct {
-			TransferredTotal   string `json:"transfered_total"`
-			ServiceChargeTotal string `json:"service_charge_total"`
-			TranID             int    `json:"tran_id"`
-			Logs               []struct {
-				TranID              int    `json:"tranId"`
-				ServiceChargeAmount string `json:"serviceChargeAmount"`
-				Uid                 string `json:"uid"`
-				Amount              string `json:"amount"`
-				OperateTime         string `json:"operateTime"`
-				TransferredAmount   string `json:"transferedAmount"`
-				FromAsset           string `json:"fromAsset"`
-			} `json:"logs"`
-			OperateTime string `json:"operate_time"`
-		} `json:"rows"`
-	} `json:"results"`
 }
 
 // DustLogSAPIResponse Fetch small amounts of assets exchanged BNB records
@@ -314,18 +256,6 @@ type AccountDividendRecordResponse struct {
 	Total int `json:"total"`
 }
 
-// WAPIAssetDetailResponse Fetch details of assets supported on Binance.
-type WAPIAssetDetailResponse struct {
-	Success     bool `json:"success"`
-	AssetDetail map[string]struct {
-		MinWithdrawAmount interface{} `json:"minWithdrawAmount"`
-		DepositStatus     bool        `json:"depositStatus"`
-		WithdrawFee       interface{} `json:"withdrawFee"`
-		WithdrawStatus    bool        `json:"withdrawStatus"`
-		DepositTip        string      `json:"depositTip"`
-	} `json:"assetDetail"`
-}
-
 // SAPIAssetDetailResponse Fetch details of assets supported on Binance.
 type SAPIAssetDetailResponse map[string]struct {
 	MinWithdrawAmount string `json:"minWithdrawAmount"`
@@ -333,16 +263,6 @@ type SAPIAssetDetailResponse map[string]struct {
 	WithdrawFee       string `json:"withdrawFee"`
 	WithdrawStatus    bool   `json:"withdrawStatus"`
 	DepositTip        string `json:"depositTip"`
-}
-
-// WAPITradeFeeResponse Fetch trade fee, values in percentage.
-type WAPITradeFeeResponse struct {
-	TradeFee []struct {
-		Symbol string          `json:"symbol"`
-		Maker  decimal.Decimal `json:"maker"`
-		Taker  decimal.Decimal `json:"taker"`
-	} `json:"tradeFee"`
-	Success bool `json:"success"`
 }
 
 // SAPITradeFeeResponse Fetch trade fee, values in percentage.

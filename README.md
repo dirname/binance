@@ -22,11 +22,11 @@ before continuing.
 
 You are very welcome to submit issues or pull requests to share with this project to make the project more perfect
 
-- [spot/client/wallet.go:Line602](https://github.com/dirname/Binance/blob/main/spot/client/wallet.go#L602)
-  `WAPIAssetDetail()`
+- *Remove all WAPI*
 
-  *The result types returned by minWithdrawAmount and withdrawFee are sometimes inconsistent, leading to running bugs.
-  Currently, it has been parsed as interface{}. It is recommended to use this method of SAPI instead of this method.*
+  *As Binance has planned to remove all WAPI endpoints from the Binance API at 2021-08-01 2:00 AM (UTC). So this
+  warehouse has removed all WAPI endpoints from the Binance API in advance*
+  *[More Information](https://www.binance.com/en/support/announcement/f45dde7da58b473aa885349946bed269)*
 
 - [spot/client/market.go:Line185](https://github.com/dirname/Binance/blob/main/spot/client/market.go#L185)
   `GetCandlestick()`
@@ -42,32 +42,22 @@ The following table shows the functions included in this SDK
 
 Category | Client | Access Type
 :------------: | :------------: | :------------:
-Common | System Status | RESTful API
-| | System Status (SAPI) | RESTful API
+Common | System Status (SAPI) | RESTful API
 | | Test Connectivity | RESTful API
 | | Check ServerTime | RESTful API
 Wallet | All Coin's Information | RESTful API
 | | Daily Account Snapshot | RESTful API
 | | Disabled/Enabled Fast Withdraw | RESTful API
 | | Withdraw (SAPI) | RESTful API
-| | Withdraw | RESTful API
 | | Deposit History(supporting network) | RESTful API
-| | Deposit History | RESTful API
 | | Withdraw History(supporting network) | RESTful API
-| | Withdraw History | RESTful API
 | | Deposit Address(supporting network) | RESTful API
-| | Deposit Address | RESTful API
-| | Account Status | RESTful API
 | | Account Status (SAPI) | RESTful API
-| | Account API Trading Status | RESTful API
 | | Account API Trading Status (SAPI) | RESTful API
-| | DustLog | RESTful API
 | | DustLog (SAPI) | RESTful API
 | | Dust Transfer | RESTful API
 | | Asset Dividend Record | RESTful API
-| | Asset Detail | RESTful API
 | | Asset Detail (SAPI) | RESTful API
-| | Trade Fee | RESTful API
 | | Trade Fee (SAPI) | RESTful API
 | | User Universal Transfer | RESTful API
 | | Query User Universal Transfer History | RESTful API

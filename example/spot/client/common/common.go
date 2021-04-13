@@ -15,25 +15,9 @@ func init() {
 }
 
 func main() {
-	getWAPISystemStatus()
 	getSAPISystemStatus()
 	ping()
 	getServerTime()
-}
-
-func getWAPISystemStatus() {
-	response, err := commonClient.GetWAPISystemStatus()
-	if err != nil {
-		logger.Error("getWAPISystemStatus err: %s", err.Error())
-	}
-	switch response.(type) {
-	case model.WAPIErrorResponse:
-		logger.Info("getWAPISystemStatus WAPI error: %v", response.(model.WAPIErrorResponse))
-	case spotclient.SystemStatusResponse:
-		logger.Info("getWAPISystemStatus: %v", response.(spotclient.SystemStatusResponse))
-	default:
-		logger.Info("getWAPISystemStatus Unknown response: %v", response)
-	}
 }
 
 func getSAPISystemStatus() {

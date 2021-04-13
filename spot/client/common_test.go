@@ -71,39 +71,6 @@ func TestCommonClient_GetServerTime(t *testing.T) {
 	}
 }
 
-func TestCommonClient_GetWAPISystemStatus(t *testing.T) {
-	type fields struct {
-		Builder *binance.PublicUrlBuilder
-	}
-	tests := []struct {
-		name    string
-		fields  fields
-		want    interface{}
-		wantErr bool
-	}{
-		{"TestCommonClient_GetWAPISystemStatus", fields{Builder: binance.NewPublicUrlBuilder(config.SpotRestHost)}, SystemStatusResponse{
-			Status:  0,
-			Message: "normal",
-		}, false},
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			c := &CommonClient{
-				Builder: tt.fields.Builder,
-			}
-			got, err := c.GetWAPISystemStatus()
-			if (err != nil) != tt.wantErr {
-				t.Errorf("GetWAPISystemStatus() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("GetWAPISystemStatus() got = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func TestCommonClient_Ping(t *testing.T) {
 	type fields struct {
 		Builder *binance.PublicUrlBuilder

@@ -208,47 +208,6 @@ func (w *WalletClient) SAPIWithdraw(coin, clientID, network, address, addressTag
 	return result, err
 }
 
-// WAPIWithdraw withdraw
-func (w *WalletClient) WAPIWithdraw(coin, clientID, network, address, addressTag, name string, amount decimal.Decimal, transactionFeeFlag bool, recv time.Duration) (interface{}, error) {
-	var err error
-	params := ""
-	if coin == "" {
-		err = errors.New(CoinEmpty)
-		return nil, err
-	}
-	params += fmt.Sprintf("coin=%s", coin)
-	if clientID != "" {
-		params += fmt.Sprintf("&withdrawOrderId=%s", clientID)
-	}
-	if network != "" {
-		params += fmt.Sprintf("&network=%s", network)
-	}
-	if address == "" {
-		err = errors.New(AddressEmpty)
-		return nil, err
-	}
-	params += fmt.Sprintf("&address=%s", address)
-	if addressTag != "" {
-		params += fmt.Sprintf("&addressTag=%s", addressTag)
-	}
-	if name != "" {
-		params += fmt.Sprintf("&name=%s", name)
-	}
-	if amount.LessThanOrEqual(decimal.NewFromInt(0)) {
-		err = errors.New(AmountInvalid)
-		return nil, err
-	}
-	params += fmt.Sprintf("&transactionFeeFlag=%t", transactionFeeFlag)
-	req, err := w.Builder.Build(http.MethodPost, "/wapi/v3/withdraw.html", params, true, true, recv)
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	result := SAPIWithdrawResponse{}
-	err = json.Unmarshal(res, &result)
-	return result, err
-}
-
 // DepositHistoryNetwork deposit history supporting network set status exclude [0,6,1] to use default.
 func (w *WalletClient) DepositHistoryNetwork(coin string, status, offset, limit int32, startTime, endTime int64, recv time.Duration) (interface{}, error) {
 	var err error
@@ -284,32 +243,6 @@ func (w *WalletClient) DepositHistoryNetwork(coin string, status, offset, limit 
 		return result, err
 	}
 	result := DepositHistoryNetworkResponse{}
-	err = json.Unmarshal(res, &result)
-	return result, err
-}
-
-// DepositHistory deposit history
-func (w *WalletClient) DepositHistory(asset string, status int32, startTime, endTime int64, recv time.Duration) (interface{}, error) {
-	var err error
-	var params string
-	if asset != "" {
-		params += fmt.Sprintf("asset=%s", asset)
-	}
-	if status == 0 || status == 6 || status == 1 {
-		params += fmt.Sprintf("&status=%d", status)
-	}
-	if startTime > 0 {
-		params += fmt.Sprintf("&startTime=%d", startTime)
-	}
-	if endTime > 0 {
-		params += fmt.Sprintf("&endTime=%d", endTime)
-	}
-	req, err := w.Builder.Build(http.MethodGet, "/wapi/v3/depositHistory.html", params, true, true, recv)
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	result := DepositHistoryResponse{}
 	err = json.Unmarshal(res, &result)
 	return result, err
 }
@@ -353,32 +286,6 @@ func (w *WalletClient) WithdrawHistoryNetwork(coin string, status, offset, limit
 	return result, err
 }
 
-// WithdrawHistory withdraw history
-func (w *WalletClient) WithdrawHistory(asset string, status int32, startTime, endTime int64, recv time.Duration) (interface{}, error) {
-	var err error
-	var params string
-	if asset != "" {
-		params += fmt.Sprintf("asset=%s", asset)
-	}
-	if status == 0 || status == 6 || status == 1 {
-		params += fmt.Sprintf("&status=%d", status)
-	}
-	if startTime > 0 {
-		params += fmt.Sprintf("&startTime=%d", startTime)
-	}
-	if endTime > 0 {
-		params += fmt.Sprintf("&endTime=%d", endTime)
-	}
-	req, err := w.Builder.Build(http.MethodGet, "/wapi/v3/withdrawHistory.html", params, true, true, recv)
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	result := WithdrawHistoryResponse{}
-	err = json.Unmarshal(res, &result)
-	return result, err
-}
-
 // DepositAddressNetwork deposit address supporting network
 func (w *WalletClient) DepositAddressNetwork(coin, network string, recv time.Duration) (interface{}, error) {
 	var err error
@@ -408,39 +315,6 @@ func (w *WalletClient) DepositAddressNetwork(coin, network string, recv time.Dur
 	return result, err
 }
 
-// DepositAddress deposit address
-func (w *WalletClient) DepositAddress(asset string, status bool, recv time.Duration) (interface{}, error) {
-	var err error
-	var params string
-	if asset == "" {
-		err = errors.New(AssetEmpty)
-		return nil, err
-	}
-	params = fmt.Sprintf("asset=%s", asset)
-	params += fmt.Sprintf("&status=%t", status)
-	req, err := w.Builder.Build(http.MethodGet, "/wapi/v3/depositAddress.html", params, true, true, recv)
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	var parser DepositAddressResponse
-	err = json.Unmarshal(res, &parser)
-	return parser, err
-}
-
-// WAPIAccountStatus account status
-func (w *WalletClient) WAPIAccountStatus(recv time.Duration) (interface{}, error) {
-	var err error
-	req, err := w.Builder.Build(http.MethodGet, "/wapi/v3/accountStatus.html", "", true, true, recv)
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	result := WAPIAccountResponse{}
-	err = json.Unmarshal(res, &result)
-	return result, err
-}
-
 // SAPIAccountStatus account status
 func (w *WalletClient) SAPIAccountStatus(recv time.Duration) (interface{}, error) {
 	var err error
@@ -461,19 +335,6 @@ func (w *WalletClient) SAPIAccountStatus(recv time.Duration) (interface{}, error
 	return result, err
 }
 
-// WAPIAccountAPIStatus account API status
-func (w *WalletClient) WAPIAccountAPIStatus(recv time.Duration) (interface{}, error) {
-	var err error
-	req, err := w.Builder.Build(http.MethodGet, "/wapi/v3/apiTradingStatus.html", "", true, true, recv)
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	result := AccountWAPIAPIStatusResponse{}
-	err = json.Unmarshal(res, &result)
-	return result, err
-}
-
 // SAPIAccountAPIStatus account API status
 func (w *WalletClient) SAPIAccountAPIStatus(recv time.Duration) (interface{}, error) {
 	var err error
@@ -490,19 +351,6 @@ func (w *WalletClient) SAPIAccountAPIStatus(recv time.Duration) (interface{}, er
 		return result, err
 	}
 	result := AccountSAPIStatusResponse{}
-	err = json.Unmarshal(res, &result)
-	return result, err
-}
-
-// WAPIDustLog Fetch small amounts of assets exchanged BNB records
-func (w *WalletClient) WAPIDustLog(recv time.Duration) (interface{}, error) {
-	var err error
-	req, err := w.Builder.Build(http.MethodGet, "/wapi/v3/userAssetDribbletLog.html", "", true, true, recv)
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	result := DustLogWAPIResponse{}
 	err = json.Unmarshal(res, &result)
 	return result, err
 }
@@ -596,20 +444,6 @@ func (w *WalletClient) AccountDividendRecord(asset string, startTime, endTime in
 	return result, err
 }
 
-// WAPIAssetDetail Fetch details of assets supported on Binance.
-// Warning The result types returned by minWithdrawAmount and withdrawFee are sometimes inconsistent, leading to running bugs. Currently, it has been parsed as interface{}. It is recommended to use this method of SAPI instead of this method.
-func (w *WalletClient) WAPIAssetDetail(recv time.Duration) (interface{}, error) {
-	var err error
-	req, err := w.Builder.Build(http.MethodGet, "/wapi/v3/assetDetail.html", "", true, true, recv)
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	result := WAPIAssetDetailResponse{}
-	err = json.Unmarshal(res, &result)
-	return result, err
-}
-
 // SAPIAssetDetail Fetch details of assets supported on Binance.
 func (w *WalletClient) SAPIAssetDetail(recv time.Duration) (interface{}, error) {
 	var err error
@@ -626,23 +460,6 @@ func (w *WalletClient) SAPIAssetDetail(recv time.Duration) (interface{}, error) 
 		return result, err
 	}
 	result := SAPIAssetDetailResponse{}
-	err = json.Unmarshal(res, &result)
-	return result, err
-}
-
-// WAPITradeFee Fetch trade fee, values in percentage.
-func (w *WalletClient) WAPITradeFee(symbol string, recv time.Duration) (interface{}, error) {
-	var err error
-	params := ""
-	if symbol != "" {
-		params += fmt.Sprintf("symbol=%s", symbol)
-	}
-	req, err := w.Builder.Build(http.MethodGet, "/wapi/v3/tradeFee.html", params, true, true, recv)
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	result := WAPITradeFeeResponse{}
 	err = json.Unmarshal(res, &result)
 	return result, err
 }

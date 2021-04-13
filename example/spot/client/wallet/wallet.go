@@ -27,35 +27,15 @@ func main() {
 	//getWithdraw()
 	//getDepositAddressNetwork()
 	//getDepositAddress()
-	//getWAPIAccountStatus()
 	//getSAPIAccountStatus()
-	//getWAPIAccountAPIStatus()
 	//getSAPIAccountAPIStatus()
-	//getWAPIDustLog()
 	//getSAPIDustLog()
 	//dustTransfer()
 	//getDividendRecord()
-	//getWAPIAssetDetail()
 	//getSAPIAssetDetail()
-	//getWAPITradeFee()
 	//getSAPITradeFee()
 	//universalTransfer()
 	//getUniversalTransferRecord()
-}
-
-func getAllCoinsInfo() {
-	response, err := walletClient.GetAllCoinsInfo(0)
-	if err != nil {
-		logger.Error("getWAPISystemStatus err: %s", err.Error())
-	}
-	switch response.(type) {
-	case model.APIErrorResponse:
-		logger.Info("getAllCoinsInfo API error: %v", response.(model.APIErrorResponse))
-	case spotclient.AllCoinInfoResponse:
-		logger.Info("getAllCoinsInfo: %v", response.(spotclient.AllCoinInfoResponse))
-	default:
-		logger.Info("getAllCoinsInfo Unknown response: %v", response)
-	}
 }
 
 func getSpotSnapshot() {
@@ -188,14 +168,6 @@ func getDepositAddress() {
 	logger.Info("getDepositAddress response: %v", response)
 }
 
-func getWAPIAccountStatus() {
-	response, err := walletClient.WAPIAccountStatus(0)
-	if err != nil {
-		logger.Error("getWAPIAccountStatus err: %s", err.Error())
-	}
-	logger.Info("getWAPIAccountStatus response: %v", response)
-}
-
 func getSAPIAccountStatus() {
 	response, err := walletClient.SAPIAccountStatus(0)
 	if err != nil {
@@ -211,14 +183,6 @@ func getSAPIAccountStatus() {
 	}
 }
 
-func getWAPIAccountAPIStatus() {
-	response, err := walletClient.WAPIAccountAPIStatus(0)
-	if err != nil {
-		logger.Error("getWAPIAccountAPIStatus err: %s", err.Error())
-	}
-	logger.Info("getWAPIAccountAPIStatus response: %v", response)
-}
-
 func getSAPIAccountAPIStatus() {
 	response, err := walletClient.SAPIAccountAPIStatus(0)
 	if err != nil {
@@ -232,14 +196,6 @@ func getSAPIAccountAPIStatus() {
 	default:
 		logger.Info("getSAPIAccountStatus Unknown response: %v", response)
 	}
-}
-
-func getWAPIDustLog() {
-	response, err := walletClient.WAPIDustLog(0)
-	if err != nil {
-		logger.Error("getWAPIDustLog err: %s", err.Error())
-	}
-	logger.Info("getWAPIDustLog response: %v", response)
 }
 
 func getSAPIDustLog() {
@@ -287,14 +243,6 @@ func getDividendRecord() {
 	}
 }
 
-func getWAPIAssetDetail() {
-	response, err := walletClient.WAPIAssetDetail(0)
-	if err != nil {
-		logger.Error("getWAPIAssetDetail err: %s", err.Error())
-	}
-	logger.Info("getWAPIAssetDetail response: %v", response)
-}
-
 func getSAPIAssetDetail() {
 	response, err := walletClient.SAPIAssetDetail(0)
 	if err != nil {
@@ -308,14 +256,6 @@ func getSAPIAssetDetail() {
 	default:
 		logger.Info("getSAPIAccountStatus Unknown response: %v", response)
 	}
-}
-
-func getWAPITradeFee() {
-	response, err := walletClient.WAPITradeFee("", 0)
-	if err != nil {
-		logger.Error("getWAPITradeFee err: %s", err.Error())
-	}
-	logger.Info("getWAPITradeFee response: %v", response)
 }
 
 func getSAPITradeFee() {

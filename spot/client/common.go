@@ -20,26 +20,6 @@ func NewCommonClient(host string) *CommonClient {
 	}
 }
 
-// GetWAPISystemStatus get system status
-func (c *CommonClient) GetWAPISystemStatus() (interface{}, error) {
-	var err error
-	req, err := c.Builder.Build(http.MethodGet, "/wapi/v3/systemStatus.html", "")
-	if err != nil {
-		logger.Error("Failed to build url: %s", err.Error())
-	}
-	res, err := binance.HttpRequest(req)
-	var parser map[string]interface{}
-	err = json.Unmarshal(res, &parser)
-	if _, ok := parser["success"]; ok {
-		result := model.WAPIErrorResponse{}
-		err = json.Unmarshal(res, &result)
-		return result, err
-	}
-	result := SystemStatusResponse{}
-	err = json.Unmarshal(res, &result)
-	return result, err
-}
-
 // GetSAPISystemStatus get system status
 func (c *CommonClient) GetSAPISystemStatus() (interface{}, error) {
 	var err error

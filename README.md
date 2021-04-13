@@ -25,7 +25,7 @@ You are very welcome to submit issues or pull requests to share with this projec
 - *Remove all WAPI endpoints*
 
   *As Binance has planned to remove all WAPI endpoints from the Binance API at 2021-08-01 2:00 AM (UTC). So this
-  warehouse has removed all WAPI endpoints from the Binance API in advance*
+  the repo has removed all WAPI endpoints from the Binance API in advance*
   *[More Information](https://www.binance.com/en/support/announcement/f45dde7da58b473aa885349946bed269)*
 
 - [spot/client/market.go:Line185](https://github.com/dirname/Binance/blob/main/spot/client/market.go#L185)

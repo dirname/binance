@@ -114,14 +114,6 @@ func getDepositHistoryNetwork() {
 	}
 }
 
-func getDepositHistory() {
-	response, err := walletClient.DepositHistory("", -1, 0, 0, 0)
-	if err != nil {
-		logger.Error("getDepositHistory err: %s", err.Error())
-	}
-	logger.Info("getDepositHistory response: %v", response)
-}
-
 func getWithdrawHistoryNetwork() {
 	response, err := walletClient.WithdrawHistoryNetwork("", -1, 0, 0, 0, 0, 0)
 	if err != nil {
@@ -137,14 +129,6 @@ func getWithdrawHistoryNetwork() {
 	}
 }
 
-func getWithdraw() {
-	response, err := walletClient.WithdrawHistory("", -1, 0, 0, 0)
-	if err != nil {
-		logger.Error("getWithdraw err: %s", err.Error())
-	}
-	logger.Info("getWithdraw response: %v", response)
-}
-
 func getDepositAddressNetwork() {
 	response, err := walletClient.DepositAddressNetwork("BTC", "", 0)
 	if err != nil {
@@ -158,14 +142,6 @@ func getDepositAddressNetwork() {
 	default:
 		logger.Info("getDepositAddressNetwork Unknown response: %v", response)
 	}
-}
-
-func getDepositAddress() {
-	response, err := walletClient.DepositAddress("BNB", false, 0)
-	if err != nil {
-		logger.Error("getDepositAddress err: %s", err.Error())
-	}
-	logger.Info("getDepositAddress response: %v", response)
 }
 
 func getSAPIAccountStatus() {

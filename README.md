@@ -22,7 +22,7 @@ before continuing.
 
 You are very welcome to submit issues or pull requests to share with this project to make the project more perfect
 
-- *Remove all WAPI*
+- *Remove all WAPI endpoints*
 
   *As Binance has planned to remove all WAPI endpoints from the Binance API at 2021-08-01 2:00 AM (UTC). So this
   warehouse has removed all WAPI endpoints from the Binance API in advance*

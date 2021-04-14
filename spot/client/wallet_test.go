@@ -708,7 +708,7 @@ func TestWalletClient_SAPIWithdraw(t *testing.T) {
 			amount:             decimal.NewFromInt(1),
 			transactionFeeFlag: false,
 			recv:               0,
-		}, nil, false},
+		}, true, false},
 		{"TestWalletClient_SAPIWithdraw", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
 			coin:               "BTC",
 			clientID:           "test",
@@ -719,7 +719,7 @@ func TestWalletClient_SAPIWithdraw(t *testing.T) {
 			amount:             decimal.NewFromInt(1),
 			transactionFeeFlag: false,
 			recv:               0,
-		}, nil, true},
+		}, true, true},
 		{"TestWalletClient_SAPIWithdraw", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
 			coin:               "BTC",
 			clientID:           "test",

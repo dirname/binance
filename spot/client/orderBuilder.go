@@ -50,7 +50,7 @@ func buildOrder(symbol, side, ordersType, timeInForce, newClientOderID, newOrder
 		err = errors.New(ordersType + ". " + QuantityInvalid)
 		return "", err
 	}
-	if ordersType == orderType.Market && quantity.LessThanOrEqual(decimal.NewFromInt(0)) && quantity.LessThanOrEqual(decimal.NewFromInt(0)) {
+	if ordersType == orderType.Market && quantity.LessThanOrEqual(decimal.NewFromInt(0)) && quoteOrderQTY.LessThanOrEqual(decimal.NewFromInt(0)) {
 		err = errors.New(ordersType + ". " + QuantityOrQuoteOrderQtyInvalid)
 	}
 	s := []string{buildTimeInForce(timeInForce), buildNewClientOderID(newClientOderID), buildNewOrderRespType(newOrderRespType), buildQuantity(quantity), buildQuoteOrderQty(quoteOrderQTY), buildPrice(price), buildStopPrice(stopPrice), buildIcebergQty(icebergQTY)}

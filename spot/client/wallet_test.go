@@ -730,7 +730,7 @@ func TestWalletClient_SAPIWithdraw(t *testing.T) {
 			amount:             decimal.Decimal{},
 			transactionFeeFlag: false,
 			recv:               0,
-		}, nil, true},
+		}, true, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

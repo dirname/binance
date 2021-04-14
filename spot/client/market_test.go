@@ -203,6 +203,16 @@ func TestMarketClient_GetCandlestick(t *testing.T) {
 			startTime: 0,
 			endTime:   0,
 		}, nil, true},
+		{"TestMarketClient_GetCandlestick", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:    "",
+			interval:  "",
+			limit:     0,
+			startTime: 0,
+			endTime:   0,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

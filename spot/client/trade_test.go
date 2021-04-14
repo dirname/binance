@@ -406,6 +406,14 @@ func TestTradeClient_GetAccountTradeList(t1 *testing.T) {
 			limit:     10000,
 			recv:      10000,
 		}, AccountTradesListResponse{}, true},
+		{"TestTradeClient_GetAccountTradeList", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:    "test",
+			startTime: 10000,
+			endTime:   10000,
+			formID:    10000,
+			limit:     -10000,
+			recv:      10000,
+		}, AccountTradesListResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -755,6 +763,22 @@ func TestTradeClient_NewOCO(t1 *testing.T) {
 			limitIcebergQty:      decimal.Decimal{},
 			stopPrice:            decimal.Decimal{},
 			stopLimitPrice:       decimal.Decimal{},
+			stopIcebergQty:       decimal.Decimal{},
+			recv:                 0,
+		}, false, true},
+		{"TestTradeClient_NewOCO", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:               "test",
+			listClientOrderID:    "test",
+			side:                 "test",
+			limitClientOrderId:   "test",
+			stopClientOrderId:    "test",
+			stopLimitTimeInForce: "test",
+			newOrderRespType:     "test",
+			quantity:             decimal.NewFromInt(10),
+			price:                decimal.NewFromInt(10),
+			limitIcebergQty:      decimal.NewFromInt(10),
+			stopPrice:            decimal.Decimal{},
+			stopLimitPrice:       decimal.NewFromInt(10),
 			stopIcebergQty:       decimal.Decimal{},
 			recv:                 0,
 		}, false, true},

@@ -68,6 +68,20 @@ func TestWalletClient_AccountDividendRecord(t *testing.T) {
 			limit:     10,
 			recv:      10,
 		}, nil, false},
+		{"TestWalletClient_AccountDividendRecord", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			asset:     "test",
+			startTime: 10,
+			endTime:   10,
+			limit:     1000,
+			recv:      10,
+		}, nil, false},
+		{"TestWalletClient_AccountDividendRecord", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			asset:     "test",
+			startTime: 10,
+			endTime:   10,
+			limit:     -10,
+			recv:      10,
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -437,6 +451,12 @@ func TestWalletClient_GetSpotSnapshot(t *testing.T) {
 			limit:     0,
 			recv:      0,
 		}, nil, false},
+		{"TestWalletClient_GetSpotSnapshot", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			startTime: 128093,
+			endTime:   128039,
+			limit:     50,
+			recv:      0,
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -689,6 +709,28 @@ func TestWalletClient_SAPIWithdraw(t *testing.T) {
 			transactionFeeFlag: false,
 			recv:               0,
 		}, nil, false},
+		{"TestWalletClient_SAPIWithdraw", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			coin:               "BTC",
+			clientID:           "test",
+			network:            "test",
+			address:            "",
+			addressTag:         "test",
+			name:               "test",
+			amount:             decimal.NewFromInt(1),
+			transactionFeeFlag: false,
+			recv:               0,
+		}, nil, true},
+		{"TestWalletClient_SAPIWithdraw", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			coin:               "BTC",
+			clientID:           "test",
+			network:            "test",
+			address:            "test",
+			addressTag:         "test",
+			name:               "test",
+			amount:             decimal.Decimal{},
+			transactionFeeFlag: false,
+			recv:               0,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

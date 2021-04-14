@@ -52,6 +52,7 @@ func buildOrder(symbol, side, ordersType, timeInForce, newClientOderID, newOrder
 	}
 	if ordersType == orderType.Market && quantity.LessThanOrEqual(decimal.NewFromInt(0)) && quoteOrderQTY.LessThanOrEqual(decimal.NewFromInt(0)) {
 		err = errors.New(ordersType + ". " + QuantityOrQuoteOrderQtyInvalid)
+		return "", err
 	}
 	s := []string{buildTimeInForce(timeInForce), buildNewClientOderID(newClientOderID), buildNewOrderRespType(newOrderRespType), buildQuantity(quantity), buildQuoteOrderQty(quoteOrderQTY), buildPrice(price), buildStopPrice(stopPrice), buildIcebergQty(icebergQTY)}
 	params += strings.Join(s, "")

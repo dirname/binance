@@ -95,14 +95,19 @@ func (w *WebsocketClient) SetResponseHandler(handler ResponseHandler) {
 	w.responseHandler = handler
 }
 
-// SetReconnectWaitTime set time wait ws reconnect second
+// SetReconnectWaitTime set time wait ws reconnect
 func (w *WebsocketClient) SetReconnectWaitTime(time time.Duration) {
 	w.reconnectWaitTime = time
 }
 
-// SetReadTimerInterval set time wait ws to received time second
+// SetReadTimerInterval set time wait ws to received
 func (w *WebsocketClient) SetReadTimerInterval(time time.Duration) {
 	w.readTimerInterval = time
+}
+
+// SetKeepAliveInterval set time to keep alive
+func (w *WebsocketClient) SetKeepAliveInterval(time time.Duration) {
+	w.keepAliveInterval = time
 }
 
 // SetPingHandler set client on ping handler
@@ -257,7 +262,9 @@ func (w *WebsocketClient) keepAliveLoop() {
 			deadline := time.Now().Add(10 * time.Second)
 			err := w.conn.WriteControl(websocket.PongMessage, []byte{}, deadline)
 			if err != nil {
-				logger.Error("Response to Pong failed: %s", err.Error())
+				logger.Warn("Response to Pong failed: %s reconnect....", err.Error())
+				w.disconnectWebsocket()
+				w.connectWebsocket()
 			}
 
 			elapsedSecond := time.Now().Sub(w.establishmentTime).Seconds()

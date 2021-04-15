@@ -5,10 +5,13 @@ import (
 	logger "github.com/dirname/Binance/logging"
 	"github.com/dirname/Binance/model"
 	"github.com/dirname/Binance/spot/websocket/market"
+	"time"
 )
 
 func main() {
 	client := spotclient.NewSpotTradeWebsocketClient("btcusdt@trade")
+	client.SetReadTimerInterval(5 * time.Second)
+	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetHandler(func() {
 		client.Subscribe(123, "btcusdt@trade", "ltcusdt@trade")
 		client.SetCombined(true, 123)

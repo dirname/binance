@@ -24,8 +24,8 @@ You are very welcome to submit issues or pull requests to share with this projec
 
 - *Remove all WAPI endpoints*
 
-  *As Binance has planned to remove all WAPI endpoints from the Binance API at 2021-08-01 2:00 AM (UTC). So this
-  the repo has removed all WAPI endpoints from the Binance API in advance*
+  *As Binance has planned to remove all WAPI endpoints from the Binance API at 2021-08-01 2:00 AM (UTC). So this the
+  repo has removed all WAPI endpoints from the Binance API in advance*
   *[More Information](https://www.binance.com/en/support/announcement/f45dde7da58b473aa885349946bed269)*
 
 - [spot/client/market.go:Line185](https://github.com/dirname/Binance/blob/main/spot/client/market.go#L185)
@@ -170,10 +170,14 @@ import (
 	"github.com/dirname/Binance/futures/usdt/websocket/market"
 	logger "github.com/dirname/Binance/logging"
 	"github.com/dirname/Binance/model"
+	"time"
 )
 
 func main() {
 	client := futuresusdt.NewUSDTFuturesCandlestickWebsocketClient("btcusdt@kline_1m")
+	client.SetReadTimerInterval(5 * time.Second)
+	client.SetReconnectWaitTime(5 * time.Second)
+	client.SetKeepAliveInterval(2 * time.Minute)
 	client.SetHandler(func() {
 		client.Subscribe(123, "btcusdt@kline_1m", "btcusdt@kline_5m")
 		client.SetCombined(true, 123)

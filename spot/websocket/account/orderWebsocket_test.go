@@ -7,28 +7,28 @@ import (
 	"testing"
 )
 
-func TestNewSpotAggTradeWebsocketClient(t *testing.T) {
+func TestNewOrderWebsocketClient(t *testing.T) {
 	type args struct {
 		streams []string
 	}
 	tests := []struct {
 		name string
 		args args
-		want *SpotAggTradeWebsocketClient
+		want *OrderWebsocketClient
 	}{
-		{"TestNewSpotAggTradeWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
+		{"TestNewOrderWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewSpotAggTradeWebsocketClient(tt.args.streams...); reflect.DeepEqual(got, tt.want) {
-				t.Errorf("NewSpotAggTradeWebsocketClient() = %v, want %v", got, tt.want)
+			if got := NewOrderWebsocketClient(tt.args.streams...); reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewOrderWebsocketClient() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
-func TestSpotAggTradeWebsocketClient_GetCombined(t *testing.T) {
+func TestOrderWebsocketClient_GetCombined(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -40,12 +40,12 @@ func TestSpotAggTradeWebsocketClient_GetCombined(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestSpotAggTradeWebsocketClient_GetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{0}},
+		{"TestOrderWebsocketClient_GetCombined", fields{binance.WebsocketClient{}}, args{0}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &SpotAggTradeWebsocketClient{
+			u := &OrderWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.GetCombined(tt.args.id)
@@ -53,7 +53,7 @@ func TestSpotAggTradeWebsocketClient_GetCombined(t *testing.T) {
 	}
 }
 
-func TestSpotAggTradeWebsocketClient_GetSubscribe(t *testing.T) {
+func TestOrderWebsocketClient_GetSubscribe(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -65,12 +65,12 @@ func TestSpotAggTradeWebsocketClient_GetSubscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestSpotAggTradeWebsocketClient_GetSubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{0}},
+		{"TestOrderWebsocketClient_GetSubscribe", fields{binance.WebsocketClient{}}, args{0}},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &SpotAggTradeWebsocketClient{
+			u := &OrderWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.GetSubscribe(tt.args.id)
@@ -78,7 +78,7 @@ func TestSpotAggTradeWebsocketClient_GetSubscribe(t *testing.T) {
 	}
 }
 
-func TestSpotAggTradeWebsocketClient_SetCombined(t *testing.T) {
+func TestOrderWebsocketClient_SetCombined(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -91,7 +91,7 @@ func TestSpotAggTradeWebsocketClient_SetCombined(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestSpotAggTradeWebsocketClient_SetCombined", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestOrderWebsocketClient_SetCombined", fields{binance.WebsocketClient{}}, args{
 			b:  false,
 			id: 0,
 		}},
@@ -99,7 +99,7 @@ func TestSpotAggTradeWebsocketClient_SetCombined(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &SpotAggTradeWebsocketClient{
+			u := &OrderWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.SetCombined(tt.args.b, tt.args.id)
@@ -107,7 +107,7 @@ func TestSpotAggTradeWebsocketClient_SetCombined(t *testing.T) {
 	}
 }
 
-func TestSpotAggTradeWebsocketClient_SetHandler(t *testing.T) {
+func TestOrderWebsocketClient_SetHandler(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -120,7 +120,7 @@ func TestSpotAggTradeWebsocketClient_SetHandler(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestSpotAggTradeWebsocketClient_SetHandler", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestOrderWebsocketClient_SetHandler", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			connectHandler:  nil,
 			responseHandler: nil,
 		}},
@@ -128,7 +128,7 @@ func TestSpotAggTradeWebsocketClient_SetHandler(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &SpotAggTradeWebsocketClient{
+			u := &OrderWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.SetHandler(tt.args.connectHandler, tt.args.responseHandler)
@@ -136,7 +136,7 @@ func TestSpotAggTradeWebsocketClient_SetHandler(t *testing.T) {
 	}
 }
 
-func TestSpotAggTradeWebsocketClient_Subscribe(t *testing.T) {
+func TestOrderWebsocketClient_Subscribe(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -149,7 +149,7 @@ func TestSpotAggTradeWebsocketClient_Subscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestSpotAggTradeWebsocketClient_Subscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestOrderWebsocketClient_Subscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			id:     0,
 			params: nil,
 		}},
@@ -157,7 +157,7 @@ func TestSpotAggTradeWebsocketClient_Subscribe(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &SpotAggTradeWebsocketClient{
+			u := &OrderWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.Subscribe(tt.args.id, tt.args.params...)
@@ -165,7 +165,7 @@ func TestSpotAggTradeWebsocketClient_Subscribe(t *testing.T) {
 	}
 }
 
-func TestSpotAggTradeWebsocketClient_Unsubscribe(t *testing.T) {
+func TestOrderWebsocketClient_Unsubscribe(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -178,7 +178,7 @@ func TestSpotAggTradeWebsocketClient_Unsubscribe(t *testing.T) {
 		fields fields
 		args   args
 	}{
-		{"TestSpotAggTradeWebsocketClient_Unsubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
+		{"TestOrderWebsocketClient_Unsubscribe", fields{WebsocketClient: binance.WebsocketClient{}}, args{
 			id:     0,
 			params: nil,
 		}},
@@ -186,7 +186,7 @@ func TestSpotAggTradeWebsocketClient_Unsubscribe(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &SpotAggTradeWebsocketClient{
+			u := &OrderWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			u.Unsubscribe(tt.args.id, tt.args.params...)
@@ -194,7 +194,7 @@ func TestSpotAggTradeWebsocketClient_Unsubscribe(t *testing.T) {
 	}
 }
 
-func TestSpotAggTradeWebsocketClient_handleMessage(t *testing.T) {
+func TestOrderWebsocketClient_handleMessage(t *testing.T) {
 	type fields struct {
 		WebsocketClient binance.WebsocketClient
 	}
@@ -208,24 +208,34 @@ func TestSpotAggTradeWebsocketClient_handleMessage(t *testing.T) {
 		want    interface{}
 		wantErr bool
 	}{
-		{"TestSpotAggTradeWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"code\":0,\"msg\":\"Unknown property\",\"id\":0}")}, model.WebsocketErrorResponse{
+		{"TestOrderWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"code\":0,\"msg\":\"Unknown property\",\"id\":0}")}, model.WebsocketErrorResponse{
 			Code:    0,
 			Message: "Unknown property",
 		}, false},
-		{"TestSpotAggTradeWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\":\"test\"}")}, AggTradeCombinedResponse{
+		{"TestOrderWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\": \"test\", \"data\": {\"e\": \"executionReport\"}}")}, ExecutionCombinedReport{
 			StreamName: "test",
+			Data:       ExecutionReport{EventType: "executionReport"},
 		}, false},
-		{"TestSpotAggTradeWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"e\":\"test\"}")}, AggTradeResponse{
-			EventType: "test",
+		{"TestOrderWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"stream\": \"test\", \"data\": {\"e\": \"listStatus\"}}")}, ListCombinedStatus{
+			StreamName: "test",
+			Data:       ListStatus{EventType: "listStatus"},
 		}, false},
-		{"TestSpotAggTradeWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"result\":\"test\"}")}, model.WebsocketCommonResponse{
+		{"TestOrderWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"e\": \"executionReport\", \"s\": \"test\"}")}, ExecutionReport{
+			Symbol:    "test",
+			EventType: "executionReport",
+		}, false},
+		{"TestOrderWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"e\": \"listStatus\", \"s\": \"test\"}")}, ListStatus{
+			Symbol:    "test",
+			EventType: "listStatus",
+		}, false},
+		{"TestOrderWebsocketClient_handleMessage", fields{WebsocketClient: binance.WebsocketClient{}}, args{msg: []byte("{\"result\":\"test\"}")}, model.WebsocketCommonResponse{
 			Result: "test",
 		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			u := &SpotAggTradeWebsocketClient{
+			u := &OrderWebsocketClient{
 				WebsocketClient: tt.fields.WebsocketClient,
 			}
 			got, err := u.handleMessage(tt.args.msg)

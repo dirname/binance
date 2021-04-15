@@ -41,6 +41,9 @@ func (b *listenKeyBuilder) CreateSpotListenKey() (string, error) {
 	if _, ok := parser["code"]; ok {
 		result := model.APIErrorResponse{}
 		err = json.Unmarshal(res, &result)
+		if err == nil {
+			err = errors.New(result.Message)
+		}
 		return result.Message, err
 	}
 	result := ListenKeyResponse{}
@@ -113,6 +116,9 @@ func (b *listenKeyBuilder) CreateMarginListenKey() (string, error) {
 	if _, ok := parser["code"]; ok {
 		result := model.APIErrorResponse{}
 		err = json.Unmarshal(res, &result)
+		if err == nil {
+			err = errors.New(result.Message)
+		}
 		return result.Message, err
 	}
 	result := ListenKeyResponse{}
@@ -190,6 +196,9 @@ func (b *listenKeyBuilder) CreateIsolatedListenKey(symbol string) (string, error
 	if _, ok := parser["code"]; ok {
 		result := model.APIErrorResponse{}
 		err = json.Unmarshal(res, &result)
+		if err == nil {
+			err = errors.New(result.Message)
+		}
 		return result.Message, err
 	}
 	result := ListenKeyResponse{}

@@ -5,10 +5,13 @@ import (
 	"github.com/dirname/Binance/futures/usdt/websocket/market"
 	logger "github.com/dirname/Binance/logging"
 	"github.com/dirname/Binance/model"
+	"time"
 )
 
 func main() {
 	client := futuresusdt.NewUSDTFuturesSymbolBookTickerWebsocketClient("btcusdt@bookTicker")
+	client.SetReadTimerInterval(5 * time.Second)
+	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetHandler(func() {
 		client.Subscribe(123, "btcusdt@bookTicker", "ltcusdt@bookTicker")
 		client.SetCombined(true, 123)

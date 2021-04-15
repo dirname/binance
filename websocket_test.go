@@ -1638,3 +1638,76 @@ func TestWebsocketClient_SetReconnectWaitTime(t *testing.T) {
 		})
 	}
 }
+
+func TestWebsocketClient_SetKeepAliveInterval(t *testing.T) {
+	type fields struct {
+		host                 string
+		stream               string
+		conn                 *websocket.Conn
+		connectedHandler     ConnectedHandler
+		messageHandler       MessageHandler
+		responseHandler      ResponseHandler
+		stopReadChannel      chan int
+		stopTickerChannel    chan int
+		stopKeepAliveChannel chan int
+		keepAliveTicker      *time.Ticker
+		ticker               *time.Ticker
+		sendMutex            *sync.Mutex
+		lastReceivedTime     time.Time
+		establishmentTime    time.Time
+		keepAliveInterval    time.Duration
+		reconnectWaitTime    time.Duration
+		readTimerInterval    time.Duration
+	}
+	type args struct {
+		time time.Duration
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		{"TestWebsocketClient_SetKeepAliveInterval", fields{
+			host:                 "echo.websocket.org",
+			stream:               "",
+			conn:                 nil,
+			connectedHandler:     nil,
+			messageHandler:       nil,
+			responseHandler:      nil,
+			stopReadChannel:      make(chan int, 1),
+			stopTickerChannel:    make(chan int, 1),
+			stopKeepAliveChannel: make(chan int, 1),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
+			sendMutex:            &sync.Mutex{},
+			lastReceivedTime:     time.Now(),
+			establishmentTime:    time.Now(),
+			keepAliveInterval:    10 * time.Second,
+		}, args{10 * time.Microsecond}},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			w := &WebsocketClient{
+				host:                 tt.fields.host,
+				stream:               tt.fields.stream,
+				conn:                 tt.fields.conn,
+				connectedHandler:     tt.fields.connectedHandler,
+				messageHandler:       tt.fields.messageHandler,
+				responseHandler:      tt.fields.responseHandler,
+				stopReadChannel:      tt.fields.stopReadChannel,
+				stopTickerChannel:    tt.fields.stopTickerChannel,
+				stopKeepAliveChannel: tt.fields.stopKeepAliveChannel,
+				keepAliveTicker:      tt.fields.keepAliveTicker,
+				ticker:               tt.fields.ticker,
+				sendMutex:            tt.fields.sendMutex,
+				lastReceivedTime:     tt.fields.lastReceivedTime,
+				establishmentTime:    tt.fields.establishmentTime,
+				keepAliveInterval:    tt.fields.keepAliveInterval,
+				reconnectWaitTime:    tt.fields.reconnectWaitTime,
+				readTimerInterval:    tt.fields.readTimerInterval,
+			}
+			w.SetReadTimerInterval(tt.args.time)
+		})
+	}
+}

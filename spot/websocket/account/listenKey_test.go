@@ -2,6 +2,7 @@ package spotclient
 
 import (
 	binance "github.com/dirname/Binance"
+	"github.com/dirname/Binance/config"
 	"reflect"
 	"testing"
 )
@@ -48,6 +49,7 @@ func Test_listenKeyBuilder_CreateIsolatedListenKey(t *testing.T) {
 		wantErr bool
 	}{
 		{"Test_listenKeyBuilder_CreateIsolatedListenKey", fields{Builder: NewListenKeyBuilder("", "", "").Builder}, args{symbol: ""}, "", true},
+		{"Test_listenKeyBuilder_CreateIsolatedListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{symbol: ""}, "", true},
 		{"Test_listenKeyBuilder_CreateIsolatedListenKey", fields{Builder: NewListenKeyBuilder("", "", "").Builder}, args{symbol: "test"}, "", true},
 		// TODO: Add test cases.
 	}
@@ -79,6 +81,7 @@ func Test_listenKeyBuilder_CreateMarginListenKey(t *testing.T) {
 		wantErr bool
 	}{
 		{"Test_listenKeyBuilder_CreateMarginListenKey", fields{Builder: NewListenKeyBuilder("", "", "").Builder}, "", true},
+		{"Test_listenKeyBuilder_CreateMarginListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, "API-key format invalid.", true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -109,6 +112,7 @@ func Test_listenKeyBuilder_CreateSpotListenKey(t *testing.T) {
 		wantErr bool
 	}{
 		{"Test_listenKeyBuilder_CreateSpotListenKey", fields{Builder: NewListenKeyBuilder("", "", "").Builder}, "", true},
+		{"Test_listenKeyBuilder_CreateSpotListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, "API-key format invalid.", true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -151,6 +155,10 @@ func Test_listenKeyBuilder_DeleteIsolatedListenKey(t *testing.T) {
 			symbol: "",
 			key:    "",
 		}, nil, true},
+		{"Test_listenKeyBuilder_DeleteIsolatedListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
+			symbol: "",
+			key:    "",
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -190,6 +198,9 @@ func Test_listenKeyBuilder_DeleteMarginListenKey(t *testing.T) {
 		{"Test_listenKeyBuilder_DeleteMarginListenKey", fields{Builder: NewListenKeyBuilder("", "", "").Builder}, args{
 			key: "",
 		}, nil, true},
+		{"Test_listenKeyBuilder_DeleteMarginListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
+			key: "",
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -227,6 +238,9 @@ func Test_listenKeyBuilder_DeleteSpotListenKey(t *testing.T) {
 			key: "test",
 		}, nil, true},
 		{"Test_listenKeyBuilder_DeleteSpotListenKey", fields{Builder: NewListenKeyBuilder("", "", "").Builder}, args{
+			key: "",
+		}, nil, true},
+		{"Test_listenKeyBuilder_DeleteSpotListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
 			key: "",
 		}, nil, true},
 		// TODO: Add test cases.
@@ -271,6 +285,10 @@ func Test_listenKeyBuilder_PingIsolatedListenKey(t *testing.T) {
 			symbol: "",
 			key:    "",
 		}, nil, true},
+		{"Test_listenKeyBuilder_PingIsolatedListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
+			symbol: "",
+			key:    "",
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -310,6 +328,9 @@ func Test_listenKeyBuilder_PingMarginListenKey(t *testing.T) {
 		{"Test_listenKeyBuilder_PingMarginListenKey", fields{Builder: NewListenKeyBuilder("", "", "").Builder}, args{
 			key: "",
 		}, nil, true},
+		{"Test_listenKeyBuilder_PingMarginListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
+			key: "",
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -347,6 +368,9 @@ func Test_listenKeyBuilder_PingSpotListenKey(t *testing.T) {
 			key: "test",
 		}, nil, true},
 		{"Test_listenKeyBuilder_PingSpotListenKey", fields{Builder: NewListenKeyBuilder("", "", "").Builder}, args{
+			key: "",
+		}, nil, true},
+		{"Test_listenKeyBuilder_PingSpotListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
 			key: "",
 		}, nil, true},
 		// TODO: Add test cases.

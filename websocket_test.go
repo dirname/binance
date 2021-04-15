@@ -1707,7 +1707,7 @@ func TestWebsocketClient_SetKeepAliveInterval(t *testing.T) {
 				reconnectWaitTime:    tt.fields.reconnectWaitTime,
 				readTimerInterval:    tt.fields.readTimerInterval,
 			}
-			w.SetReadTimerInterval(tt.args.time)
+			w.SetKeepAliveInterval(tt.args.time)
 		})
 	}
 }

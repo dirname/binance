@@ -10,13 +10,6 @@ import (
 	"time"
 )
 
-const (
-	// TimerIntervalSecond time wait ws established second
-	TimerIntervalSecond = 5
-	// ReconnectWaitSecond time wait ws reconnect second
-	ReconnectWaitSecond = 60
-)
-
 // ConnectedHandler invoked after websocket connected
 type ConnectedHandler func()
 
@@ -49,6 +42,8 @@ type WebsocketClient struct {
 	lastReceivedTime     time.Time
 	establishmentTime    time.Time
 	keepAliveInterval    time.Duration
+	reconnectWaitTime    time.Duration
+	readTimerInterval    time.Duration
 }
 
 // Init Initializer websocket client
@@ -98,6 +93,16 @@ func (w *WebsocketClient) SetMessageHandler(handler MessageHandler) {
 // SetResponseHandler set client on response handler
 func (w *WebsocketClient) SetResponseHandler(handler ResponseHandler) {
 	w.responseHandler = handler
+}
+
+// SetReconnectWaitTime set time wait ws reconnect second
+func (w *WebsocketClient) SetReconnectWaitTime(time time.Duration) {
+	w.reconnectWaitTime = time
+}
+
+// SetReadTimerInterval set time wait ws to received time second
+func (w *WebsocketClient) SetReadTimerInterval(time time.Duration) {
+	w.readTimerInterval = time
 }
 
 // SetPingHandler set client on ping handler
@@ -201,7 +206,7 @@ func (w *WebsocketClient) disconnectWebsocket() {
 }
 
 func (w *WebsocketClient) startTicker() {
-	w.ticker = time.NewTicker(TimerIntervalSecond * time.Second)
+	w.ticker = time.NewTicker(w.readTimerInterval)
 	go w.tickerLoop()
 }
 
@@ -219,9 +224,9 @@ func (w *WebsocketClient) tickerLoop() {
 			return
 
 		case <-w.ticker.C:
-			elapsedSecond := time.Now().Sub(w.lastReceivedTime).Seconds()
+			elapsedSecond := time.Now().Sub(w.lastReceivedTime).Microseconds()
 			//logger.Debug("Last received data was %f sec ago", elapsedSecond)
-			if elapsedSecond > ReconnectWaitSecond {
+			if elapsedSecond > w.reconnectWaitTime.Microseconds() {
 				logger.Info("Websocket started reconnect...")
 				w.disconnectWebsocket()
 				w.connectWebsocket()
@@ -283,7 +288,7 @@ func (w *WebsocketClient) readLoop() {
 		default:
 			if w.conn == nil {
 				logger.Error("Read error: No established websocket connection")
-				time.Sleep(TimerIntervalSecond * time.Second)
+				time.Sleep(w.readTimerInterval)
 				continue
 			}
 
@@ -291,7 +296,7 @@ func (w *WebsocketClient) readLoop() {
 
 			if err != nil {
 				logger.Error("Read error: %s", err)
-				time.Sleep(TimerIntervalSecond * time.Second)
+				time.Sleep(w.readTimerInterval)
 				continue
 			}
 

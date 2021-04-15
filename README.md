@@ -15,7 +15,7 @@ to [HuobiRDCenter/huobi_Golang](https://github.com/huobirdcenter/huobi_golang)
 
 # Official Documents
 
-Please make sure you have read the [Binance API document](https://binance-docs.github.io/apidocs/)
+Please make sure you have read the [Binance API document](https://binance-docs.github.io/apidocs/spot/en/)
 before continuing.
 
 # Precautions

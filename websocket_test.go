@@ -40,8 +40,8 @@ func TestWebsocketClient_Close(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
@@ -90,6 +90,8 @@ func TestWebsocketClient_Connect(t *testing.T) {
 		lastReceivedTime     time.Time
 		establishmentTime    time.Time
 		keepAliveInterval    time.Duration
+		reconnectWaitTime    time.Duration
+		readTimerInterval    time.Duration
 	}
 	type args struct {
 		autoReconnect bool
@@ -109,12 +111,14 @@ func TestWebsocketClient_Connect(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
 			keepAliveInterval:    10 * time.Second,
+			readTimerInterval:    1 * time.Second,
+			reconnectWaitTime:    1 * time.Second,
 		}, args{autoReconnect: false}},
 		{"TestWebsocketClient_Connect", fields{
 			host:                 "echo.websocket.org",
@@ -126,12 +130,14 @@ func TestWebsocketClient_Connect(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
 			keepAliveInterval:    10 * time.Second,
+			readTimerInterval:    1 * time.Second,
+			reconnectWaitTime:    1 * time.Second,
 		}, args{autoReconnect: true}},
 		// TODO: Add test cases.
 	}
@@ -153,6 +159,8 @@ func TestWebsocketClient_Connect(t *testing.T) {
 				lastReceivedTime:     tt.fields.lastReceivedTime,
 				establishmentTime:    tt.fields.establishmentTime,
 				keepAliveInterval:    tt.fields.keepAliveInterval,
+				readTimerInterval:    1 * time.Second,
+				reconnectWaitTime:    1 * time.Second,
 			}
 			u.Connect(tt.args.autoReconnect)
 			u.Close()
@@ -262,8 +270,8 @@ func TestWebsocketClient_Send(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
@@ -333,8 +341,8 @@ func TestWebsocketClient_SendJSON(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
@@ -755,8 +763,8 @@ func TestWebsocketClient_connectWebsocket(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
@@ -774,8 +782,8 @@ func TestWebsocketClient_connectWebsocket(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
@@ -840,8 +848,8 @@ func TestWebsocketClient_disconnectWebsocket(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Time{},
 			establishmentTime:    time.Time{},
@@ -907,8 +915,8 @@ func TestWebsocketClient_keepAliveLoop(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Now(),
 			establishmentTime:    time.Now(),
@@ -973,8 +981,8 @@ func TestWebsocketClient_readLoop(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Now(),
 			establishmentTime:    time.Now(),
@@ -1106,8 +1114,8 @@ func TestWebsocketClient_startReadLoop(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Now(),
 			establishmentTime:    time.Now(),
@@ -1157,6 +1165,8 @@ func TestWebsocketClient_startTicker(t *testing.T) {
 		lastReceivedTime     time.Time
 		establishmentTime    time.Time
 		keepAliveInterval    time.Duration
+		readTimerInterval    time.Duration
+		reconnectWaitTime    time.Duration
 	}
 	tests := []struct {
 		name   string
@@ -1172,12 +1182,14 @@ func TestWebsocketClient_startTicker(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Now(),
 			establishmentTime:    time.Now(),
 			keepAliveInterval:    10 * time.Second,
+			readTimerInterval:    1 * time.Second,
+			reconnectWaitTime:    1 * time.Second,
 		}},
 		// TODO: Add test cases.
 	}
@@ -1199,6 +1211,8 @@ func TestWebsocketClient_startTicker(t *testing.T) {
 				lastReceivedTime:     tt.fields.lastReceivedTime,
 				establishmentTime:    tt.fields.establishmentTime,
 				keepAliveInterval:    tt.fields.keepAliveInterval,
+				readTimerInterval:    tt.fields.readTimerInterval,
+				reconnectWaitTime:    tt.fields.reconnectWaitTime,
 			}
 			u.startTicker()
 			u.stopTicker()
@@ -1238,8 +1252,8 @@ func TestWebsocketClient_stopKeepAliveTicker(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Now(),
 			establishmentTime:    time.Now(),
@@ -1304,8 +1318,8 @@ func TestWebsocketClient_stopReadLoop(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Now(),
 			establishmentTime:    time.Now(),
@@ -1357,6 +1371,8 @@ func TestWebsocketClient_stopTicker(t *testing.T) {
 		lastReceivedTime     time.Time
 		establishmentTime    time.Time
 		keepAliveInterval    time.Duration
+		readTimerInterval    time.Duration
+		reconnectWaitTime    time.Duration
 	}
 	tests := []struct {
 		name   string
@@ -1372,12 +1388,14 @@ func TestWebsocketClient_stopTicker(t *testing.T) {
 			stopReadChannel:      make(chan int, 1),
 			stopTickerChannel:    make(chan int, 1),
 			stopKeepAliveChannel: make(chan int, 1),
-			keepAliveTicker:      time.NewTicker(TimerIntervalSecond * time.Second),
-			ticker:               time.NewTicker(TimerIntervalSecond * time.Second),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Now(),
 			establishmentTime:    time.Now(),
 			keepAliveInterval:    10 * time.Second,
+			readTimerInterval:    1 * time.Second,
+			reconnectWaitTime:    1 * time.Second,
 		}},
 		// TODO: Add test cases.
 	}
@@ -1399,6 +1417,8 @@ func TestWebsocketClient_stopTicker(t *testing.T) {
 				lastReceivedTime:     tt.fields.lastReceivedTime,
 				establishmentTime:    tt.fields.establishmentTime,
 				keepAliveInterval:    tt.fields.keepAliveInterval,
+				readTimerInterval:    tt.fields.readTimerInterval,
+				reconnectWaitTime:    tt.fields.reconnectWaitTime,
 			}
 			u.startTicker()
 			u.stopTicker()
@@ -1469,6 +1489,152 @@ func TestWebsocketClient_tickerLoop(t *testing.T) {
 			go u.tickerLoop()
 			time.Sleep(2 * time.Second)
 			u.stopTicker()
+		})
+	}
+}
+
+func TestWebsocketClient_SetReadTimerInterval(t *testing.T) {
+	type fields struct {
+		host                 string
+		stream               string
+		conn                 *websocket.Conn
+		connectedHandler     ConnectedHandler
+		messageHandler       MessageHandler
+		responseHandler      ResponseHandler
+		stopReadChannel      chan int
+		stopTickerChannel    chan int
+		stopKeepAliveChannel chan int
+		keepAliveTicker      *time.Ticker
+		ticker               *time.Ticker
+		sendMutex            *sync.Mutex
+		lastReceivedTime     time.Time
+		establishmentTime    time.Time
+		keepAliveInterval    time.Duration
+		reconnectWaitTime    time.Duration
+		readTimerInterval    time.Duration
+	}
+	type args struct {
+		time time.Duration
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		{"TestWebsocketClient_SetReadTimerInterval", fields{
+			host:                 "echo.websocket.org",
+			stream:               "",
+			conn:                 nil,
+			connectedHandler:     nil,
+			messageHandler:       nil,
+			responseHandler:      nil,
+			stopReadChannel:      make(chan int, 1),
+			stopTickerChannel:    make(chan int, 1),
+			stopKeepAliveChannel: make(chan int, 1),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
+			sendMutex:            &sync.Mutex{},
+			lastReceivedTime:     time.Now(),
+			establishmentTime:    time.Now(),
+			keepAliveInterval:    10 * time.Second,
+		}, args{10 * time.Microsecond}},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			w := &WebsocketClient{
+				host:                 tt.fields.host,
+				stream:               tt.fields.stream,
+				conn:                 tt.fields.conn,
+				connectedHandler:     tt.fields.connectedHandler,
+				messageHandler:       tt.fields.messageHandler,
+				responseHandler:      tt.fields.responseHandler,
+				stopReadChannel:      tt.fields.stopReadChannel,
+				stopTickerChannel:    tt.fields.stopTickerChannel,
+				stopKeepAliveChannel: tt.fields.stopKeepAliveChannel,
+				keepAliveTicker:      tt.fields.keepAliveTicker,
+				ticker:               tt.fields.ticker,
+				sendMutex:            tt.fields.sendMutex,
+				lastReceivedTime:     tt.fields.lastReceivedTime,
+				establishmentTime:    tt.fields.establishmentTime,
+				keepAliveInterval:    tt.fields.keepAliveInterval,
+				reconnectWaitTime:    tt.fields.reconnectWaitTime,
+				readTimerInterval:    tt.fields.readTimerInterval,
+			}
+			w.SetReadTimerInterval(tt.args.time)
+		})
+	}
+}
+
+func TestWebsocketClient_SetReconnectWaitTime(t *testing.T) {
+	type fields struct {
+		host                 string
+		stream               string
+		conn                 *websocket.Conn
+		connectedHandler     ConnectedHandler
+		messageHandler       MessageHandler
+		responseHandler      ResponseHandler
+		stopReadChannel      chan int
+		stopTickerChannel    chan int
+		stopKeepAliveChannel chan int
+		keepAliveTicker      *time.Ticker
+		ticker               *time.Ticker
+		sendMutex            *sync.Mutex
+		lastReceivedTime     time.Time
+		establishmentTime    time.Time
+		keepAliveInterval    time.Duration
+		reconnectWaitTime    time.Duration
+		readTimerInterval    time.Duration
+	}
+	type args struct {
+		time time.Duration
+	}
+	tests := []struct {
+		name   string
+		fields fields
+		args   args
+	}{
+		{"TestWebsocketClient_SetReconnectWaitTime", fields{
+			host:                 "echo.websocket.org",
+			stream:               "",
+			conn:                 nil,
+			connectedHandler:     nil,
+			messageHandler:       nil,
+			responseHandler:      nil,
+			stopReadChannel:      make(chan int, 1),
+			stopTickerChannel:    make(chan int, 1),
+			stopKeepAliveChannel: make(chan int, 1),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
+			sendMutex:            &sync.Mutex{},
+			lastReceivedTime:     time.Now(),
+			establishmentTime:    time.Now(),
+			keepAliveInterval:    10 * time.Second,
+		}, args{10 * time.Microsecond}},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			w := &WebsocketClient{
+				host:                 tt.fields.host,
+				stream:               tt.fields.stream,
+				conn:                 tt.fields.conn,
+				connectedHandler:     tt.fields.connectedHandler,
+				messageHandler:       tt.fields.messageHandler,
+				responseHandler:      tt.fields.responseHandler,
+				stopReadChannel:      tt.fields.stopReadChannel,
+				stopTickerChannel:    tt.fields.stopTickerChannel,
+				stopKeepAliveChannel: tt.fields.stopKeepAliveChannel,
+				keepAliveTicker:      tt.fields.keepAliveTicker,
+				ticker:               tt.fields.ticker,
+				sendMutex:            tt.fields.sendMutex,
+				lastReceivedTime:     tt.fields.lastReceivedTime,
+				establishmentTime:    tt.fields.establishmentTime,
+				keepAliveInterval:    tt.fields.keepAliveInterval,
+				reconnectWaitTime:    tt.fields.reconnectWaitTime,
+				readTimerInterval:    tt.fields.readTimerInterval,
+			}
+			w.SetReconnectWaitTime(tt.args.time)
 		})
 	}
 }

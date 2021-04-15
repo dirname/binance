@@ -156,8 +156,8 @@ func Test_listenKeyBuilder_DeleteIsolatedListenKey(t *testing.T) {
 			key:    "",
 		}, nil, true},
 		{"Test_listenKeyBuilder_DeleteIsolatedListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
-			symbol: "",
-			key:    "",
+			symbol: "test",
+			key:    "123",
 		}, nil, true},
 		// TODO: Add test cases.
 	}
@@ -199,7 +199,7 @@ func Test_listenKeyBuilder_DeleteMarginListenKey(t *testing.T) {
 			key: "",
 		}, nil, true},
 		{"Test_listenKeyBuilder_DeleteMarginListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
-			key: "",
+			key: "test",
 		}, nil, true},
 		// TODO: Add test cases.
 	}
@@ -241,7 +241,7 @@ func Test_listenKeyBuilder_DeleteSpotListenKey(t *testing.T) {
 			key: "",
 		}, nil, true},
 		{"Test_listenKeyBuilder_DeleteSpotListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
-			key: "",
+			key: "test",
 		}, nil, true},
 		// TODO: Add test cases.
 	}
@@ -286,8 +286,8 @@ func Test_listenKeyBuilder_PingIsolatedListenKey(t *testing.T) {
 			key:    "",
 		}, nil, true},
 		{"Test_listenKeyBuilder_PingIsolatedListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
-			symbol: "",
-			key:    "",
+			symbol: "test",
+			key:    "test",
 		}, nil, true},
 		// TODO: Add test cases.
 	}
@@ -329,7 +329,7 @@ func Test_listenKeyBuilder_PingMarginListenKey(t *testing.T) {
 			key: "",
 		}, nil, true},
 		{"Test_listenKeyBuilder_PingMarginListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
-			key: "",
+			key: "test",
 		}, nil, true},
 		// TODO: Add test cases.
 	}
@@ -371,7 +371,7 @@ func Test_listenKeyBuilder_PingSpotListenKey(t *testing.T) {
 			key: "",
 		}, nil, true},
 		{"Test_listenKeyBuilder_PingSpotListenKey", fields{Builder: NewListenKeyBuilder(config.SpotRestHost, "", "").Builder}, args{
-			key: "",
+			key: "test",
 		}, nil, true},
 		// TODO: Add test cases.
 	}

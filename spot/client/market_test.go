@@ -439,11 +439,11 @@ func TestMarketClient_GetSymbolOrderBookTicker(t *testing.T) {
 		{"TestMarketClient_GetSymbolOrderBookTicker", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
-		}, args{"test"}, SymbolOrderBookTickerResponse{}, true},
+		}, args{"test"}, false, true},
 		{"TestMarketClient_GetSymbolOrderBookTicker", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
-		}, args{""}, SymbolOrderBookTickerResponse{}, true},
+		}, args{""}, []SymbolOrderBookTickerResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -457,7 +457,7 @@ func TestMarketClient_GetSymbolOrderBookTicker(t *testing.T) {
 				t.Errorf("GetSymbolOrderBookTicker() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetSymbolOrderBookTicker() got = %v, want %v", got, tt.want)
 			}
 		})
@@ -482,11 +482,11 @@ func TestMarketClient_GetSymbolTickerPrice(t *testing.T) {
 		{"TestMarketClient_GetSymbolTickerPrice", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
-		}, args{"test"}, SymbolPriceTickerResponse{}, true},
+		}, args{"test"}, false, true},
 		{"TestMarketClient_GetSymbolTickerPrice", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
-		}, args{""}, SymbolPriceTickerResponse{}, true},
+		}, args{""}, []SymbolPriceTickerResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -500,7 +500,7 @@ func TestMarketClient_GetSymbolTickerPrice(t *testing.T) {
 				t.Errorf("GetSymbolTickerPrice() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetSymbolTickerPrice() got = %v, want %v", got, tt.want)
 			}
 		})

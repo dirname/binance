@@ -915,7 +915,7 @@ func TestWebsocketClient_keepAliveLoop(t *testing.T) {
 		fields fields
 	}{
 		{"TestWebsocketClient_keepAliveLoop", fields{
-			host:                 "echo.websocket.org",
+			host:                 "",
 			stream:               "",
 			conn:                 conn,
 			connectedHandler:     nil,

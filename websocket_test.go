@@ -224,6 +224,14 @@ func TestWebsocketClient_Init(t *testing.T) {
 				stream: []string{"test", "test"},
 			},
 		},
+		{
+			name:   "TestWebsocketClient_Init",
+			fields: fields{},
+			args: args{
+				host:   "echo.websocket.org",
+				stream: []string{"test", "test"},
+			},
+		},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -901,6 +909,7 @@ func TestWebsocketClient_keepAliveLoop(t *testing.T) {
 		establishmentTime    time.Time
 		keepAliveInterval    time.Duration
 	}
+	conn, _, _ := websocket.DefaultDialer.Dial("wss://echo.websocket.org", nil)
 	tests := []struct {
 		name   string
 		fields fields
@@ -908,7 +917,7 @@ func TestWebsocketClient_keepAliveLoop(t *testing.T) {
 		{"TestWebsocketClient_keepAliveLoop", fields{
 			host:                 "echo.websocket.org",
 			stream:               "",
-			conn:                 nil,
+			conn:                 conn,
 			connectedHandler:     nil,
 			messageHandler:       nil,
 			responseHandler:      nil,
@@ -944,6 +953,8 @@ func TestWebsocketClient_keepAliveLoop(t *testing.T) {
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
 			go u.keepAliveLoop()
+			u.keepAliveTicker = time.NewTicker(1 * time.Second)
+			time.Sleep(1 * time.Second)
 			u.stopKeepAliveTicker()
 		})
 	}
@@ -1010,6 +1021,7 @@ func TestWebsocketClient_readLoop(t *testing.T) {
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
 			go u.readLoop()
+			u.ticker = time.NewTicker(1 * time.Second)
 			u.stopReadLoop()
 		})
 	}
@@ -1462,6 +1474,23 @@ func TestWebsocketClient_tickerLoop(t *testing.T) {
 			ticker:               time.NewTicker(1 * time.Second),
 			sendMutex:            &sync.Mutex{},
 			lastReceivedTime:     time.Now(),
+			establishmentTime:    time.Now(),
+			keepAliveInterval:    10 * time.Second,
+		}},
+		{"TestWebsocketClient_tickerLoop", fields{
+			host:                 "echo.websocket.org",
+			stream:               "",
+			conn:                 nil,
+			connectedHandler:     nil,
+			messageHandler:       nil,
+			responseHandler:      nil,
+			stopReadChannel:      make(chan int, 1),
+			stopTickerChannel:    make(chan int, 1),
+			stopKeepAliveChannel: make(chan int, 1),
+			keepAliveTicker:      time.NewTicker(1 * time.Second),
+			ticker:               time.NewTicker(1 * time.Second),
+			sendMutex:            &sync.Mutex{},
+			lastReceivedTime:     time.Unix(0, (time.Now().Unix()-860000)*int64(time.Millisecond)),
 			establishmentTime:    time.Now(),
 			keepAliveInterval:    10 * time.Second,
 		}},

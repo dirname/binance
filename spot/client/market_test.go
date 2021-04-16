@@ -440,6 +440,10 @@ func TestMarketClient_GetSymbolOrderBookTicker(t *testing.T) {
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{"test"}, SymbolOrderBookTickerResponse{}, true},
+		{"TestMarketClient_GetSymbolOrderBookTicker", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{""}, SymbolOrderBookTickerResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -479,6 +483,10 @@ func TestMarketClient_GetSymbolTickerPrice(t *testing.T) {
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{"test"}, SymbolPriceTickerResponse{}, true},
+		{"TestMarketClient_GetSymbolTickerPrice", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{""}, SymbolPriceTickerResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

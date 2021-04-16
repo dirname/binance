@@ -95,6 +95,12 @@ Trade | Test New Order | RESTful API
 | | Query Open OCO | RESTful API
 | | Account Information | RESTful API
 | | Account Trade List | RESTful API
+Account | Create Spot/Margin/Isolated Listen Key | RESTful API
+| | Ping/KeepAlive Spot/Margin/Isolated Listen Key | RESTful API
+| | Delete Spot/Margin/Isolated Listen Key | RESTful PAI
+| | Account Update | WebSocket
+| | Balance Update | WebSocket
+| | Order Update | WebSocket
 
 ## USDⓈ-M Futures
 

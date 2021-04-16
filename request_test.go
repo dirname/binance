@@ -146,10 +146,10 @@ func TestPublicUrlBuilder_Build(t *testing.T) {
 		}, nil, false},
 		{
 			"TestPublicUrlBuilder_Build", fields{host: ""}, args{
-				method: "",
-				path:   "",
-				params: "test",
-			}, nil, false},
+			method: "",
+			path:   "",
+			params: "test",
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -239,6 +239,45 @@ func TestPrivateUrlBuilder_Build(t *testing.T) {
 			signer:    &Signer{Key: []byte("test")},
 		}, args{
 			method:    http.MethodPost,
+			path:      "test",
+			params:    "test",
+			sign:      true,
+			timeStamp: true,
+			recv:      0,
+		}, nil, false},
+		{"TestPrivateUrlBuilder_Build", fields{
+			host:      "",
+			appKey:    "test",
+			appSecret: "test",
+			signer:    &Signer{Key: []byte("test")},
+		}, args{
+			method:    http.MethodGet,
+			path:      "test",
+			params:    "test",
+			sign:      true,
+			timeStamp: true,
+			recv:      660,
+		}, nil, false},
+		{"TestPrivateUrlBuilder_Build", fields{
+			host:      "",
+			appKey:    "test",
+			appSecret: "test",
+			signer:    &Signer{Key: []byte("test")},
+		}, args{
+			method:    http.MethodPut,
+			path:      "test",
+			params:    "test",
+			sign:      true,
+			timeStamp: true,
+			recv:      0,
+		}, nil, false},
+		{"TestPrivateUrlBuilder_Build", fields{
+			host:      "",
+			appKey:    "test",
+			appSecret: "test",
+			signer:    &Signer{Key: []byte("test")},
+		}, args{
+			method:    http.MethodDelete,
 			path:      "test",
 			params:    "test",
 			sign:      true,

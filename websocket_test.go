@@ -953,8 +953,6 @@ func TestWebsocketClient_keepAliveLoop(t *testing.T) {
 				keepAliveInterval:    tt.fields.keepAliveInterval,
 			}
 			go u.keepAliveLoop()
-			u.keepAliveTicker = time.NewTicker(1 * time.Second)
-			time.Sleep(1 * time.Second)
 			u.stopKeepAliveTicker()
 		})
 	}

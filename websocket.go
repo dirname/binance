@@ -130,8 +130,6 @@ func (w *WebsocketClient) SetPongHandler(handler PongHandler) {
 
 // Connect connect to websocket server
 func (w *WebsocketClient) Connect(autoReconnect bool) {
-	w.lastReceivedTime = time.Now()
-	w.establishmentTime = time.Now()
 	w.connectWebsocket()
 	w.startKeepAliveTicker()
 	if autoReconnect {
@@ -188,6 +186,8 @@ func (w *WebsocketClient) connectWebsocket() {
 		return
 	}
 	logger.Info("%s connected", url)
+	w.lastReceivedTime = time.Now()
+	w.establishmentTime = time.Now()
 	w.startReadLoop()
 	if w.connectedHandler != nil {
 		w.connectedHandler()

@@ -1,7 +1,7 @@
 package binance
 
 import (
-	"github.com/dirname/Binance/config"
+	"github.com/dirname/binance/config"
 	"net/http"
 	"reflect"
 	"testing"

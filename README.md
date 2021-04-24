@@ -1,14 +1,14 @@
 # Binance API Go Language SDK
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/dirname/Binance?style=flat-square)](https://goreportcard.com/report/github.com/dirname/Binance)
+[![Go Report Card](https://goreportcard.com/badge/github.com/dirname/binance?style=flat-square)](https://goreportcard.com/report/github.com/dirname/binance)
 [![Build Status](https://img.shields.io/travis/dirname/Binance?style=flat-square)](https://travis-ci.org/dirname/Binance)
 [![codecov](https://img.shields.io/codecov/c/gh/dirname/binance/main?style=flat-square&token=A6U52MYCXN)](https://codecov.io/gh/dirname/Binance)
 [![license](https://img.shields.io/github/license/dirname/Binance?style=flat-square)](LICENSE)
 [![Go Version](https://img.shields.io/github/go-mod/go-version/dirname/Binance?style=flat-square)](https://golang.org)
-[![GoDoc](https://img.shields.io/badge/reference-007d9c?style=flat-square&logo=Go&logoColor=F9F9F9&labelColor=5C5C5C&labelWidth=80)](https://pkg.go.dev/github.com/dirname/Binance)
-[![Release](https://img.shields.io/github/release/dirname/Binance.svg?style=flat-square)](https://github.com/dirname/Binance/releases)
-[![Release Date](https://img.shields.io/github/release-date/dirname/Binance?style=flat-square)](https://github.com/dirname/Binance/releases)
-[![Commit](https://img.shields.io/github/last-commit/dirname/Binance?style=flat-square)](https://github.com/dirname/Binance/commits)
+[![GoDoc](https://img.shields.io/badge/reference-007d9c?style=flat-square&logo=Go&logoColor=F9F9F9&labelColor=5C5C5C&labelWidth=80)](https://pkg.go.dev/github.com/dirname/binance)
+[![Release](https://img.shields.io/github/release/dirname/Binance.svg?style=flat-square)](https://github.com/dirname/binance/releases)
+[![Release Date](https://img.shields.io/github/release-date/dirname/Binance?style=flat-square)](https://github.com/dirname/binance/releases)
+[![Commit](https://img.shields.io/github/last-commit/dirname/Binance?style=flat-square)](https://github.com/dirname/binance/commits)
 
 This is a Binance Go language sdk that uses a method similar
 to [HuobiRDCenter/huobi_Golang](https://github.com/huobirdcenter/huobi_golang)
@@ -28,7 +28,7 @@ You are very welcome to submit issues or pull requests to share with this projec
   repo has removed all WAPI endpoints from the Binance API in advance*
   *[More Information](https://www.binance.com/en/support/announcement/f45dde7da58b473aa885349946bed269)*
 
-- [spot/client/market.go:Line185](https://github.com/dirname/Binance/blob/main/spot/client/market.go#L185)
+- [spot/client/market.go:Line185](https://github.com/dirname/binance/blob/main/spot/client/market.go#L185)
   `GetCandlestick()`
 
   *It is not recommended using this method, this method may have type errors, please use websocket subscription to
@@ -135,8 +135,8 @@ Examples of user transfers in the universal
 package spotclient
 
 import (
-	binance "github.com/dirname/Binance"
-	"github.com/dirname/Binance/config"
+	binance "github.com/dirname/binance"
+	"github.com/dirname/binance/config"
 	"github.com/shopspring/decimal"
 	"reflect"
 	"testing"
@@ -173,9 +173,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/dirname/Binance/futures/usdt/websocket/market"
-	logger "github.com/dirname/Binance/logging"
-	"github.com/dirname/Binance/model"
+	"github.com/dirname/binance/futures/usdt/websocket/market"
+	logger "github.com/dirname/binance/logging"
+	"github.com/dirname/binance/model"
 	"time"
 )
 

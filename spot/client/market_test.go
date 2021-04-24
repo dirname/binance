@@ -1,7 +1,7 @@
 package spotclient
 
 import (
-	binance "github.com/dirname/Binance"
+	binance "github.com/dirname/binance"
 	"reflect"
 	"testing"
 )

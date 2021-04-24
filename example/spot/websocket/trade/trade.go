@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	logger "github.com/dirname/Binance/logging"
-	"github.com/dirname/Binance/model"
-	"github.com/dirname/Binance/spot/websocket/market"
+	logger "github.com/dirname/binance/logging"
+	"github.com/dirname/binance/model"
+	"github.com/dirname/binance/spot/websocket/market"
 	"time"
 )
 

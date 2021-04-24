@@ -1,4 +1,4 @@
-module github.com/dirname/Binance
+module github.com/dirname/binance
 
 go 1.16
 

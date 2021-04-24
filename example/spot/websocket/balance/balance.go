@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/dirname/Binance/config"
-	logger "github.com/dirname/Binance/logging"
-	"github.com/dirname/Binance/model"
-	"github.com/dirname/Binance/spot/websocket/account"
+	"github.com/dirname/binance/config"
+	logger "github.com/dirname/binance/logging"
+	"github.com/dirname/binance/model"
+	"github.com/dirname/binance/spot/websocket/account"
 	"time"
 )
 

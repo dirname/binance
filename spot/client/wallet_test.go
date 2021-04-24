@@ -1,8 +1,8 @@
 package spotclient
 
 import (
-	binance "github.com/dirname/Binance"
-	"github.com/dirname/Binance/config"
+	binance "github.com/dirname/binance"
+	"github.com/dirname/binance/config"
 	"github.com/shopspring/decimal"
 	"reflect"
 	"testing"

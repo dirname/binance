@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/dirname/Binance/config"
-	logger "github.com/dirname/Binance/logging"
-	"github.com/dirname/Binance/model"
-	"github.com/dirname/Binance/spot/client"
+	"github.com/dirname/binance/config"
+	logger "github.com/dirname/binance/logging"
+	"github.com/dirname/binance/model"
+	"github.com/dirname/binance/spot/client"
 )
 
 var walletClient *spotclient.WalletClient

@@ -5,7 +5,7 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
-	"github.com/dirname/Binance/logging"
+	"github.com/dirname/binance/logging"
 	"io/ioutil"
 	http "net/http"
 	"time"

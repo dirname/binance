@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	binance "github.com/dirname/Binance"
-	logger "github.com/dirname/Binance/logging"
-	"github.com/dirname/Binance/model"
-	"github.com/dirname/Binance/spot/client"
+	binance "github.com/dirname/binance"
+	logger "github.com/dirname/binance/logging"
+	"github.com/dirname/binance/model"
+	"github.com/dirname/binance/spot/client"
 	"net/http"
 )
 

@@ -2,10 +2,10 @@ package spotclient
 
 import (
 	"encoding/json"
-	binance "github.com/dirname/Binance"
-	"github.com/dirname/Binance/config"
-	logger "github.com/dirname/Binance/logging"
-	"github.com/dirname/Binance/model"
+	binance "github.com/dirname/binance"
+	"github.com/dirname/binance/config"
+	logger "github.com/dirname/binance/logging"
+	"github.com/dirname/binance/model"
 )
 
 // OrderWebsocketClient responsible to handle market price data from websocket

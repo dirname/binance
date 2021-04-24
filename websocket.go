@@ -3,8 +3,8 @@ package binance
 import (
 	"bytes"
 	"fmt"
-	"github.com/dirname/Binance/config"
-	logger "github.com/dirname/Binance/logging"
+	"github.com/dirname/binance/config"
+	logger "github.com/dirname/binance/logging"
 	"github.com/gorilla/websocket"
 	"sync"
 	"time"

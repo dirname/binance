@@ -2,9 +2,9 @@ package spotclient
 
 import (
 	"encoding/json"
-	binance "github.com/dirname/Binance"
-	logger "github.com/dirname/Binance/logging"
-	"github.com/dirname/Binance/model"
+	binance "github.com/dirname/binance"
+	logger "github.com/dirname/binance/logging"
+	"github.com/dirname/binance/model"
 	"net/http"
 )
 

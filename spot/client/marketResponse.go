@@ -9,7 +9,7 @@ type ExchangeInfoResponse struct {
 		Interval      string `json:"interval"`      // interval
 		IntervalNum   int64  `json:"intervalNum"`   // intervalNum
 		Limit         int64  `json:"limit"`         // limit
-	} `json:"rateLimits"`                                  // rate limits
+	} `json:"rateLimits"` // rate limits
 	ExchangeFilters []interface{} `json:"exchangeFilters"` // exchangeFilters
 	Symbols         []struct {
 		Symbol                 string                   `json:"symbol"`                 // symbol

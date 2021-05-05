@@ -15,7 +15,7 @@ func init() {
 		MessageKey:  "msg",
 		LevelKey:    "level",
 		EncodeLevel: zapcore.CapitalColorLevelEncoder,
-		EncodeTime:  zapcore.RFC3339NanoTimeEncoder,
+		EncodeTime:  zapcore.ISO8601TimeEncoder,
 	}
 
 	atomicLevel = zap.NewAtomicLevel()

@@ -49,6 +49,7 @@ func TestCommonClient_Ping(t *testing.T) {
 		wantErr bool
 	}{
 		{"TestCommonClient_Ping", fields{Builder: binance.NewPublicUrlBuilder(config.USDFuturesRestHost)}, nil, false},
+		{"TestCommonClient_Ping", fields{Builder: binance.NewPublicUrlBuilder(config.SpotRestHost)}, false, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

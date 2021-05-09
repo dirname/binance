@@ -10,7 +10,6 @@ import (
 	"github.com/dirname/binance/spot/client/orderRespType"
 	"github.com/shopspring/decimal"
 	"net/http"
-	"runtime/debug"
 	"strings"
 	"time"
 )
@@ -52,7 +51,6 @@ func (t *TradeClient) TestNewOrder(symbol, side, orderType, timeInForce, newClie
 // NewOrder Send in a new order.
 func (t *TradeClient) NewOrder(symbol, side, orderType, timeInForce, newClientOderID, newOrderRespType string, quantity, quoteOrderQTY, price, stopPrice, icebergQTY decimal.Decimal, recv time.Duration) (interface{}, error) {
 	var err error
-	debug.PrintStack()
 	params, err := buildOrder(symbol, side, orderType, timeInForce, newClientOderID, newOrderRespType, quantity, quoteOrderQTY, price, stopPrice, icebergQTY)
 	if err != nil {
 		return nil, err

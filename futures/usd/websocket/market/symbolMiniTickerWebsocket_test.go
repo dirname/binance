@@ -221,7 +221,7 @@ func TestFuturesSymbolMiniTickerWebsocketClient_handleMessage(t *testing.T) {
 	}
 }
 
-func TestNewUSDTFuturesSymbolMiniTickerWebsocketClient(t *testing.T) {
+func TestNewUSDFuturesSymbolMiniTickerWebsocketClient(t *testing.T) {
 	type args struct {
 		streams []string
 	}
@@ -230,7 +230,7 @@ func TestNewUSDTFuturesSymbolMiniTickerWebsocketClient(t *testing.T) {
 		args args
 		want *FuturesSymbolMiniTickerWebsocketClient
 	}{
-		{"TestNewUSDTFuturesSymbolMiniTickerWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
+		{"TestNewUSDFuturesSymbolMiniTickerWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

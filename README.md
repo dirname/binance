@@ -180,7 +180,7 @@ import (
 )
 
 func main() {
-	client := futuresusdt.NewUSDTFuturesCandlestickWebsocketClient("btcusdt@kline_1m")
+	client := futuresusdt.NewUSDFuturesCandlestickWebsocketClient("btcusdt@kline_1m")
 	client.SetReadTimerInterval(5 * time.Second)
 	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetKeepAliveInterval(2 * time.Minute)

@@ -221,7 +221,7 @@ func TestFuturesBLVTCandlestickWebsocketClient_handleMessage(t *testing.T) {
 	}
 }
 
-func TestNewUSDTFuturesBLVTCandlestickWebsocketClient(t *testing.T) {
+func TestNewUSDFuturesBLVTCandlestickWebsocketClient(t *testing.T) {
 	type args struct {
 		streams []string
 	}
@@ -230,7 +230,7 @@ func TestNewUSDTFuturesBLVTCandlestickWebsocketClient(t *testing.T) {
 		args args
 		want *FuturesBLVTCandlestickWebsocketClient
 	}{
-		{"TestNewUSDTFuturesBLVTCandlestickWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
+		{"TestNewUSDFuturesBLVTCandlestickWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

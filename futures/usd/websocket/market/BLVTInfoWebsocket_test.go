@@ -221,7 +221,7 @@ func TestFuturesBLVTInfoWebsocketClient_handleMessage(t *testing.T) {
 	}
 }
 
-func TestNewUSDTFuturesBLVTInfoClient(t *testing.T) {
+func TestNewUSDFuturesBLVTInfoClient(t *testing.T) {
 	type args struct {
 		streams []string
 	}
@@ -230,7 +230,7 @@ func TestNewUSDTFuturesBLVTInfoClient(t *testing.T) {
 		args args
 		want *FuturesBLVTInfoWebsocketClient
 	}{
-		{"TestNewUSDTFuturesBLVTInfoClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
+		{"TestNewUSDFuturesBLVTInfoClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

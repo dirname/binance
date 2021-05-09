@@ -219,7 +219,7 @@ func TestFuturesCompositeIndexWebsocketClient_handleMessage(t *testing.T) {
 	}
 }
 
-func TestNewUSDTFuturesCompositeIndexWebsocketClient(t *testing.T) {
+func TestNewUSDFuturesCompositeIndexWebsocketClient(t *testing.T) {
 	type args struct {
 		streams []string
 	}
@@ -228,7 +228,7 @@ func TestNewUSDTFuturesCompositeIndexWebsocketClient(t *testing.T) {
 		args args
 		want *FuturesCompositeIndexWebsocketClient
 	}{
-		{"TestNewUSDTFuturesCompositeIndexWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
+		{"TestNewUSDFuturesCompositeIndexWebsocketClient", args{streams: []string{"BTCUSDT@markPrice"}}, nil},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

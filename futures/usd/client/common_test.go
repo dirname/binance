@@ -31,7 +31,7 @@ func TestCommonClient_GetServerTime(t *testing.T) {
 				t.Errorf("GetServerTime() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if got != tt.want {
+			if got >= tt.want+5000 {
 				t.Errorf("GetServerTime() got = %v, want %v", got, tt.want)
 			}
 		})
@@ -48,7 +48,7 @@ func TestCommonClient_Ping(t *testing.T) {
 		want    interface{}
 		wantErr bool
 	}{
-		{"TestCommonClient_Ping", fields{Builder: binance.NewPublicUrlBuilder(config.SpotRestHost)}, nil, false},
+		{"TestCommonClient_Ping", fields{Builder: binance.NewPublicUrlBuilder(config.USDFuturesRestHost)}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -61,7 +61,7 @@ func TestCommonClient_Ping(t *testing.T) {
 				t.Errorf("Ping() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Ping() got = %v, want %v", got, tt.want)
 			}
 		})
@@ -77,7 +77,7 @@ func TestNewCommonClient(t *testing.T) {
 		args args
 		want *CommonClient
 	}{
-		{"TestNewCommonClient", args{host: config.SpotRestHost}, nil},
+		{"TestNewCommonClient", args{host: config.USDFuturesRestHost}, nil},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

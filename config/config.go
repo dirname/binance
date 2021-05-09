@@ -1,10 +1,10 @@
 package config
 
 const (
-	// USDTFuturesRestHost USD futures trading restful host
-	USDTFuturesRestHost = "fapi.binance.com"
-	// USDTFuturesWssHost USD futures trading wss host
-	USDTFuturesWssHost = "fstream.binance.com"
+	// USDFuturesRestHost USD futures trading restful host
+	USDFuturesRestHost = "fapi.binance.com"
+	// USDFuturesWssHost USD futures trading wss host
+	USDFuturesWssHost = "fstream.binance.com"
 	// CoinFuturesRestHost Coin futures trading restful host
 	CoinFuturesRestHost = "dapi.binance.com"
 	// CoinFuturesWssHost Coin futures trading wss host

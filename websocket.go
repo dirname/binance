@@ -68,7 +68,7 @@ func (w *WebsocketClient) Init(host string, stream ...string) {
 	w.stopKeepAliveChannel = make(chan int, 1)
 	w.sendMutex = &sync.Mutex{}
 	switch host {
-	case config.USDTFuturesWssHost:
+	case config.USDFuturesWssHost:
 		w.keepAliveInterval = 5 * time.Minute
 	case config.CoinFuturesWssHost:
 		w.keepAliveInterval = 5 * time.Minute

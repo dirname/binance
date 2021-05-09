@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/dirname/binance/futures/usdt/websocket/market"
+	"github.com/dirname/binance/futures/usd/websocket/market"
 	logger "github.com/dirname/binance/logging"
 	"github.com/dirname/binance/model"
 	"time"
 )
 
 func main() {
-	client := futuresusdt.NewUSDTFuturesPartialBookDepthWebsocketClient("btcusdt@depth10")
+	client := futuresusdt.NewUSDFuturesPartialBookDepthWebsocketClient("btcusdt@depth10")
 	client.SetReadTimerInterval(5 * time.Second)
 	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetHandler(func() {

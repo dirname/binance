@@ -220,7 +220,7 @@ func TestWebsocketClient_Init(t *testing.T) {
 			name:   "TestWebsocketClient_Init",
 			fields: fields{},
 			args: args{
-				host:   config.USDTFuturesWssHost,
+				host:   config.USDFuturesWssHost,
 				stream: []string{"test", "test"},
 			},
 		},

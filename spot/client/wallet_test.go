@@ -139,6 +139,11 @@ func TestWalletClient_DepositAddressNetwork(t *testing.T) {
 			network: "",
 			recv:    0,
 		}, true, true},
+		{"TestWalletClient_DepositAddressNetwork", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			coin:    "",
+			network: "",
+			recv:    0,
+		}, true, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -196,6 +201,15 @@ func TestWalletClient_DepositHistoryNetwork(t *testing.T) {
 			endTime:   10,
 			recv:      10,
 		}, nil, false},
+		{"TestWalletClient_DepositHistoryNetwork", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			coin:      "test",
+			status:    10,
+			offset:    10,
+			limit:     10,
+			startTime: 10,
+			endTime:   10,
+			recv:      10,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -238,6 +252,10 @@ func TestWalletClient_DustTransfer(t *testing.T) {
 			asset: []string{"test", "test"},
 			recv:  0,
 		}, nil, false},
+		{"TestWalletClient_DustTransfer", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			asset: []string{"test", "test"},
+			recv:  0,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -280,6 +298,10 @@ func TestWalletClient_FastWithdrawSwitch(t *testing.T) {
 			status: true,
 			recv:   0,
 		}, nil, false},
+		{"TestWalletClient_FastWithdrawSwitch", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			status: true,
+			recv:   0,
+		}, false, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -314,6 +336,7 @@ func TestWalletClient_GetAllCoinsInfo(t *testing.T) {
 		wantErr bool
 	}{
 		{"TestWalletClient_GetAllCoinsInfo", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{0}, nil, false},
+		{"TestWalletClient_GetAllCoinsInfo", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -362,6 +385,12 @@ func TestWalletClient_GetFuturesSnapshot(t *testing.T) {
 			limit:     110,
 			recv:      0,
 		}, nil, false},
+		{"TestWalletClient_GetFuturesSnapshot", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			startTime: 1230,
+			endTime:   12230,
+			limit:     110,
+			recv:      0,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -410,6 +439,12 @@ func TestWalletClient_GetMarginSnapshot(t *testing.T) {
 			limit:     110,
 			recv:      0,
 		}, nil, false},
+		{"TestWalletClient_GetMarginSnapshot", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			startTime: 123210,
+			endTime:   12320,
+			limit:     110,
+			recv:      0,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -464,6 +499,12 @@ func TestWalletClient_GetSpotSnapshot(t *testing.T) {
 			limit:     50,
 			recv:      0,
 		}, nil, false},
+		{"TestWalletClient_GetSpotSnapshot", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			startTime: 128093,
+			endTime:   128039,
+			limit:     50,
+			recv:      0,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -498,6 +539,7 @@ func TestWalletClient_SAPIAccountAPIStatus(t *testing.T) {
 		wantErr bool
 	}{
 		{"TestWalletClient_SAPIAccountAPIStatus", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{0}, nil, false},
+		{"TestWalletClient_SAPIAccountAPIStatus", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -532,6 +574,7 @@ func TestWalletClient_SAPIAccountStatus(t *testing.T) {
 		wantErr bool
 	}{
 		{"TestWalletClient_SAPIAccountStatus", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{0}, nil, false},
+		{"TestWalletClient_SAPIAccountStatus", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -566,6 +609,7 @@ func TestWalletClient_SAPIAssetDetail(t *testing.T) {
 		wantErr bool
 	}{
 		{"TestWalletClient_SAPIAssetDetail", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{0}, nil, false},
+		{"TestWalletClient_SAPIAssetDetail", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -600,6 +644,7 @@ func TestWalletClient_SAPIDustLog(t *testing.T) {
 		wantErr bool
 	}{
 		{"TestWalletClient_SAPIDustLog", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{0}, nil, false},
+		{"TestWalletClient_SAPIDustLog", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -642,6 +687,10 @@ func TestWalletClient_SAPITradeFee(t *testing.T) {
 			symbol: "test",
 			recv:   0,
 		}, nil, false},
+		{"TestWalletClient_SAPITradeFee", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol: "test",
+			recv:   0,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -738,6 +787,17 @@ func TestWalletClient_SAPIWithdraw(t *testing.T) {
 			transactionFeeFlag: false,
 			recv:               0,
 		}, true, true},
+		{"TestWalletClient_SAPIWithdraw", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			coin:               "BTC",
+			clientID:           "test",
+			network:            "test",
+			address:            "test",
+			addressTag:         "test",
+			name:               "test",
+			amount:             decimal.Decimal{},
+			transactionFeeFlag: false,
+			recv:               0,
+		}, true, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -786,6 +846,12 @@ func TestWalletClient_UniversalTransfer(t *testing.T) {
 			amount:   "",
 			recv:     0,
 		}, true, true},
+		{"TestWalletClient_UniversalTransfer", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			typeName: "test",
+			asset:    "test",
+			amount:   "test",
+			recv:     0,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -856,6 +922,14 @@ func TestWalletClient_UniversalTransferRecord(t *testing.T) {
 			size:      -50,
 			recv:      0,
 		}, nil, false},
+		{"TestWalletClient_UniversalTransferRecord", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			typeName:  "test",
+			startTime: 0,
+			endTime:   0,
+			current:   -10,
+			size:      -50,
+			recv:      0,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -913,6 +987,15 @@ func TestWalletClient_WithdrawHistoryNetwork(t *testing.T) {
 			endTime:   10,
 			recv:      0,
 		}, nil, false},
+		{"TestWalletClient_WithdrawHistoryNetwork", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			coin:      "test",
+			status:    10,
+			offset:    10,
+			limit:     10,
+			startTime: 10,
+			endTime:   10,
+			recv:      0,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

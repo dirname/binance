@@ -103,7 +103,7 @@ func TestMarketClient_GetAggregateTrades(t *testing.T) {
 			formID:    2000,
 			startTime: 2000,
 			endTime:   2000,
-		}, AggregateTradeResponse{}, false},
+		}, model.APIErrorResponse{Code: -1100, Message: "Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'."}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

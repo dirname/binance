@@ -140,8 +140,8 @@ func TestWalletClient_DepositAddressNetwork(t *testing.T) {
 			recv:    0,
 		}, true, true},
 		{"TestWalletClient_DepositAddressNetwork", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
-			coin:    "",
-			network: "",
+			coin:    "test",
+			network: "test",
 			recv:    0,
 		}, true, true},
 		// TODO: Add test cases.

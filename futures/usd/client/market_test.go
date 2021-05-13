@@ -81,7 +81,7 @@ func TestMarketClient_GetAggregateTrades(t *testing.T) {
 			endTime:   0,
 		}, nil, true},
 		{"TestMarketClient_GetAggregateTrades", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
@@ -89,7 +89,10 @@ func TestMarketClient_GetAggregateTrades(t *testing.T) {
 			formID:    2000,
 			startTime: 2000,
 			endTime:   2000,
-		}, AggregateTradeResponse{}, true},
+		}, model.APIErrorResponse{
+			Code:    -1121,
+			Message: "Invalid symbol.",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -140,7 +143,7 @@ func TestMarketClient_GetCandlestick(t *testing.T) {
 			endTime:   11110,
 		}, CandlestickResponse{}, true},
 		{"TestMarketClient_GetCandlestick", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
@@ -209,9 +212,9 @@ func TestMarketClient_GetCompositeIndexSymbol(t *testing.T) {
 			AppKey:  "",
 		}, args{symbol: ""}, nil, true},
 		{"TestMarketClient_GetCompositeIndexSymbol", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
-		}, args{symbol: "test"}, nil, true},
+		}, args{symbol: "test"}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -286,7 +289,7 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			limit:        0,
 		}, []FundingRateResponse{}, true},
 		{"TestMarketClient_GetFundingRateHistory", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:       "test",
@@ -295,7 +298,7 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			startTime:    10000,
 			endTime:      10000,
 			limit:        10000,
-		}, FundingRateResponse{}, true},
+		}, model.APIErrorResponse{}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -379,14 +382,14 @@ func TestMarketClient_GetFundingRateHistory(t *testing.T) {
 			limit:     0,
 		}, nil, true},
 		{"TestMarketClient_GetFundingRateHistory", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
 			startTime: 10000,
 			endTime:   10000,
 			limit:     10000,
-		}, nil, true},
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -437,7 +440,7 @@ func TestMarketClient_GetHistoricalBLVTNavCandlestick(t *testing.T) {
 			limit:     0,
 		}, FundingRateResponse{}, true},
 		{"TestMarketClient_GetFundingRateHistory", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
@@ -445,7 +448,7 @@ func TestMarketClient_GetHistoricalBLVTNavCandlestick(t *testing.T) {
 			startTime: 10000,
 			endTime:   10000,
 			limit:     10000,
-		}, []FundingRateResponse{}, true},
+		}, model.APIErrorResponse{}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -496,7 +499,7 @@ func TestMarketClient_GetIndexCandlestick(t *testing.T) {
 			limit:     0,
 		}, IndexCandlestickResponse{}, true},
 		{"TestMarketClient_GetIndexCandlestick", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			pair:      "test",
@@ -504,7 +507,7 @@ func TestMarketClient_GetIndexCandlestick(t *testing.T) {
 			startTime: 10000,
 			endTime:   10000,
 			limit:     10000,
-		}, []IndexCandlestickResponse{}, true},
+		}, model.APIErrorResponse{}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -555,7 +558,7 @@ func TestMarketClient_GetLongShortRatio(t *testing.T) {
 			limit:     0,
 		}, LongShortRatioResponse{}, true},
 		{"TestMarketClient_GetLongShortRatio", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
@@ -563,7 +566,7 @@ func TestMarketClient_GetLongShortRatio(t *testing.T) {
 			startTime: 10000,
 			endTime:   10000,
 			limit:     10000,
-		}, nil, true},
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -606,11 +609,11 @@ func TestMarketClient_GetMarketPrice(t *testing.T) {
 			symbol: "",
 		}, nil, true},
 		{"TestMarketClient_GetMarketPrice", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol: "test",
-		}, nil, true},
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -661,7 +664,7 @@ func TestMarketClient_GetMarketPriceCandlestick(t *testing.T) {
 			limit:     0,
 		}, MarketPriceCandlestickResponse{}, true},
 		{"TestMarketClient_GetMarketPriceCandlestick", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
@@ -669,7 +672,7 @@ func TestMarketClient_GetMarketPriceCandlestick(t *testing.T) {
 			startTime: 10000,
 			endTime:   10000,
 			limit:     10000,
-		}, nil, true},
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -720,7 +723,7 @@ func TestMarketClient_GetOldTradeLookUp(t *testing.T) {
 			limit:     0,
 		}, OlderTradeLookUpResponse{}, true},
 		{"TestMarketClient_GetOldTradeLookUp", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
@@ -728,7 +731,7 @@ func TestMarketClient_GetOldTradeLookUp(t *testing.T) {
 			startTime: 10000,
 			endTime:   10000,
 			limit:     10000,
-		}, nil, true},
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -771,11 +774,11 @@ func TestMarketClient_GetOpenInterest(t *testing.T) {
 			symbol: "",
 		}, OpenInterestResponse{}, true},
 		{"TestMarketClient_GetOpenInterest", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol: "test",
-		}, nil, true},
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -826,7 +829,7 @@ func TestMarketClient_GetOpenInterestStatistics(t *testing.T) {
 			limit:     0,
 		}, OpenInterestStatisticsResponse{}, true},
 		{"TestMarketClient_GetOpenInterestStatistics", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
@@ -834,7 +837,7 @@ func TestMarketClient_GetOpenInterestStatistics(t *testing.T) {
 			startTime: 10000,
 			endTime:   10000,
 			limit:     10000,
-		}, nil, true},
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -879,12 +882,12 @@ func TestMarketClient_GetOrderBook(t *testing.T) {
 			limit:  0,
 		}, OrderBookResponse{}, true},
 		{"TestMarketClient_GetOrderBook", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol: "test",
 			limit:  10000,
-		}, nil, true},
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -929,12 +932,12 @@ func TestMarketClient_GetRecentTrades(t *testing.T) {
 			limit:  0,
 		}, OrderBookResponse{}, true},
 		{"TestMarketClient_GetOrderBook", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol: "test",
 			limit:  10000,
-		}, nil, true},
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -977,11 +980,11 @@ func TestMarketClient_GetSymbolOrderBookTicker(t *testing.T) {
 			symbol: "",
 		}, nil, true},
 		{"TestMarketClient_GetSymbolOrderBookTicker", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol: "test",
-		}, nil, true},
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -1022,9 +1025,9 @@ func TestMarketClient_GetSymbolTicker(t *testing.T) {
 			AppKey:  "",
 		}, args{""}, []SymbolOrderBookTickerResponse{}, true},
 		{"TestMarketClient_GetSymbolTicker", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
-		}, args{"test"}, SymbolOrderBookTickerResponse{}, true},
+		}, args{"test"}, model.APIErrorResponse{}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -1075,7 +1078,7 @@ func TestMarketClient_GetTakerBuySellVolume(t *testing.T) {
 			limit:     0,
 		}, TakerBuySellVolumeResponse{}, true},
 		{"TestMarketClient_GetTakerBuySellVolume", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
@@ -1083,7 +1086,7 @@ func TestMarketClient_GetTakerBuySellVolume(t *testing.T) {
 			startTime: 10000,
 			endTime:   10000,
 			limit:     10000,
-		}, []TakerBuySellVolumeResponse{}, true},
+		}, model.APIErrorResponse{}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -1134,7 +1137,7 @@ func TestMarketClient_GetTopTradeAccountsRatio(t *testing.T) {
 			limit:     0,
 		}, nil, true},
 		{"TestMarketClient_GetTopTradeAccountsRatio", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
@@ -1142,7 +1145,7 @@ func TestMarketClient_GetTopTradeAccountsRatio(t *testing.T) {
 			startTime: 10000,
 			endTime:   10000,
 			limit:     10000,
-		}, TopTraderAccountsRatioResponse{}, true},
+		}, model.APIErrorResponse{Code: -1130, Message: "parameter 'period' is invalid."}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -1193,7 +1196,7 @@ func TestMarketClient_GetTopTradePositionsRatio(t *testing.T) {
 			limit:     0,
 		}, nil, true},
 		{"TestMarketClient_GetTopTradePositionsRatio", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
@@ -1201,7 +1204,7 @@ func TestMarketClient_GetTopTradePositionsRatio(t *testing.T) {
 			startTime: 10000,
 			endTime:   10000,
 			limit:     10000,
-		}, TopTraderPositionsRatioResponse{}, true},
+		}, model.APIErrorResponse{Code: -1130, Message: "parameter 'period' is invalid."}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

@@ -2,6 +2,8 @@ package futuresclient
 
 import (
 	"github.com/dirname/binance"
+	"github.com/dirname/binance/config"
+	"github.com/dirname/binance/model"
 	"reflect"
 	"testing"
 )
@@ -22,9 +24,9 @@ func TestMarketClient_Get24hTickerPriceChange(t *testing.T) {
 		wantErr bool
 	}{
 		{"TestMarketClient_Get24hTickerPriceChange", fields{
-			Builder: &binance.PublicUrlBuilder{},
+			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
-		}, args{symbol: "123"}, nil, true},
+		}, args{symbol: "123"}, model.APIErrorResponse{}, false},
 		{"TestMarketClient_Get24hTickerPriceChange", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
@@ -257,6 +259,28 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			symbol:       "",
 			contractType: "",
 			interval:     "",
+			startTime:    0,
+			endTime:      0,
+			limit:        0,
+		}, []FundingRateResponse{}, true},
+		{"TestMarketClient_GetFundingRateHistory", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:       "",
+			contractType: "test",
+			interval:     "",
+			startTime:    0,
+			endTime:      0,
+			limit:        0,
+		}, []FundingRateResponse{}, true},
+		{"TestMarketClient_GetFundingRateHistory", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:       "",
+			contractType: "",
+			interval:     "test",
 			startTime:    0,
 			endTime:      0,
 			limit:        0,

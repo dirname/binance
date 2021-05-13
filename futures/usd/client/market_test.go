@@ -4,6 +4,7 @@ import (
 	"github.com/dirname/binance"
 	"github.com/dirname/binance/config"
 	"github.com/dirname/binance/model"
+	"math"
 	"reflect"
 	"testing"
 )
@@ -414,10 +415,10 @@ func TestMarketClient_GetFundingRateHistory(t *testing.T) {
 			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
-			symbol:    "test",
-			startTime: 1792837892781034321,
-			endTime:   10000,
-			limit:     10000,
+			symbol:    "",
+			limit:     math.MaxInt32,
+			endTime:   0,
+			startTime: 0,
 		}, nil, false},
 		{"TestMarketClient_GetFundingRateHistory", fields{
 			Builder: &binance.PublicUrlBuilder{},

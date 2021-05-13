@@ -2,6 +2,8 @@ package spotclient
 
 import (
 	binance "github.com/dirname/binance"
+	"github.com/dirname/binance/config"
+	"github.com/dirname/binance/model"
 	"reflect"
 	"testing"
 )
@@ -25,6 +27,10 @@ func TestMarketClient_Get24hTickerPriceChange(t *testing.T) {
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{symbol: "123"}, nil, true},
+		{"TestMarketClient_Get24hTickerPriceChange", fields{
+			Builder: NewMarketClient(config.SpotRestHost, "").Builder,
+			AppKey:  "",
+		}, args{symbol: "123"}, nil, false},
 		{"TestMarketClient_Get24hTickerPriceChange", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
@@ -88,6 +94,16 @@ func TestMarketClient_GetAggregateTrades(t *testing.T) {
 			startTime: 2000,
 			endTime:   2000,
 		}, AggregateTradeResponse{}, true},
+		{"TestMarketClient_GetAggregateTrades", fields{
+			Builder: NewMarketClient(config.SpotRestHost, "").Builder,
+			AppKey:  "",
+		}, args{
+			symbol:    "test",
+			limit:     2000,
+			formID:    2000,
+			startTime: 2000,
+			endTime:   2000,
+		}, AggregateTradeResponse{}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -134,6 +150,10 @@ func TestMarketClient_GetAveragePrice(t *testing.T) {
 			Min:   0,
 			Price: "",
 		}, true},
+		{"TestMarketClient_GetAveragePrice", fields{
+			Builder: NewMarketClient(config.SpotRestHost, "").Builder,
+			AppKey:  "",
+		}, args{"test"}, model.APIErrorResponse{Code: -1100, Message: "Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'."}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -183,6 +203,16 @@ func TestMarketClient_GetCandlestick(t *testing.T) {
 			startTime: 11110,
 			endTime:   11110,
 		}, CandlestickResponse{}, true},
+		{"TestMarketClient_GetCandlestick", fields{
+			Builder: NewMarketClient(config.SpotRestHost, "").Builder,
+			AppKey:  "",
+		}, args{
+			symbol:    "test",
+			interval:  "1min",
+			limit:     11110,
+			startTime: 11110,
+			endTime:   11110,
+		}, model.APIErrorResponse{Code: -1100, Message: "Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'."}, false},
 		{"TestMarketClient_GetCandlestick", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
@@ -301,6 +331,14 @@ func TestMarketClient_GetOldTradeLookUp(t *testing.T) {
 			limit:  11110,
 			formID: 11110,
 		}, OlderTradeLookUpResponse{}, true},
+		{"TestMarketClient_GetOldTradeLookUp", fields{
+			Builder: NewMarketClient(config.SpotRestHost, "").Builder,
+			AppKey:  "",
+		}, args{
+			symbol: "test",
+			limit:  11110,
+			formID: 11110,
+		}, model.APIErrorResponse{Code: -2014, Message: "API-key format invalid."}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -351,6 +389,13 @@ func TestMarketClient_GetOrderBook(t *testing.T) {
 			symbol: "test",
 			limit:  1111110,
 		}, OrderBookResponse{}, true},
+		{"TestMarketClient_GetOrderBook", fields{
+			Builder: NewMarketClient(config.SpotRestHost, "").Builder,
+			AppKey:  "",
+		}, args{
+			symbol: "test",
+			limit:  1111110,
+		}, model.APIErrorResponse{Code: -1100, Message: "Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'."}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -401,6 +446,13 @@ func TestMarketClient_GetRecentTrades(t *testing.T) {
 			symbol: "test",
 			limit:  111111110,
 		}, RecentTradesListResponse{}, true},
+		{"TestMarketClient_GetRecentTrades", fields{
+			Builder: NewMarketClient(config.SpotRestHost, "").Builder,
+			AppKey:  "",
+		}, args{
+			symbol: "test",
+			limit:  111111110,
+		}, model.APIErrorResponse{Code: -1100, Message: "Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'."}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -440,6 +492,10 @@ func TestMarketClient_GetSymbolOrderBookTicker(t *testing.T) {
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{"test"}, false, true},
+		{"TestMarketClient_GetSymbolOrderBookTicker", fields{
+			Builder: NewMarketClient(config.SpotRestHost, "").Builder,
+			AppKey:  "",
+		}, args{"test"}, model.APIErrorResponse{Code: -1200, Message: "Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'."}, false},
 		{"TestMarketClient_GetSymbolOrderBookTicker", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
@@ -483,6 +539,10 @@ func TestMarketClient_GetSymbolTickerPrice(t *testing.T) {
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{"test"}, false, true},
+		{"TestMarketClient_GetSymbolTickerPrice", fields{
+			Builder: NewMarketClient(config.SpotRestHost, "").Builder,
+			AppKey:  "",
+		}, args{"test"}, model.APIErrorResponse{Code: -1200, Message: "Illegal characters found in parameter 'symbol'; legal range is '^[A-Z0-9-_.]{1,20}$'."}, false},
 		{"TestMarketClient_GetSymbolTickerPrice", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",

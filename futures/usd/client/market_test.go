@@ -288,8 +288,8 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{
-			symbol:       "",
-			contractType: "test",
+			symbol:       "test",
+			contractType: "",
 			interval:     "",
 			startTime:    0,
 			endTime:      0,
@@ -300,7 +300,7 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			AppKey:  "",
 		}, args{
 			symbol:       "",
-			contractType: "",
+			contractType: "test",
 			interval:     "test",
 			startTime:    0,
 			endTime:      0,

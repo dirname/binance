@@ -289,6 +289,17 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			AppKey:  "",
 		}, args{
 			symbol:       "test",
+			contractType: "test",
+			interval:     "test",
+			startTime:    0,
+			endTime:      0,
+			limit:        0,
+		}, []FundingRateResponse{}, true},
+		{"TestMarketClient_GetFundingRateHistory", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:       "test",
 			contractType: "",
 			interval:     "",
 			startTime:    0,
@@ -299,9 +310,9 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{
-			symbol:       "",
+			symbol:       "test",
 			contractType: "test",
-			interval:     "test",
+			interval:     "",
 			startTime:    0,
 			endTime:      0,
 			limit:        0,
@@ -467,6 +478,16 @@ func TestMarketClient_GetHistoricalBLVTNavCandlestick(t *testing.T) {
 			limit:     0,
 		}, FundingRateResponse{}, true},
 		{"TestMarketClient_GetFundingRateHistory", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:    "test",
+			period:    "",
+			startTime: 0,
+			endTime:   0,
+			limit:     0,
+		}, FundingRateResponse{}, true},
+		{"TestMarketClient_GetFundingRateHistory", fields{
 			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
@@ -536,6 +557,16 @@ func TestMarketClient_GetIndexCandlestick(t *testing.T) {
 			limit:     0,
 		}, IndexCandlestickResponse{}, true},
 		{"TestMarketClient_GetIndexCandlestick", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			pair:      "test",
+			interval:  "",
+			startTime: 0,
+			endTime:   0,
+			limit:     0,
+		}, IndexCandlestickResponse{}, true},
+		{"TestMarketClient_GetIndexCandlestick", fields{
 			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
@@ -599,6 +630,16 @@ func TestMarketClient_GetLongShortRatio(t *testing.T) {
 			AppKey:  "",
 		}, args{
 			symbol:    "",
+			period:    "",
+			startTime: 0,
+			endTime:   0,
+			limit:     0,
+		}, LongShortRatioResponse{}, true},
+		{"TestMarketClient_GetLongShortRatio", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:    "test",
 			period:    "",
 			startTime: 0,
 			endTime:   0,
@@ -721,6 +762,16 @@ func TestMarketClient_GetMarketPriceCandlestick(t *testing.T) {
 			AppKey:  "",
 		}, args{
 			symbol:    "",
+			interval:  "",
+			startTime: 0,
+			endTime:   0,
+			limit:     0,
+		}, MarketPriceCandlestickResponse{}, true},
+		{"TestMarketClient_GetMarketPriceCandlestick", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:    "test",
 			interval:  "",
 			startTime: 0,
 			endTime:   0,
@@ -912,6 +963,16 @@ func TestMarketClient_GetOpenInterestStatistics(t *testing.T) {
 			AppKey:  "",
 		}, args{
 			symbol:    "",
+			period:    "",
+			startTime: 0,
+			endTime:   0,
+			limit:     0,
+		}, OpenInterestStatisticsResponse{}, true},
+		{"TestMarketClient_GetOpenInterestStatistics", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:    "test",
 			period:    "",
 			startTime: 0,
 			endTime:   0,
@@ -1201,6 +1262,16 @@ func TestMarketClient_GetTakerBuySellVolume(t *testing.T) {
 			limit:     0,
 		}, TakerBuySellVolumeResponse{}, true},
 		{"TestMarketClient_GetTakerBuySellVolume", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:    "test",
+			period:    "",
+			startTime: 0,
+			endTime:   0,
+			limit:     0,
+		}, TakerBuySellVolumeResponse{}, true},
+		{"TestMarketClient_GetTakerBuySellVolume", fields{
 			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
@@ -1270,6 +1341,16 @@ func TestMarketClient_GetTopTradeAccountsRatio(t *testing.T) {
 			limit:     0,
 		}, nil, true},
 		{"TestMarketClient_GetTopTradeAccountsRatio", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:    "test",
+			period:    "",
+			startTime: 0,
+			endTime:   0,
+			limit:     0,
+		}, nil, true},
+		{"TestMarketClient_GetTopTradeAccountsRatio", fields{
 			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
@@ -1333,6 +1414,16 @@ func TestMarketClient_GetTopTradePositionsRatio(t *testing.T) {
 			AppKey:  "",
 		}, args{
 			symbol:    "",
+			period:    "",
+			startTime: 0,
+			endTime:   0,
+			limit:     0,
+		}, nil, true},
+		{"TestMarketClient_GetTopTradePositionsRatio", fields{
+			Builder: &binance.PublicUrlBuilder{},
+			AppKey:  "",
+		}, args{
+			symbol:    "test",
 			period:    "",
 			startTime: 0,
 			endTime:   0,

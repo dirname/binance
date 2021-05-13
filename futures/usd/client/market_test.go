@@ -273,7 +273,7 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 		want    interface{}
 		wantErr bool
 	}{
-		{"TestMarketClient_GetFundingRateHistory", fields{
+		{"TestMarketClient_GetContractCandlestick", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{
@@ -284,7 +284,7 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			endTime:      0,
 			limit:        0,
 		}, []FundingRateResponse{}, true},
-		{"TestMarketClient_GetFundingRateHistory", fields{
+		{"TestMarketClient_GetContractCandlestick", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{
@@ -295,18 +295,18 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			endTime:      0,
 			limit:        0,
 		}, []FundingRateResponse{}, true},
-		{"TestMarketClient_GetFundingRateHistory", fields{
+		{"TestMarketClient_GetContractCandlestick", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{
 			symbol:       "test",
 			contractType: "",
-			interval:     "",
+			interval:     "test",
 			startTime:    0,
 			endTime:      0,
 			limit:        0,
 		}, []FundingRateResponse{}, true},
-		{"TestMarketClient_GetFundingRateHistory", fields{
+		{"TestMarketClient_GetContractCandlestick", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
 		}, args{
@@ -317,7 +317,7 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			endTime:      0,
 			limit:        0,
 		}, []FundingRateResponse{}, true},
-		{"TestMarketClient_GetFundingRateHistory", fields{
+		{"TestMarketClient_GetContractCandlestick", fields{
 			Builder: NewMarketClient(config.USDFuturesRestHost, "").Builder,
 			AppKey:  "",
 		}, args{
@@ -415,7 +415,7 @@ func TestMarketClient_GetFundingRateHistory(t *testing.T) {
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
-			startTime: 10000,
+			startTime: 1792837892781034321,
 			endTime:   10000,
 			limit:     10000,
 		}, nil, false},

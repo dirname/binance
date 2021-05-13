@@ -2,6 +2,7 @@ package spotclient
 
 import (
 	binance "github.com/dirname/binance"
+	"github.com/dirname/binance/config"
 	"github.com/dirname/binance/spot/client/orderRespType"
 	"github.com/dirname/binance/spot/client/orderType"
 	"github.com/shopspring/decimal"
@@ -147,6 +148,20 @@ func TestNewOrder(t1 *testing.T) {
 			icebergQTY:       decimal.NewFromInt(100),
 			recv:             0,
 		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        orderType.TakeProfit,
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: "test",
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

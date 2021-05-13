@@ -1,4 +1,4 @@
-package client
+package futuresclient
 
 import (
 	"encoding/json"

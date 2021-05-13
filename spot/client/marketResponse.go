@@ -31,7 +31,7 @@ type ExchangeInfoResponse struct {
 
 // OrderBookResponse order book (depth) info The first in the array is price and the second is qty
 type OrderBookResponse struct {
-	LastUpdateId int64      `json:"lastUpdateId"`
+	LastUpdateID int64      `json:"lastUpdateId"`
 	Bids         [][]string `json:"bids"`
 	Asks         [][]string `json:"asks"`
 }

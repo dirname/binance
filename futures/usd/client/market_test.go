@@ -250,14 +250,28 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 		want    interface{}
 		wantErr bool
 	}{
-		{"TestMarketClient_GetContractCandlestick", fields{
+		{"TestMarketClient_GetFundingRateHistory", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
-		}, args{symbol: "123"}, nil, true},
-		{"TestMarketClient_GetContractCandlestick", fields{
+		}, args{
+			symbol:       "",
+			contractType: "",
+			interval:     "",
+			startTime:    0,
+			endTime:      0,
+			limit:        0,
+		}, nil, true},
+		{"TestMarketClient_GetFundingRateHistory", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
-		}, args{symbol: ""}, nil, true},
+		}, args{
+			symbol:       "test",
+			contractType: "test",
+			interval:     "test",
+			startTime:    10000,
+			endTime:      10000,
+			limit:        10000,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

@@ -161,10 +161,10 @@ func TestMarketClient_GetCandlestick(t *testing.T) {
 			AppKey:  "",
 		}, args{
 			symbol:    "test",
-			interval:  "",
-			limit:     0,
-			startTime: 0,
-			endTime:   0,
+			interval:  "test",
+			limit:     10000,
+			startTime: 10000,
+			endTime:   10000,
 		}, nil, true},
 		{"TestMarketClient_GetCandlestick", fields{
 			Builder: &binance.PublicUrlBuilder{},

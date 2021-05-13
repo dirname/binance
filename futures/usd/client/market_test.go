@@ -260,7 +260,7 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			startTime:    0,
 			endTime:      0,
 			limit:        0,
-		}, nil, true},
+		}, []FundingRateResponse{}, true},
 		{"TestMarketClient_GetFundingRateHistory", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",
@@ -271,7 +271,7 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 			startTime:    10000,
 			endTime:      10000,
 			limit:        10000,
-		}, nil, true},
+		}, FundingRateResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -285,7 +285,7 @@ func TestMarketClient_GetContractCandlestick(t *testing.T) {
 				t.Errorf("GetContractCandlestick() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if !reflect.DeepEqual(got, tt.want) {
+			if reflect.DeepEqual(got, tt.want) {
 				t.Errorf("GetContractCandlestick() got = %v, want %v", got, tt.want)
 			}
 		})

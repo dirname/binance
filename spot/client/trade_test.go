@@ -3,6 +3,7 @@ package spotclient
 import (
 	binance "github.com/dirname/binance"
 	"github.com/dirname/binance/config"
+	"github.com/dirname/binance/model"
 	"github.com/dirname/binance/spot/client/orderRespType"
 	"github.com/dirname/binance/spot/client/orderType"
 	"github.com/shopspring/decimal"
@@ -240,6 +241,13 @@ func TestTradeClient_DeleteOCO(t1 *testing.T) {
 			orderListID:       0,
 			recv:              0,
 		}, DeleteOCOResponse{}, true},
+		{"TestTradeClient_DeleteOCO", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			symbol:            "test",
+			listClientOrderID: "test",
+			newClientOrderID:  "",
+			orderListID:       0,
+			recv:              0,
+		}, model.APIErrorResponse{Code: -2014, Message: "API-key format invalid."}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -282,6 +290,10 @@ func TestTradeClient_DeleteOpenOrders(t1 *testing.T) {
 			symbol: "test",
 			recv:   0,
 		}, nil, true},
+		{"TestTradeClient_DeleteOpenOrders", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			symbol: "test",
+			recv:   0,
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -333,6 +345,13 @@ func TestTradeClient_DeleteOrder(t1 *testing.T) {
 			orderID:           1,
 			recv:              0,
 		}, nil, true},
+		{"TestTradeClient_DeleteOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			symbol:            "test",
+			origClientOrderID: "test",
+			newClientOrderID:  "test",
+			orderID:           1,
+			recv:              0,
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -367,6 +386,7 @@ func TestTradeClient_GetAccountInfo(t1 *testing.T) {
 		wantErr bool
 	}{
 		{"TestTradeClient_GetAccountInfo", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, nil, true},
+		{"TestTradeClient_GetAccountInfo", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{0}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -429,6 +449,14 @@ func TestTradeClient_GetAccountTradeList(t1 *testing.T) {
 			limit:     -10000,
 			recv:      10000,
 		}, AccountTradesListResponse{}, true},
+		{"TestTradeClient_GetAccountTradeList", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			symbol:    "test",
+			startTime: 10000,
+			endTime:   10000,
+			formID:    10000,
+			limit:     -10000,
+			recv:      10000,
+		}, model.APIErrorResponse{Code: -2014, Message: "API-key format invalid."}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -494,6 +522,13 @@ func TestTradeClient_GetAllOCOOrder(t1 *testing.T) {
 			limit:     400,
 			recv:      1000,
 		}, nil, true},
+		{"TestTradeClient_GetAllOCOOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			formID:    0,
+			startTime: 0,
+			endTime:   0,
+			limit:     400,
+			recv:      1000,
+		}, model.APIErrorResponse{Code: -2014, Message: "API-key format invalid."}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -548,6 +583,14 @@ func TestTradeClient_GetAllOrder(t1 *testing.T) {
 			limit:     1000,
 			recv:      1000,
 		}, false, true},
+		{"TestTradeClient_GetAllOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			symbol:    "test",
+			orderID:   1000,
+			startTime: 1000,
+			endTime:   1000,
+			limit:     1000,
+			recv:      1000,
+		}, false, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -593,6 +636,11 @@ func TestTradeClient_GetOCOOrder(t1 *testing.T) {
 			orderListID:       10,
 			recv:              10,
 		}, nil, true},
+		{"TestTradeClient_GetOCOOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			origClientOrderID: "test",
+			orderListID:       10,
+			recv:              10,
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -627,6 +675,7 @@ func TestTradeClient_GetOpenOCOOrder(t1 *testing.T) {
 		wantErr bool
 	}{
 		{"TestTradeClient_GetOpenOCOOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, nil, true},
+		{"TestTradeClient_GetOpenOCOOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{0}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -669,6 +718,10 @@ func TestTradeClient_GetOpenOrder(t1 *testing.T) {
 			symbol: "test",
 			recv:   0,
 		}, false, true},
+		{"TestTradeClient_GetOpenOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			symbol: "test",
+			recv:   0,
+		}, false, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -717,6 +770,12 @@ func TestTradeClient_GetOrder(t1 *testing.T) {
 			orderID:           10,
 			recv:              0,
 		}, nil, true},
+		{"TestTradeClient_GetOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			symbol:            "test",
+			origClientOrderID: "test",
+			orderID:           10,
+			recv:              0,
+		}, nil, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -859,6 +918,22 @@ func TestTradeClient_NewOCO(t1 *testing.T) {
 			stopIcebergQty:       decimal.NewFromInt(100),
 			recv:                 0,
 		}, false, true},
+		{"TestTradeClient_NewOCO", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			symbol:               "test",
+			listClientOrderID:    "test",
+			side:                 "test",
+			limitClientOrderId:   "test",
+			stopClientOrderId:    "test",
+			stopLimitTimeInForce: "test",
+			newOrderRespType:     "test",
+			quantity:             decimal.NewFromInt(100),
+			price:                decimal.NewFromInt(100),
+			limitIcebergQty:      decimal.NewFromInt(100),
+			stopPrice:            decimal.NewFromInt(100),
+			stopLimitPrice:       decimal.NewFromInt(100),
+			stopIcebergQty:       decimal.NewFromInt(100),
+			recv:                 0,
+		}, false, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -1015,6 +1090,20 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 			icebergQTY:       decimal.NewFromInt(100),
 			recv:             0,
 		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        orderType.TakeProfit,
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: "test",
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

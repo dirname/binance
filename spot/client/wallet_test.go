@@ -82,6 +82,13 @@ func TestWalletClient_AccountDividendRecord(t *testing.T) {
 			limit:     -10,
 			recv:      10,
 		}, nil, false},
+		{"TestWalletClient_AccountDividendRecord", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			asset:     "test",
+			startTime: 10,
+			endTime:   10,
+			limit:     -10,
+			recv:      10,
+		}, nil, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

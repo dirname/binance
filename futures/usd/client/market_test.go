@@ -165,7 +165,7 @@ func TestMarketClient_GetCandlestick(t *testing.T) {
 			limit:     10000,
 			startTime: 10000,
 			endTime:   10000,
-		}, nil, true},
+		}, model.APIErrorResponse{Code: -1120, Message: "Invalid interval."}, false},
 		{"TestMarketClient_GetCandlestick", fields{
 			Builder: &binance.PublicUrlBuilder{},
 			AppKey:  "",

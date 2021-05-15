@@ -229,10 +229,10 @@ func (m *MarketClient) GetCandlestick(symbol, interval string, limit int32, star
 }
 
 // GetContractCandlestick Kline/candlestick bars for a specific contract type. Kline are uniquely identified by their open time.
-func (m *MarketClient) GetContractCandlestick(symbol, contractType, interval string, limit int32, startTime, endTime int64) (interface{}, error) {
+func (m *MarketClient) GetContractCandlestick(pair, contractType, interval string, limit int32, startTime, endTime int64) (interface{}, error) {
 	var err error
-	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+	if pair == "" {
+		err := errors.New(PairEmpty)
 		return nil, err
 	}
 	if interval == "" {
@@ -243,7 +243,7 @@ func (m *MarketClient) GetContractCandlestick(symbol, contractType, interval str
 		err := errors.New(ContractEmpty)
 		return nil, err
 	}
-	params := fmt.Sprintf("symbol=%s&interval=%s&contractType=%s", symbol, interval, contractType)
+	params := fmt.Sprintf("pair=%s&interval=%s&contractType=%s", pair, interval, contractType)
 	if limit > 1500 {
 		limit = 1500
 	}
@@ -379,7 +379,7 @@ func (m *MarketClient) GetMarketPrice(symbol string) (interface{}, error) {
 		err = json.Unmarshal(res, &result)
 		return result, err
 	}
-	result := MarketPriceCandlestickResponse{}
+	result := MarketPriceResponse{}
 	err = json.Unmarshal(res, &result)
 	return result, err
 }
@@ -543,7 +543,7 @@ func (m *MarketClient) GetOpenInterestStatistics(symbol, period string, startTim
 		err := errors.New(PeriodEmpty)
 		return nil, err
 	}
-	params := fmt.Sprintf("symbol=%s", symbol)
+	params := fmt.Sprintf("symbol=%s&period=%s", symbol, period)
 	if startTime > 0 {
 		params += fmt.Sprintf("&startTime=%d", startTime)
 	}
@@ -584,7 +584,7 @@ func (m *MarketClient) GetTopTradeAccountsRatio(symbol, period string, startTime
 		err := errors.New(PeriodEmpty)
 		return nil, err
 	}
-	params := fmt.Sprintf("symbol=%s", symbol)
+	params := fmt.Sprintf("symbol=%s&period=%s", symbol, period)
 	if startTime > 0 {
 		params += fmt.Sprintf("&startTime=%d", startTime)
 	}
@@ -625,7 +625,7 @@ func (m *MarketClient) GetTopTradePositionsRatio(symbol, period string, startTim
 		err := errors.New(PeriodEmpty)
 		return nil, err
 	}
-	params := fmt.Sprintf("symbol=%s", symbol)
+	params := fmt.Sprintf("symbol=%s&period=%s", symbol, period)
 	if startTime > 0 {
 		params += fmt.Sprintf("&startTime=%d", startTime)
 	}
@@ -666,7 +666,7 @@ func (m *MarketClient) GetLongShortRatio(symbol, period string, startTime, endTi
 		err := errors.New(PeriodEmpty)
 		return nil, err
 	}
-	params := fmt.Sprintf("symbol=%s", symbol)
+	params := fmt.Sprintf("symbol=%s&period=%s", symbol, period)
 	if startTime > 0 {
 		params += fmt.Sprintf("&startTime=%d", startTime)
 	}
@@ -707,7 +707,7 @@ func (m *MarketClient) GetTakerBuySellVolume(symbol, period string, startTime, e
 		err := errors.New(PeriodEmpty)
 		return nil, err
 	}
-	params := fmt.Sprintf("symbol=%s", symbol)
+	params := fmt.Sprintf("symbol=%s&period=%s", symbol, period)
 	if startTime > 0 {
 		params += fmt.Sprintf("&startTime=%d", startTime)
 	}
@@ -738,17 +738,17 @@ func (m *MarketClient) GetTakerBuySellVolume(symbol, period string, startTime, e
 }
 
 //GetHistoricalBLVTNavCandlestick The BLVT NAV system is based on Binance Futures, so the endpoint is based on fapi
-func (m *MarketClient) GetHistoricalBLVTNavCandlestick(symbol, period string, startTime, endTime int64, limit int32) (interface{}, error) {
+func (m *MarketClient) GetHistoricalBLVTNavCandlestick(symbol, interval string, startTime, endTime int64, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
 		err := errors.New(SymbolEmpty)
 		return nil, err
 	}
-	if period == "" {
-		err := errors.New(PeriodEmpty)
+	if interval == "" {
+		err := errors.New(IntervalEmpty)
 		return nil, err
 	}
-	params := fmt.Sprintf("symbol=%s", symbol)
+	params := fmt.Sprintf("symbol=%s&interval=%s", symbol, interval)
 	if startTime > 0 {
 		params += fmt.Sprintf("&startTime=%d", startTime)
 	}

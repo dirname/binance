@@ -161,7 +161,7 @@ type OpenInterestStatisticsResponse []struct {
 	Symbol               string `json:"symbol"`
 	SumOpenInterest      string `json:"sumOpenInterest"`
 	SumOpenInterestValue string `json:"sumOpenInterestValue"`
-	Timestamp            string `json:"timestamp"`
+	Timestamp            int64  `json:"timestamp"`
 }
 
 //TopTraderAccountsRatioResponse Get top trader accounts ratio response
@@ -170,7 +170,7 @@ type TopTraderAccountsRatioResponse []struct {
 	LongShortRatio string `json:"longShortRatio"`
 	LongAccount    string `json:"longAccount"`
 	ShortAccount   string `json:"shortAccount"`
-	Timestamp      string `json:"timestamp"`
+	Timestamp      int64  `json:"timestamp"`
 }
 
 //TopTraderPositionsRatioResponse Get top trader positions ratio response
@@ -179,7 +179,7 @@ type TopTraderPositionsRatioResponse []struct {
 	LongShortRatio string `json:"longShortRatio"`
 	LongAccount    string `json:"longAccount"`
 	ShortAccount   string `json:"shortAccount"`
-	Timestamp      string `json:"timestamp"`
+	Timestamp      int64  `json:"timestamp"`
 }
 
 //LongShortRatioResponse get long short ratio
@@ -188,15 +188,15 @@ type LongShortRatioResponse []struct {
 	LongShortRatio string `json:"longShortRatio"`
 	LongAccount    string `json:"longAccount"`
 	ShortAccount   string `json:"shortAccount"`
-	Timestamp      string `json:"timestamp"`
+	Timestamp      int64  `json:"timestamp"`
 }
 
 //TakerBuySellVolumeResponse get tacker buy/sell volume
-type TakerBuySellVolumeResponse struct {
+type TakerBuySellVolumeResponse []struct {
 	BuySellRatio string `json:"buySellRatio"`
 	BuyVol       string `json:"buyVol"`
 	SellVol      string `json:"sellVol"`
-	Timestamp    string `json:"timestamp"`
+	Timestamp    int64  `json:"timestamp"`
 }
 
 //HistoricalBLVTNavCandlestickResponse get BLVT Nav candlestick

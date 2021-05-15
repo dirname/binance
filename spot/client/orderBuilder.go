@@ -3,7 +3,7 @@ package spotclient
 import (
 	"errors"
 	"fmt"
-	"github.com/dirname/binance/spot/client/orderType"
+	"github.com/dirname/binance/spot/client/define/orderType"
 	"github.com/shopspring/decimal"
 	"sort"
 	"strings"

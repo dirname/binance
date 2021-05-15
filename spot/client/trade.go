@@ -7,7 +7,7 @@ import (
 	binance "github.com/dirname/binance"
 	logger "github.com/dirname/binance/logging"
 	"github.com/dirname/binance/model"
-	"github.com/dirname/binance/spot/client/orderRespType"
+	"github.com/dirname/binance/spot/client/define/orderRespType"
 	"github.com/shopspring/decimal"
 	"net/http"
 	"strings"

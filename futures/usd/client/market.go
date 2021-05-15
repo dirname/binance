@@ -48,7 +48,7 @@ func (m *MarketClient) GetExchangeInfo() (interface{}, error) {
 func (m *MarketClient) GetOrderBook(symbol string, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s", symbol)
@@ -79,7 +79,7 @@ func (m *MarketClient) GetOrderBook(symbol string, limit int32) (interface{}, er
 func (m *MarketClient) GetRecentTrades(symbol string, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s", symbol)
@@ -110,7 +110,7 @@ func (m *MarketClient) GetRecentTrades(symbol string, limit int32) (interface{},
 func (m *MarketClient) GetOldTradeLookUp(symbol string, limit int32, formID, startTime, endTime int64) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s", symbol)
@@ -151,7 +151,7 @@ func (m *MarketClient) GetOldTradeLookUp(symbol string, limit int32, formID, sta
 func (m *MarketClient) GetAggregateTrades(symbol string, limit int32, formID, startTime, endTime int64) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s", symbol)
@@ -191,11 +191,11 @@ func (m *MarketClient) GetAggregateTrades(symbol string, limit int32, formID, st
 func (m *MarketClient) GetCandlestick(symbol, interval string, limit int32, startTime, endTime int64) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	if interval == "" {
-		err := errors.New(IntervalEmpty)
+		err = errors.New(IntervalEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s&interval=%s", symbol, interval)
@@ -232,15 +232,15 @@ func (m *MarketClient) GetCandlestick(symbol, interval string, limit int32, star
 func (m *MarketClient) GetContractCandlestick(pair, contractType, interval string, limit int32, startTime, endTime int64) (interface{}, error) {
 	var err error
 	if pair == "" {
-		err := errors.New(PairEmpty)
+		err = errors.New(PairEmpty)
 		return nil, err
 	}
 	if interval == "" {
-		err := errors.New(IntervalEmpty)
+		err = errors.New(IntervalEmpty)
 		return nil, err
 	}
 	if contractType == "" {
-		err := errors.New(ContractEmpty)
+		err = errors.New(ContractEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("pair=%s&interval=%s&contractType=%s", pair, interval, contractType)
@@ -277,11 +277,11 @@ func (m *MarketClient) GetContractCandlestick(pair, contractType, interval strin
 func (m *MarketClient) GetIndexCandlestick(pair, interval string, limit int32, startTime, endTime int64) (interface{}, error) {
 	var err error
 	if pair == "" {
-		err := errors.New(PairEmpty)
+		err = errors.New(PairEmpty)
 		return nil, err
 	}
 	if interval == "" {
-		err := errors.New(IntervalEmpty)
+		err = errors.New(IntervalEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("pair=%s&interval=%s", pair, interval)
@@ -318,11 +318,11 @@ func (m *MarketClient) GetIndexCandlestick(pair, interval string, limit int32, s
 func (m *MarketClient) GetMarketPriceCandlestick(symbol, interval string, limit int32, startTime, endTime int64) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	if interval == "" {
-		err := errors.New(IntervalEmpty)
+		err = errors.New(IntervalEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s&interval=%s", symbol, interval)
@@ -511,7 +511,7 @@ func (m *MarketClient) GetSymbolOrderBookTicker(symbol string) (interface{}, err
 func (m *MarketClient) GetOpenInterest(symbol string) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s", symbol)
@@ -536,11 +536,11 @@ func (m *MarketClient) GetOpenInterest(symbol string) (interface{}, error) {
 func (m *MarketClient) GetOpenInterestStatistics(symbol, period string, startTime, endTime int64, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	if period == "" {
-		err := errors.New(PeriodEmpty)
+		err = errors.New(PeriodEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s&period=%s", symbol, period)
@@ -577,11 +577,11 @@ func (m *MarketClient) GetOpenInterestStatistics(symbol, period string, startTim
 func (m *MarketClient) GetTopTradeAccountsRatio(symbol, period string, startTime, endTime int64, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	if period == "" {
-		err := errors.New(PeriodEmpty)
+		err = errors.New(PeriodEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s&period=%s", symbol, period)
@@ -618,11 +618,11 @@ func (m *MarketClient) GetTopTradeAccountsRatio(symbol, period string, startTime
 func (m *MarketClient) GetTopTradePositionsRatio(symbol, period string, startTime, endTime int64, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	if period == "" {
-		err := errors.New(PeriodEmpty)
+		err = errors.New(PeriodEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s&period=%s", symbol, period)
@@ -659,11 +659,11 @@ func (m *MarketClient) GetTopTradePositionsRatio(symbol, period string, startTim
 func (m *MarketClient) GetLongShortRatio(symbol, period string, startTime, endTime int64, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	if period == "" {
-		err := errors.New(PeriodEmpty)
+		err = errors.New(PeriodEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s&period=%s", symbol, period)
@@ -700,11 +700,11 @@ func (m *MarketClient) GetLongShortRatio(symbol, period string, startTime, endTi
 func (m *MarketClient) GetTakerBuySellVolume(symbol, period string, startTime, endTime int64, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	if period == "" {
-		err := errors.New(PeriodEmpty)
+		err = errors.New(PeriodEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s&period=%s", symbol, period)
@@ -741,11 +741,11 @@ func (m *MarketClient) GetTakerBuySellVolume(symbol, period string, startTime, e
 func (m *MarketClient) GetHistoricalBLVTNavCandlestick(symbol, interval string, startTime, endTime int64, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	if interval == "" {
-		err := errors.New(IntervalEmpty)
+		err = errors.New(IntervalEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s&interval=%s", symbol, interval)

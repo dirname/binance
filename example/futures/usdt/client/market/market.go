@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/dirname/binance/config"
 	"github.com/dirname/binance/futures/usd/client"
-	"github.com/dirname/binance/futures/usd/client/contractType"
+	"github.com/dirname/binance/futures/usd/client/define/contractType"
 	logger "github.com/dirname/binance/logging"
 	"github.com/dirname/binance/model"
 )

@@ -3,11 +3,30 @@ package futuresclient
 import (
 	"errors"
 	"fmt"
-	"github.com/dirname/binance/futures/usd/client/orderType"
+	"github.com/dirname/binance/futures/usd/client/define/orderType"
 	"github.com/shopspring/decimal"
 	"sort"
 	"strings"
 )
+
+//OrderBatch batch order model
+type OrderBatch []struct {
+	Symbol           string          `json:"symbol"`
+	Side             string          `json:"side"`
+	PositionSide     string          `json:"positionSide,omitempty"`
+	Type             string          `json:"type"`
+	ReduceOnly       string          `json:"reduceOnly,omitempty"`
+	Quantity         decimal.Decimal `json:"quantity"`
+	Price            decimal.Decimal `json:"price,omitempty"`
+	NewClientOrderID string          `json:"newClientOrderId,omitempty"`
+	StopPrice        decimal.Decimal `json:"stopPrice,omitempty"`
+	ActivationPrice  decimal.Decimal `json:"activationPrice,omitempty"`
+	CallbackRate     decimal.Decimal `json:"callbackRate,omitempty"`
+	TimeInForce      string          `json:"timeInForce,omitempty"`
+	WorkingType      string          `json:"workingType,omitempty"`
+	PriceProtect     string          `json:"priceProtect,omitempty"`
+	NewOrderRespType string          `json:"newOrderRespType,omitempty"`
+}
 
 var mustPrice, mustStopPrice, mustQuantity, mustTimeInForce, mustCallbackRate []string
 

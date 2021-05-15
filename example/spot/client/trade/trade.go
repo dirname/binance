@@ -5,9 +5,9 @@ import (
 	logger "github.com/dirname/binance/logging"
 	"github.com/dirname/binance/model"
 	"github.com/dirname/binance/spot/client"
-	"github.com/dirname/binance/spot/client/orderSide"
-	"github.com/dirname/binance/spot/client/orderType"
-	"github.com/dirname/binance/spot/client/timeInForce"
+	"github.com/dirname/binance/spot/client/define/orderSide"
+	"github.com/dirname/binance/spot/client/define/orderType"
+	"github.com/dirname/binance/spot/client/define/timeInForce"
 	"github.com/shopspring/decimal"
 )
 

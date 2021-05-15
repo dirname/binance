@@ -48,7 +48,7 @@ func (m *MarketClient) GetExchangeInfo() (interface{}, error) {
 func (m *MarketClient) GetOrderBook(symbol string, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s", symbol)
@@ -79,7 +79,7 @@ func (m *MarketClient) GetOrderBook(symbol string, limit int32) (interface{}, er
 func (m *MarketClient) GetRecentTrades(symbol string, limit int32) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s", symbol)
@@ -110,7 +110,7 @@ func (m *MarketClient) GetRecentTrades(symbol string, limit int32) (interface{},
 func (m *MarketClient) GetOldTradeLookUp(symbol string, limit int32, formID int64) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s", symbol)
@@ -145,7 +145,7 @@ func (m *MarketClient) GetOldTradeLookUp(symbol string, limit int32, formID int6
 func (m *MarketClient) GetAggregateTrades(symbol string, limit int32, formID, startTime, endTime int64) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s", symbol)
@@ -185,11 +185,11 @@ func (m *MarketClient) GetAggregateTrades(symbol string, limit int32, formID, st
 func (m *MarketClient) GetCandlestick(symbol, interval string, limit int32, startTime, endTime int64) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	if interval == "" {
-		err := errors.New(IntervalEmpty)
+		err = errors.New(IntervalEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s&interval=%s", symbol, interval)
@@ -226,7 +226,7 @@ func (m *MarketClient) GetCandlestick(symbol, interval string, limit int32, star
 func (m *MarketClient) GetAveragePrice(symbol string) (interface{}, error) {
 	var err error
 	if symbol == "" {
-		err := errors.New(SymbolEmpty)
+		err = errors.New(SymbolEmpty)
 		return nil, err
 	}
 	params := fmt.Sprintf("symbol=%s", symbol)

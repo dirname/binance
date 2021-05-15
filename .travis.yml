@@ -12,7 +12,7 @@ before_install:
   - go mod tidy
 
 script:
-  - go test -race -coverprofile=coverage.txt -covermode=atomic ./futures/... ./margin/... ./spot/... ./logging/...
+  - go test -race -coverprofile=coverage.txt -covermode=atomic ./futures/... ./spot/... ./logging/...
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

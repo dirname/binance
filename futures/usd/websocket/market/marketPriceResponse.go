@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 // MarketPriceResponse json parser
 type MarketPriceResponse struct {

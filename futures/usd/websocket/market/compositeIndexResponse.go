@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 // CompositeIndexResponse json parser
 type CompositeIndexResponse struct {

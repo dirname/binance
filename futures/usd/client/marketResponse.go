@@ -10,9 +10,9 @@ type ExchangeInfoResponse struct {
 	} `json:"rateLimits"`
 	ServerTime int64 `json:"serverTime"`
 	Assets     []struct {
-		Asset             string `json:"asset"`
-		MarginAvailable   bool   `json:"marginAvailable"`
-		AutoAssetExchange *int   `json:"autoAssetExchange"`
+		Asset             string      `json:"asset"`
+		MarginAvailable   bool        `json:"marginAvailable"`
+		AutoAssetExchange interface{} `json:"autoAssetExchange"`
 	} `json:"assets"`
 	Symbols []struct {
 		Symbol                   string                   `json:"symbol"`

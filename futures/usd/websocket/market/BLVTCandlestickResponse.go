@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 // BLVTCandlestickResponse json parser
 type BLVTCandlestickResponse struct {

@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 // AggTradeResponse json parser
 type AggTradeResponse struct {

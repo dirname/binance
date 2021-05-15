@@ -4,8 +4,10 @@ import (
 	"encoding/json"
 	"errors"
 	"github.com/dirname/binance"
+	"github.com/dirname/binance/futures/usd/client/orderRespType"
 	logger "github.com/dirname/binance/logging"
 	"github.com/dirname/binance/model"
+	"github.com/shopspring/decimal"
 	"net/http"
 	"strings"
 	"time"
@@ -99,4 +101,35 @@ func (t *TradeClient) GetMultiAssetsMargin(recv time.Duration) (interface{}, err
 	result := MultiAssetsMarginResponse{}
 	err = json.Unmarshal(res, &result)
 	return result, err
+}
+
+func (t *TradeClient) NewOrder(symbol, side, positionSide, ordersType, reduceOnly, newClientOrderID, closePosition, timeInForce, workingType, priceProtect, newOrderRespType string, quantity, price, stopPrice, activationPrice, callbackRate decimal.Decimal, recv time.Duration) (interface{}, error) {
+	var err error
+	params, err := buildOrder(symbol, side, positionSide, ordersType, reduceOnly, newClientOrderID, closePosition, timeInForce, workingType, priceProtect, newOrderRespType, quantity, price, stopPrice, activationPrice, callbackRate)
+	if err != nil {
+		return nil, err
+	}
+	req, err := t.Builder.Build(http.MethodPost, "/fapi/v3/order", params, true, true, recv)
+	if err != nil {
+		logger.Error("Failed to build url: %s", err.Error())
+	}
+	res, err := binance.HttpRequest(req)
+	var parser map[string]interface{}
+	err = json.Unmarshal(res, &parser)
+	if _, ok := parser["code"]; ok {
+		result := model.APIErrorResponse{}
+		err = json.Unmarshal(res, &result)
+		return result, err
+	}
+	switch newOrderRespType {
+	case orderRespType.Result:
+		result := NewOrderResponseResult{}
+		err = json.Unmarshal(res, &result)
+		return result, err
+	case orderRespType.ACK:
+		result := NewOrderResponseACK{}
+		err = json.Unmarshal(res, &result)
+		return parser, err
+	}
+	return parser, err
 }

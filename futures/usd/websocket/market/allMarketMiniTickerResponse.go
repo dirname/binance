@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 // AllMarketMiniTickerResponse json parser
 type AllMarketMiniTickerResponse []struct {

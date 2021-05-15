@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 // DiffBookDepthResponse json parser
 type DiffBookDepthResponse struct {

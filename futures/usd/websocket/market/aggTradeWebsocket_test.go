@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 import (
 	binance "github.com/dirname/binance"

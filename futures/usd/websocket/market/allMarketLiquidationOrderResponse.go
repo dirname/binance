@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 // AllMarketLiquidationOrderResponse json parser
 type AllMarketLiquidationOrderResponse struct {

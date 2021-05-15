@@ -7,6 +7,7 @@ const (
 	PairEmpty                      = "pair cannot be empty"
 	ContractEmpty                  = "contract cannot be empty"
 	PeriodEmpty                    = "period cannot be empty"
+	CallBackRateInvalid            = "callback cannot less than or qual zero"
 	CoinEmpty                      = "coin cannot be empty"
 	AddressEmpty                   = "address cannot be empty"
 	AmountInvalid                  = "amount cannot less than or equal zero"
@@ -17,4 +18,6 @@ const (
 	QuantityInvalid                = "quantity cannot less than or equal zero"
 	QuantityOrQuoteOrderQtyInvalid = "quantity or quoteOrderQty cannot less than or equal zero"
 	InvalidParameters              = "invalid parameters"
+	ReduceOnlyWithClosePosition    = "closePosition does not accept parameters reduceOnly and quantity"
+	OrderTypeWithClosePosition     = "closePosition only accepts order types STOP_MARKET and TAKE_PROFIT_MARKET"
 )

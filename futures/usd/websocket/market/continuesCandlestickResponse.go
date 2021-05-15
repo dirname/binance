@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 // ContinuesCandlestickResponse json parser
 type ContinuesCandlestickResponse struct {

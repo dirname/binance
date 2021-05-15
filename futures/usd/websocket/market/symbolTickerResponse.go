@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 // SymbolTickerResponse json parser
 type SymbolTickerResponse struct {

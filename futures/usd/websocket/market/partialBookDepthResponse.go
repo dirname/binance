@@ -1,4 +1,4 @@
-package futuresusdt
+package futuresclient
 
 // PartialBookDepthResponse json parser
 type PartialBookDepthResponse struct {

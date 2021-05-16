@@ -1,9 +1,7 @@
 package spotclient
 
 import (
-	"github.com/dirname/binance/spot/client/define/orderRespType"
-	"github.com/dirname/binance/spot/client/define/orderSide"
-	"github.com/dirname/binance/spot/client/define/orderType"
+	"github.com/dirname/binance/spot/client/define/order"
 	"github.com/shopspring/decimal"
 	"testing"
 )
@@ -61,7 +59,7 @@ func Test_buildNewOrderRespType(t *testing.T) {
 		args args
 		want string
 	}{
-		{"Test_buildNewOrderRespType", args{newOrderRespType: orderRespType.Result}, "&newOrderRespType=RESULT"},
+		{"Test_buildNewOrderRespType", args{newOrderRespType: order.Result}, "&newOrderRespType=RESULT"},
 		{"Test_buildNewOrderRespType", args{newOrderRespType: ""}, ""},
 		// TODO: Add test cases.
 	}
@@ -97,7 +95,7 @@ func Test_buildOrder(t *testing.T) {
 		{"Test_buildOrder", args{
 			symbol:           "test",
 			side:             "sell",
-			ordersType:       orderType.Limit,
+			ordersType:       order.Limit,
 			timeInForce:      "",
 			newClientOderID:  "",
 			newOrderRespType: "",
@@ -110,7 +108,7 @@ func Test_buildOrder(t *testing.T) {
 		{"Test_buildOrder", args{
 			symbol:           "",
 			side:             "sell",
-			ordersType:       orderType.Limit,
+			ordersType:       order.Limit,
 			timeInForce:      "",
 			newClientOderID:  "",
 			newOrderRespType: "",
@@ -122,8 +120,8 @@ func Test_buildOrder(t *testing.T) {
 		}, "", true},
 		{"Test_buildOrder", args{
 			symbol:           "test",
-			side:             orderSide.Buy,
-			ordersType:       orderType.Limit,
+			side:             order.Buy,
+			ordersType:       order.Limit,
 			timeInForce:      "test",
 			newClientOderID:  "",
 			newOrderRespType: "",
@@ -135,8 +133,8 @@ func Test_buildOrder(t *testing.T) {
 		}, "symbol=test&side=BUY&type=LIMIT&timeInForce=test&quantity=0.123&price=0.7878", false},
 		{"Test_buildOrder", args{
 			symbol:           "test",
-			side:             orderSide.Buy,
-			ordersType:       orderType.Market,
+			side:             order.Buy,
+			ordersType:       order.Market,
 			timeInForce:      "test",
 			newClientOderID:  "",
 			newOrderRespType: "",
@@ -149,7 +147,7 @@ func Test_buildOrder(t *testing.T) {
 		{"Test_buildOrder", args{
 			symbol:           "test",
 			side:             "sell",
-			ordersType:       orderType.Limit,
+			ordersType:       order.Limit,
 			timeInForce:      "",
 			newClientOderID:  "",
 			newOrderRespType: "",
@@ -162,7 +160,7 @@ func Test_buildOrder(t *testing.T) {
 		{"Test_buildOrder", args{
 			symbol:           "test",
 			side:             "sell",
-			ordersType:       orderType.LimitMarker,
+			ordersType:       order.LimitMarker,
 			timeInForce:      "",
 			newClientOderID:  "",
 			newOrderRespType: "",
@@ -175,7 +173,7 @@ func Test_buildOrder(t *testing.T) {
 		{"Test_buildOrder", args{
 			symbol:           "test",
 			side:             "sell",
-			ordersType:       orderType.LimitMarker,
+			ordersType:       order.LimitMarker,
 			timeInForce:      "",
 			newClientOderID:  "",
 			newOrderRespType: "",
@@ -188,7 +186,7 @@ func Test_buildOrder(t *testing.T) {
 		{"Test_buildOrder", args{
 			symbol:           "test",
 			side:             "sell",
-			ordersType:       orderType.TakeProfit,
+			ordersType:       order.TakeProfit,
 			timeInForce:      "",
 			newClientOderID:  "",
 			newOrderRespType: "",
@@ -335,11 +333,11 @@ func Test_isInArray(t *testing.T) {
 		want bool
 	}{
 		{"Test_isInArray", args{
-			target:   orderType.Market,
+			target:   order.Market,
 			strArray: mustTimeInForce,
 		}, false},
 		{"Test_isInArray", args{
-			target:   orderType.Limit,
+			target:   order.Limit,
 			strArray: mustTimeInForce,
 		}, true},
 		// TODO: Add test cases.

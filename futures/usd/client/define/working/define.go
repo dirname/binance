@@ -1,4 +1,4 @@
-package workingType
+package working
 
 const (
 	MarkPrice     = "MARK_PRICE"     //MarkPrice mark price

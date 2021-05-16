@@ -1,4 +1,4 @@
-package marginType
+package margin
 
 const (
 	Isolated = "ISOLATED" //Isolated isolated

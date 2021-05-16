@@ -4,8 +4,7 @@ import (
 	binance "github.com/dirname/binance"
 	"github.com/dirname/binance/config"
 	"github.com/dirname/binance/model"
-	"github.com/dirname/binance/spot/client/define/orderRespType"
-	"github.com/dirname/binance/spot/client/define/orderType"
+	"github.com/dirname/binance/spot/client/define/order"
 	"github.com/shopspring/decimal"
 	"reflect"
 	"testing"
@@ -54,7 +53,7 @@ func TestNewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.LimitMarker,
+			orderType:        order.LimitMarker,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -68,7 +67,7 @@ func TestNewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.Limit,
+			orderType:        order.Limit,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -82,7 +81,7 @@ func TestNewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.Market,
+			orderType:        order.Market,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -96,7 +95,7 @@ func TestNewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.StopLoss,
+			orderType:        order.StopLoss,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -110,7 +109,7 @@ func TestNewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.StopLossLimit,
+			orderType:        order.StopLossLimit,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -124,7 +123,7 @@ func TestNewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.TakeProfitLimit,
+			orderType:        order.TakeProfitLimit,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -138,7 +137,7 @@ func TestNewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.TakeProfit,
+			orderType:        order.TakeProfit,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -152,7 +151,7 @@ func TestNewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.TakeProfit,
+			orderType:        order.TakeProfit,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -1002,10 +1001,10 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.LimitMarker,
+			orderType:        order.LimitMarker,
 			timeInForce:      "test",
 			newClientOderID:  "test",
-			newOrderRespType: orderRespType.Result,
+			newOrderRespType: order.Result,
 			quantity:         decimal.NewFromInt(100),
 			quoteOrderQTY:    decimal.NewFromInt(100),
 			price:            decimal.NewFromInt(100),
@@ -1016,10 +1015,10 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.Limit,
+			orderType:        order.Limit,
 			timeInForce:      "test",
 			newClientOderID:  "test",
-			newOrderRespType: orderRespType.ACK,
+			newOrderRespType: order.ACK,
 			quantity:         decimal.NewFromInt(100),
 			quoteOrderQTY:    decimal.NewFromInt(100),
 			price:            decimal.NewFromInt(100),
@@ -1030,10 +1029,10 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.Market,
+			orderType:        order.Market,
 			timeInForce:      "test",
 			newClientOderID:  "test",
-			newOrderRespType: orderRespType.Full,
+			newOrderRespType: order.Full,
 			quantity:         decimal.NewFromInt(100),
 			quoteOrderQTY:    decimal.NewFromInt(100),
 			price:            decimal.NewFromInt(100),
@@ -1044,21 +1043,7 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.StopLoss,
-			timeInForce:      "test",
-			newClientOderID:  "test",
-			newOrderRespType: "test",
-			quantity:         decimal.NewFromInt(100),
-			quoteOrderQTY:    decimal.NewFromInt(100),
-			price:            decimal.NewFromInt(100),
-			stopPrice:        decimal.NewFromInt(100),
-			icebergQTY:       decimal.NewFromInt(100),
-			recv:             0,
-		}, false, true},
-		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
-			symbol:           "test",
-			side:             "test",
-			orderType:        orderType.StopLossLimit,
+			orderType:        order.StopLoss,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -1072,7 +1057,7 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.TakeProfitLimit,
+			orderType:        order.StopLossLimit,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -1086,7 +1071,21 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.TakeProfit,
+			orderType:        order.TakeProfitLimit,
+			timeInForce:      "test",
+			newClientOderID:  "test",
+			newOrderRespType: "test",
+			quantity:         decimal.NewFromInt(100),
+			quoteOrderQTY:    decimal.NewFromInt(100),
+			price:            decimal.NewFromInt(100),
+			stopPrice:        decimal.NewFromInt(100),
+			icebergQTY:       decimal.NewFromInt(100),
+			recv:             0,
+		}, false, true},
+		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			orderType:        order.TakeProfit,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",
@@ -1100,7 +1099,7 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 		{"TestNewOrder", fields{binance.NewPrivateUrlBuilder(config.SpotRestHost, "", "")}, args{
 			symbol:           "test",
 			side:             "test",
-			orderType:        orderType.TakeProfit,
+			orderType:        order.TakeProfit,
 			timeInForce:      "test",
 			newClientOderID:  "test",
 			newOrderRespType: "test",

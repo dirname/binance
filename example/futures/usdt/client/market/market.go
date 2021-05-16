@@ -3,7 +3,7 @@ package main
 import (
 	"github.com/dirname/binance/config"
 	"github.com/dirname/binance/futures/usd/client"
-	"github.com/dirname/binance/futures/usd/client/define/contractType"
+	"github.com/dirname/binance/futures/usd/client/define/contract"
 	logger "github.com/dirname/binance/logging"
 	"github.com/dirname/binance/model"
 )
@@ -131,7 +131,7 @@ func getCandlestick() {
 }
 
 func getContractCandlestick() {
-	response, err := marketClient.GetContractCandlestick("BTCUSDT", contractType.Perpetual, "1m", 0, 0, 0)
+	response, err := marketClient.GetContractCandlestick("BTCUSDT", contract.Perpetual, "1m", 0, 0, 0)
 	if err != nil {
 		logger.Error("getContractCandlestick err: %s", err.Error())
 	}

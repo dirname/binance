@@ -3,7 +3,7 @@ package futuresclient
 import (
 	"errors"
 	"fmt"
-	"github.com/dirname/binance/futures/usd/client/define/orderType"
+	"github.com/dirname/binance/futures/usd/client/define/order"
 	"github.com/shopspring/decimal"
 	"sort"
 	"strings"
@@ -31,11 +31,11 @@ type OrderBatch []struct {
 var mustPrice, mustStopPrice, mustQuantity, mustTimeInForce, mustCallbackRate []string
 
 func init() {
-	mustPrice = []string{orderType.Limit, orderType.Stop, orderType.TakeProfit}
-	mustQuantity = []string{orderType.Limit, orderType.Market, orderType.Stop, orderType.TakeProfit}
-	mustStopPrice = []string{orderType.Stop, orderType.TakeProfit, orderType.StopMarket, orderType.TakeProfitMarket}
-	mustTimeInForce = []string{orderType.Limit}
-	mustCallbackRate = []string{orderType.TrailingStopMarket}
+	mustPrice = []string{order.Limit, order.Stop, order.TakeProfit}
+	mustQuantity = []string{order.Limit, order.Market, order.Stop, order.TakeProfit}
+	mustStopPrice = []string{order.Stop, order.TakeProfit, order.StopMarket, order.TakeProfitMarket}
+	mustTimeInForce = []string{order.Limit}
+	mustCallbackRate = []string{order.TrailingStopMarket}
 }
 
 func isInArray(target string, strArray []string) bool {
@@ -62,7 +62,7 @@ func buildOrder(symbol, side, positionSide, ordersType, reduceOnly, newClientOrd
 		err = errors.New(ReduceOnlyWithClosePosition)
 		return "", err
 	}
-	if closePosition != "" && (ordersType != orderType.StopMarket && ordersType != orderType.TakeProfitMarket) {
+	if closePosition != "" && (ordersType != order.StopMarket && ordersType != order.TakeProfitMarket) {
 		err = errors.New(OrderTypeWithClosePosition)
 		return "", err
 	}

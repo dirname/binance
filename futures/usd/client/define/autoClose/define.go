@@ -1,4 +1,4 @@
-package autoCloseType
+package autoClose
 
 const (
 	Liquidation = "LIQUIDATION" //Liquidation liquidation

@@ -1,4 +1,4 @@
-package incomeType
+package income
 
 const (
 	Transfer       = "TRANSFER"        //Transfer transfer

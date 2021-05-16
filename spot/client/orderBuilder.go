@@ -3,7 +3,7 @@ package spotclient
 import (
 	"errors"
 	"fmt"
-	"github.com/dirname/binance/spot/client/define/orderType"
+	"github.com/dirname/binance/spot/client/define/order"
 	"github.com/shopspring/decimal"
 	"sort"
 	"strings"
@@ -12,10 +12,10 @@ import (
 var mustTimeInForce, mustPrice, mustStopPrice, mustQuantity []string
 
 func init() {
-	mustTimeInForce = []string{orderType.Limit, orderType.StopLossLimit, orderType.TakeProfitLimit}
-	mustPrice = []string{orderType.Limit, orderType.StopLossLimit, orderType.TakeProfitLimit, orderType.LimitMarker}
-	mustStopPrice = []string{orderType.StopLoss, orderType.StopLossLimit, orderType.TakeProfit, orderType.TakeProfitLimit}
-	mustQuantity = []string{orderType.Limit, orderType.StopLossLimit, orderType.StopLoss, orderType.TakeProfitLimit, orderType.TakeProfit, orderType.LimitMarker}
+	mustTimeInForce = []string{order.Limit, order.StopLossLimit, order.TakeProfitLimit}
+	mustPrice = []string{order.Limit, order.StopLossLimit, order.TakeProfitLimit, order.LimitMarker}
+	mustStopPrice = []string{order.StopLoss, order.StopLossLimit, order.TakeProfit, order.TakeProfitLimit}
+	mustQuantity = []string{order.Limit, order.StopLossLimit, order.StopLoss, order.TakeProfitLimit, order.TakeProfit, order.LimitMarker}
 }
 
 func isInArray(target string, strArray []string) bool {
@@ -50,7 +50,7 @@ func buildOrder(symbol, side, ordersType, timeInForce, newClientOderID, newOrder
 		err = errors.New(ordersType + ". " + QuantityInvalid)
 		return "", err
 	}
-	if ordersType == orderType.Market && quantity.LessThanOrEqual(decimal.NewFromInt(0)) && quoteOrderQTY.LessThanOrEqual(decimal.NewFromInt(0)) {
+	if ordersType == order.Market && quantity.LessThanOrEqual(decimal.NewFromInt(0)) && quoteOrderQTY.LessThanOrEqual(decimal.NewFromInt(0)) {
 		err = errors.New(ordersType + ". " + QuantityOrQuoteOrderQtyInvalid)
 		return "", err
 	}

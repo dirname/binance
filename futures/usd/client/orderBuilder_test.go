@@ -1,7 +1,7 @@
 package futuresclient
 
 import (
-	"github.com/dirname/binance/futures/usd/client/define/orderType"
+	"github.com/dirname/binance/futures/usd/client/define/order"
 	"github.com/shopspring/decimal"
 	"testing"
 )
@@ -303,11 +303,11 @@ func Test_isInArray(t *testing.T) {
 		want bool
 	}{
 		{"Test_isInArray", args{
-			target:   orderType.Market,
+			target:   order.Market,
 			strArray: mustPrice,
 		}, false},
 		{"Test_isInArray", args{
-			target:   orderType.Limit,
+			target:   order.Limit,
 			strArray: mustPrice,
 		}, true},
 		// TODO: Add test cases.
@@ -422,7 +422,7 @@ func Test_buildOrder(t *testing.T) {
 			symbol:           "test",
 			side:             "test",
 			positionSide:     "",
-			ordersType:       orderType.Limit,
+			ordersType:       order.Limit,
 			reduceOnly:       "",
 			newClientOrderID: "",
 			closePosition:    "",
@@ -467,7 +467,7 @@ func Test_checker(t *testing.T) {
 		wantErr bool
 	}{
 		{"Test_checker", args{
-			ordersType:   orderType.Limit,
+			ordersType:   order.Limit,
 			timeInForce:  "",
 			quantity:     decimal.Decimal{},
 			price:        decimal.Decimal{},
@@ -475,7 +475,7 @@ func Test_checker(t *testing.T) {
 			callbackRate: decimal.Decimal{},
 		}, true},
 		{"Test_checker", args{
-			ordersType:   orderType.TrailingStopMarket,
+			ordersType:   order.TrailingStopMarket,
 			timeInForce:  "",
 			quantity:     decimal.Decimal{},
 			price:        decimal.Decimal{},
@@ -483,7 +483,7 @@ func Test_checker(t *testing.T) {
 			callbackRate: decimal.Decimal{},
 		}, true},
 		{"Test_checker", args{
-			ordersType:   orderType.Limit,
+			ordersType:   order.Limit,
 			timeInForce:  "test",
 			quantity:     decimal.Decimal{},
 			price:        decimal.Decimal{},
@@ -491,7 +491,7 @@ func Test_checker(t *testing.T) {
 			callbackRate: decimal.Decimal{},
 		}, true},
 		{"Test_checker", args{
-			ordersType:   orderType.Limit,
+			ordersType:   order.Limit,
 			timeInForce:  "test",
 			quantity:     decimal.Decimal{},
 			price:        decimal.NewFromInt(1),
@@ -499,7 +499,7 @@ func Test_checker(t *testing.T) {
 			callbackRate: decimal.Decimal{},
 		}, true},
 		{"Test_checker", args{
-			ordersType:   orderType.Stop,
+			ordersType:   order.Stop,
 			timeInForce:  "test",
 			quantity:     decimal.Decimal{},
 			price:        decimal.NewFromInt(1),
@@ -507,7 +507,7 @@ func Test_checker(t *testing.T) {
 			callbackRate: decimal.Decimal{},
 		}, true},
 		{"Test_checker", args{
-			ordersType:   orderType.Limit,
+			ordersType:   order.Limit,
 			timeInForce:  "test",
 			quantity:     decimal.Decimal{},
 			price:        decimal.NewFromInt(1),
@@ -515,7 +515,7 @@ func Test_checker(t *testing.T) {
 			callbackRate: decimal.Decimal{},
 		}, true},
 		{"Test_checker", args{
-			ordersType:   orderType.Limit,
+			ordersType:   order.Limit,
 			timeInForce:  "test",
 			quantity:     decimal.NewFromInt(1),
 			price:        decimal.NewFromInt(1),

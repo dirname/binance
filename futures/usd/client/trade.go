@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/dirname/binance"
-	"github.com/dirname/binance/futures/usd/client/define/orderRespType"
+	"github.com/dirname/binance/futures/usd/client/define/order"
 	logger "github.com/dirname/binance/logging"
 	"github.com/dirname/binance/model"
 	"github.com/shopspring/decimal"
@@ -126,11 +126,11 @@ func (t *TradeClient) NewOrder(symbol, side, positionSide, ordersType, reduceOnl
 		return result, err
 	}
 	switch newOrderRespType {
-	case orderRespType.Result:
+	case order.Result:
 		result := NewOrderResponseResult{}
 		err = json.Unmarshal(res, &result)
 		return result, err
-	case orderRespType.ACK:
+	case order.ACK:
 		result := NewOrderResponseACK{}
 		err = json.Unmarshal(res, &result)
 		return parser, err

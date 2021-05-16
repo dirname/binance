@@ -3,13 +3,10 @@ package main
 import (
 	"github.com/dirname/binance/config"
 	"github.com/dirname/binance/futures/usd/client"
-	"github.com/dirname/binance/futures/usd/client/define/autoCloseType"
-	"github.com/dirname/binance/futures/usd/client/define/marginType"
-	"github.com/dirname/binance/futures/usd/client/define/orderBool"
-	"github.com/dirname/binance/futures/usd/client/define/orderRespType"
-	"github.com/dirname/binance/futures/usd/client/define/orderSide"
-	"github.com/dirname/binance/futures/usd/client/define/orderType"
-	"github.com/dirname/binance/futures/usd/client/define/workingType"
+	"github.com/dirname/binance/futures/usd/client/define/autoClose"
+	"github.com/dirname/binance/futures/usd/client/define/margin"
+	"github.com/dirname/binance/futures/usd/client/define/order"
+	"github.com/dirname/binance/futures/usd/client/define/working"
 	logger "github.com/dirname/binance/logging"
 	"github.com/dirname/binance/model"
 	"github.com/shopspring/decimal"
@@ -51,7 +48,7 @@ func main() {
 }
 
 func getPositionMargin() {
-	response, err := tradeClient.IsolatedPositionHistory("BTCUSDT", marginType.AddIsolatedPositionMargin, 0, 0, 0, 0)
+	response, err := tradeClient.IsolatedPositionHistory("BTCUSDT", margin.AddIsolatedPositionMargin, 0, 0, 0, 0)
 	if err != nil {
 		logger.Error("getPositionMargin err: %s", err.Error())
 	}
@@ -141,7 +138,7 @@ func getADLQuantile() {
 }
 
 func getForceOrders() {
-	response, err := tradeClient.ForceOrders("BTCUSDT", autoCloseType.ADL, 0, 0, 0, 0)
+	response, err := tradeClient.ForceOrders("BTCUSDT", autoClose.ADL, 0, 0, 0, 0)
 	if err != nil {
 		logger.Error("getADLQuantile err: %s", err.Error())
 	}
@@ -246,7 +243,7 @@ func getMultiAssetsMargin() {
 }
 
 func newOrder() {
-	response, err := tradeClient.NewOrder("BTCUSDT", orderSide.Buy, orderSide.Long, orderType.Market, "", "", "", "", workingType.MarkPrice, orderBool.FALSE, orderRespType.ACK, decimal.NewFromInt(1), decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, 0)
+	response, err := tradeClient.NewOrder("BTCUSDT", order.Buy, order.Long, order.Market, "", "", "", "", working.MarkPrice, order.FALSE, order.ACK, decimal.NewFromInt(1), decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, 0)
 	if err != nil {
 		logger.Error("newOrder err: %s", err.Error())
 	}
@@ -259,7 +256,7 @@ func newOrder() {
 }
 
 func testNewOrder() {
-	response, err := tradeClient.TestNewOrder("BTCUSDT", orderSide.Buy, orderSide.Both, orderType.Market, orderBool.False, "", "", "", workingType.MarkPrice, orderBool.FALSE, orderRespType.ACK, decimal.NewFromInt(1), decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, 0)
+	response, err := tradeClient.TestNewOrder("BTCUSDT", order.Buy, order.Both, order.Market, order.False, "", "", "", working.MarkPrice, order.FALSE, order.ACK, decimal.NewFromInt(1), decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, 0)
 	if err != nil {
 		logger.Error("testNewOrder err: %s", err.Error())
 	}

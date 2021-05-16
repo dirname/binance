@@ -1,4 +1,4 @@
-package contractType
+package contract
 
 const (
 	Perpetual      = "PERPETUAL"       //Perpetual perpetual

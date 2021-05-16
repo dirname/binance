@@ -836,19 +836,28 @@ func TestTradeClient_GetOpenOrder(t1 *testing.T) {
 			origClientOrderID: "test",
 			orderID:           0,
 			recv:              0,
-		}, OpenOrderResponse{}, true},
+		}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
 		{"TestTradeClient_GetOpenOrder", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
 			symbol:            "test",
 			origClientOrderID: "",
 			orderID:           10,
 			recv:              0,
-		}, OpenOrderResponse{}, true},
+		}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
 		{"TestTradeClient_GetOpenOrder", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
 			symbol:            "test",
 			origClientOrderID: "",
 			orderID:           10,
 			recv:              0,
-		}, OpenOrderResponse{}, true},
+		}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -1194,8 +1203,8 @@ func TestTradeClient_IsolatedPositionMargin(t1 *testing.T) {
 		{"TestTradeClient_IsolatedPositionMargin", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
 			symbol:       "test",
 			positionSide: "test",
-			amount:       decimal.Decimal{},
-			sideType:     0,
+			amount:       decimal.NewFromInt(10),
+			sideType:     1,
 			recv:         0,
 		}, nil, true},
 		// TODO: Add test cases.
@@ -1251,6 +1260,15 @@ func TestTradeClient_Leverage(t1 *testing.T) {
 			Code:    -2014,
 			Message: "API-key format invalid.",
 		}, false},
+		{"TestTradeClient_Leverage", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:   "test",
+			leverage: 10,
+			recv:     0,
+		}, LeverageResponse{
+			Leverage:         0,
+			MaxNotionalValue: "",
+			Symbol:           "",
+		}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -1345,6 +1363,14 @@ func TestTradeClient_MarginType(t1 *testing.T) {
 			marginType: "",
 			recv:       0,
 		}, nil, true},
+		{"TestTradeClient_MarginType", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
+			symbol:     "test",
+			marginType: "test",
+			recv:       0,
+		}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

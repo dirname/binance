@@ -353,7 +353,7 @@ func (t *TradeClient) GetOpenOrder(symbol, origClientOrderID string, orderID int
 	if orderID > 0 {
 		params += fmt.Sprintf("&orderId=%d", orderID)
 	}
-	req, err := t.Builder.Build(http.MethodDelete, "/fapi/v1/openOrder", params, true, true, recv)
+	req, err := t.Builder.Build(http.MethodGet, "/fapi/v1/openOrder", params, true, true, recv)
 	if err != nil {
 		logger.Error("Failed to build url: %s", err.Error())
 	}

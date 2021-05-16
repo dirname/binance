@@ -76,7 +76,7 @@ func (t *TradeClient) NewOrder(symbol, side, orderType, timeInForce, newClientOd
 		result := NewOrderResponseFull{}
 		err = json.Unmarshal(res, &result)
 		return result, err
-	case order.ACK:
+	default:
 		result := NewOrderResponseACK{}
 		err = json.Unmarshal(res, &result)
 		return parser, err

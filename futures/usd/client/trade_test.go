@@ -4,6 +4,7 @@ import (
 	"github.com/dirname/binance"
 	"github.com/dirname/binance/config"
 	"github.com/dirname/binance/model"
+	"github.com/dirname/binance/spot/client/define/order"
 	"github.com/shopspring/decimal"
 	"reflect"
 	"testing"
@@ -45,6 +46,25 @@ func TestNewOrder(t1 *testing.T) {
 			side:             "",
 			positionSide:     "",
 			ordersType:       "",
+			reduceOnly:       "",
+			newClientOrderID: "",
+			closePosition:    "",
+			timeInForce:      "",
+			workingType:      "",
+			priceProtect:     "",
+			newOrderRespType: "",
+			quantity:         decimal.Decimal{},
+			price:            decimal.Decimal{},
+			stopPrice:        decimal.Decimal{},
+			activationPrice:  decimal.Decimal{},
+			callbackRate:     decimal.Decimal{},
+			recv:             0,
+		}, nil, true},
+		{"TestNewOrder", fields{Builder: binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
+			symbol:           "test",
+			side:             "test",
+			positionSide:     "",
+			ordersType:       order.Limit,
 			reduceOnly:       "",
 			newClientOrderID: "",
 			closePosition:    "",
@@ -207,6 +227,10 @@ func TestTradeClient_BatchNewOrder(t1 *testing.T) {
 			batchOrders: nil,
 			recv:        0,
 		}, nil, true},
+		{"TestTradeClient_BatchNewOrder", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
+			batchOrders: OrderBatch{},
+			recv:        0,
+		}, BatchNewOrderResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -243,6 +267,13 @@ func TestTradeClient_ChangeMultiAssetsMode(t1 *testing.T) {
 	}{
 		{"TestTradeClient_ChangeMultiAssetsMode", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
 			margin: false,
+			recv:   0,
+		}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
+		{"TestTradeClient_ChangeMultiAssetsMode", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
+			margin: true,
 			recv:   0,
 		}, model.APIErrorResponse{
 			Code:    -2014,
@@ -616,6 +647,10 @@ func TestTradeClient_GetMultiAssetsMargin(t1 *testing.T) {
 			Code:    -2014,
 			Message: "API-key format invalid.",
 		}, false},
+		{"TestTradeClient_GetMultiAssetsMargin", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -700,6 +735,36 @@ func TestTradeClient_GetOrder(t1 *testing.T) {
 			orderID:           0,
 			recv:              0,
 		}, nil, true},
+		{"TestTradeClient_GetOrder", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
+			symbol:            "test",
+			origClientOrderID: "",
+			orderID:           0,
+			recv:              0,
+		}, nil, true},
+		{"TestTradeClient_GetOrder", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
+			symbol:            "test",
+			origClientOrderID: "test",
+			orderID:           0,
+			recv:              0,
+		}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
+		{"TestTradeClient_GetOrder", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
+			symbol:            "test",
+			origClientOrderID: "",
+			orderID:           10,
+			recv:              0,
+		}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
+		{"TestTradeClient_GetOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:            "test",
+			origClientOrderID: "",
+			orderID:           10,
+			recv:              0,
+		}, OrderBookResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -734,6 +799,10 @@ func TestTradeClient_GetPositionSideDual(t1 *testing.T) {
 		wantErr bool
 	}{
 		{"TestTradeClient_GetPositionSideDual", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{0}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
+		{"TestTradeClient_GetPositionSideDual", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, model.APIErrorResponse{
 			Code:    -2014,
 			Message: "API-key format invalid.",
 		}, false},
@@ -1102,6 +1171,69 @@ func TestTradeClient_NewOrder(t1 *testing.T) {
 			callbackRate:     decimal.Decimal{},
 			recv:             0,
 		}, nil, true},
+		{"TestTradeClient_NewOrder", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
+			symbol:           "test",
+			side:             order.Buy,
+			positionSide:     "",
+			ordersType:       order.Limit,
+			reduceOnly:       "",
+			newClientOrderID: "",
+			closePosition:    "",
+			timeInForce:      "test",
+			workingType:      "",
+			priceProtect:     "",
+			newOrderRespType: "",
+			quantity:         decimal.NewFromInt(1),
+			price:            decimal.NewFromInt(1),
+			stopPrice:        decimal.Decimal{},
+			activationPrice:  decimal.Decimal{},
+			callbackRate:     decimal.Decimal{},
+			recv:             0,
+		}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
+		{"TestTradeClient_NewOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:           "test",
+			side:             order.Buy,
+			positionSide:     "",
+			ordersType:       order.Limit,
+			reduceOnly:       "",
+			newClientOrderID: "",
+			closePosition:    "",
+			timeInForce:      "test",
+			workingType:      "",
+			priceProtect:     "",
+			newOrderRespType: order.Result,
+			quantity:         decimal.NewFromInt(1),
+			price:            decimal.NewFromInt(1),
+			stopPrice:        decimal.Decimal{},
+			activationPrice:  decimal.Decimal{},
+			callbackRate:     decimal.Decimal{},
+			recv:             0,
+		}, NewOrderResponseResult{}, true},
+		{"TestTradeClient_NewOrder", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
+			symbol:           "test",
+			side:             order.Buy,
+			positionSide:     "",
+			ordersType:       order.Limit,
+			reduceOnly:       "",
+			newClientOrderID: "",
+			closePosition:    "",
+			timeInForce:      "test",
+			workingType:      "",
+			priceProtect:     "",
+			newOrderRespType: "",
+			quantity:         decimal.NewFromInt(1),
+			price:            decimal.NewFromInt(1),
+			stopPrice:        decimal.Decimal{},
+			activationPrice:  decimal.Decimal{},
+			callbackRate:     decimal.Decimal{},
+			recv:             0,
+		}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -1179,6 +1311,13 @@ func TestTradeClient_PositionSideDual(t1 *testing.T) {
 	}{
 		{"TestTradeClient_PositionSideDual", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
 			dualSidePosition: false,
+			recv:             0,
+		}, model.APIErrorResponse{
+			Code:    -2014,
+			Message: "API-key format invalid.",
+		}, false},
+		{"TestTradeClient_PositionSideDual", fields{binance.NewPrivateUrlBuilder(config.USDFuturesRestHost, "", "")}, args{
+			dualSidePosition: true,
 			recv:             0,
 		}, model.APIErrorResponse{
 			Code:    -2014,

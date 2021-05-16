@@ -647,10 +647,7 @@ func TestTradeClient_GetMultiAssetsMargin(t1 *testing.T) {
 			Code:    -2014,
 			Message: "API-key format invalid.",
 		}, false},
-		{"TestTradeClient_GetMultiAssetsMargin", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, model.APIErrorResponse{
-			Code:    -2014,
-			Message: "API-key format invalid.",
-		}, false},
+		{"TestTradeClient_GetMultiAssetsMargin", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, MultiAssetsMarginResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -802,10 +799,7 @@ func TestTradeClient_GetPositionSideDual(t1 *testing.T) {
 			Code:    -2014,
 			Message: "API-key format invalid.",
 		}, false},
-		{"TestTradeClient_GetPositionSideDual", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, model.APIErrorResponse{
-			Code:    -2014,
-			Message: "API-key format invalid.",
-		}, false},
+		{"TestTradeClient_GetPositionSideDual", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{0}, DualSidePositionResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

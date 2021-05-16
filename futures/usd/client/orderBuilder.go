@@ -54,24 +54,8 @@ func buildOrder(symbol, side, positionSide, ordersType, reduceOnly, newClientOrd
 		return "", err
 	}
 	params := strings.Join([]string{"symbol=", symbol, "&side=", side, "&type=", ordersType}, "")
-	if timeInForce == "" && isInArray(ordersType, mustTimeInForce) {
-		err = errors.New(ordersType + ". " + TimeInForce)
-		return "", err
-	}
-	if callbackRate.LessThanOrEqual(decimal.NewFromInt(0)) && isInArray(ordersType, mustCallbackRate) {
-		err = errors.New(ordersType + ". " + CallBackRateInvalid)
-		return "", err
-	}
-	if price.LessThanOrEqual(decimal.NewFromInt(0)) && isInArray(ordersType, mustPrice) {
-		err = errors.New(ordersType + ". " + PriceInvalid)
-		return "", err
-	}
-	if stopPrice.LessThanOrEqual(decimal.NewFromInt(0)) && isInArray(ordersType, mustStopPrice) {
-		err = errors.New(ordersType + ". " + PriceInvalid)
-		return "", err
-	}
-	if quantity.LessThanOrEqual(decimal.NewFromInt(0)) && isInArray(ordersType, mustQuantity) {
-		err = errors.New(ordersType + ". " + QuantityInvalid)
+	err = checker(ordersType, timeInForce, quantity, price, stopPrice, callbackRate)
+	if err != nil {
 		return "", err
 	}
 	if (closePosition != "" && reduceOnly != "") || (closePosition != "" && !quantity.LessThanOrEqual(decimal.NewFromInt(0))) {
@@ -89,6 +73,31 @@ func buildOrder(symbol, side, positionSide, ordersType, reduceOnly, newClientOrd
 		buildCallbackRate(callbackRate)}
 	params += strings.Join(s, "")
 	return params, err
+}
+
+func checker(ordersType, timeInForce string, quantity, price, stopPrice, callbackRate decimal.Decimal) error {
+	var err error
+	if timeInForce == "" && isInArray(ordersType, mustTimeInForce) {
+		err = errors.New(ordersType + ". " + TimeInForce)
+		return err
+	}
+	if callbackRate.LessThanOrEqual(decimal.NewFromInt(0)) && isInArray(ordersType, mustCallbackRate) {
+		err = errors.New(ordersType + ". " + CallBackRateInvalid)
+		return err
+	}
+	if price.LessThanOrEqual(decimal.NewFromInt(0)) && isInArray(ordersType, mustPrice) {
+		err = errors.New(ordersType + ". " + PriceInvalid)
+		return err
+	}
+	if stopPrice.LessThanOrEqual(decimal.NewFromInt(0)) && isInArray(ordersType, mustStopPrice) {
+		err = errors.New(ordersType + ". " + PriceInvalid)
+		return err
+	}
+	if quantity.LessThanOrEqual(decimal.NewFromInt(0)) && isInArray(ordersType, mustQuantity) {
+		err = errors.New(ordersType + ". " + QuantityInvalid)
+		return err
+	}
+	return nil
 }
 
 func buildPositionSide(positionSide string) string {

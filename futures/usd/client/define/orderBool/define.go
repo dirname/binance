@@ -1,10 +1,8 @@
 package orderBool
 
 const (
-	TRUE  = "TRUE"
-	FALSE = "FALSE"
-	False = "false"
-	True  = "true"
-	//True  = "true"
-	//False = "false"
+	TRUE  = "TRUE"  //TRUE upper string true
+	FALSE = "FALSE" //FALSE upper string false
+	False = "false" //False lower string false
+	True  = "true"  //True lower string true
 )

@@ -1,6 +1,6 @@
 package orderRespType
 
 const (
-	Result = "RESULT"
-	ACK    = "ACK"
+	Result = "RESULT" //Result result response
+	ACK    = "ACK"    //ACK ack response
 )

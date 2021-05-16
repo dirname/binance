@@ -116,65 +116,6 @@ func Test_buildNewOrderRespType(t *testing.T) {
 	}
 }
 
-func Test_buildOrder(t *testing.T) {
-	type args struct {
-		symbol           string
-		side             string
-		positionSide     string
-		ordersType       string
-		reduceOnly       string
-		newClientOrderID string
-		closePosition    string
-		timeInForce      string
-		workingType      string
-		priceProtect     string
-		newOrderRespType string
-		quantity         decimal.Decimal
-		price            decimal.Decimal
-		stopPrice        decimal.Decimal
-		activationPrice  decimal.Decimal
-		callbackRate     decimal.Decimal
-	}
-	tests := []struct {
-		name    string
-		args    args
-		want    string
-		wantErr bool
-	}{
-		{"Test_buildOrder", args{
-			symbol:           "",
-			side:             "",
-			positionSide:     "",
-			ordersType:       "",
-			reduceOnly:       "",
-			newClientOrderID: "",
-			closePosition:    "",
-			timeInForce:      "",
-			workingType:      "",
-			priceProtect:     "",
-			newOrderRespType: "",
-			quantity:         decimal.Decimal{},
-			price:            decimal.Decimal{},
-			stopPrice:        decimal.Decimal{},
-			activationPrice:  decimal.Decimal{},
-			callbackRate:     decimal.Decimal{},
-		}, "", true},
-		// TODO: Add test cases.
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			got, err := buildOrder(tt.args.symbol, tt.args.side, tt.args.positionSide, tt.args.ordersType, tt.args.reduceOnly, tt.args.newClientOrderID, tt.args.closePosition, tt.args.timeInForce, tt.args.workingType, tt.args.priceProtect, tt.args.newOrderRespType, tt.args.quantity, tt.args.price, tt.args.stopPrice, tt.args.activationPrice, tt.args.callbackRate)
-			if (err != nil) != tt.wantErr {
-				t.Errorf("buildOrder() error = %v, wantErr %v", err, tt.wantErr)
-				return
-			}
-			if got != tt.want {
-				t.Errorf("buildOrder() got = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
-
 func Test_buildPositionSide(t *testing.T) {
 	type args struct {
 		positionSide string
@@ -375,6 +316,210 @@ func Test_isInArray(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := isInArray(tt.args.target, tt.args.strArray); got != tt.want {
 				t.Errorf("isInArray() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_buildOrder(t *testing.T) {
+	type args struct {
+		symbol           string
+		side             string
+		positionSide     string
+		ordersType       string
+		reduceOnly       string
+		newClientOrderID string
+		closePosition    string
+		timeInForce      string
+		workingType      string
+		priceProtect     string
+		newOrderRespType string
+		quantity         decimal.Decimal
+		price            decimal.Decimal
+		stopPrice        decimal.Decimal
+		activationPrice  decimal.Decimal
+		callbackRate     decimal.Decimal
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    string
+		wantErr bool
+	}{
+		{"Test_buildOrder", args{
+			symbol:           "",
+			side:             "",
+			positionSide:     "",
+			ordersType:       "",
+			reduceOnly:       "",
+			newClientOrderID: "",
+			closePosition:    "",
+			timeInForce:      "",
+			workingType:      "",
+			priceProtect:     "",
+			newOrderRespType: "",
+			quantity:         decimal.Decimal{},
+			price:            decimal.Decimal{},
+			stopPrice:        decimal.Decimal{},
+			activationPrice:  decimal.Decimal{},
+			callbackRate:     decimal.Decimal{},
+		}, "", true},
+		{"Test_buildOrder", args{
+			symbol:           "test",
+			side:             "test",
+			positionSide:     "",
+			ordersType:       "test",
+			reduceOnly:       "",
+			newClientOrderID: "",
+			closePosition:    "",
+			timeInForce:      "",
+			workingType:      "",
+			priceProtect:     "",
+			newOrderRespType: "",
+			quantity:         decimal.Decimal{},
+			price:            decimal.Decimal{},
+			stopPrice:        decimal.Decimal{},
+			activationPrice:  decimal.Decimal{},
+			callbackRate:     decimal.Decimal{},
+		}, "", false},
+		{"Test_buildOrder", args{
+			symbol:           "test",
+			side:             "test",
+			positionSide:     "",
+			ordersType:       "test",
+			reduceOnly:       "test",
+			newClientOrderID: "",
+			closePosition:    "test",
+			timeInForce:      "",
+			workingType:      "",
+			priceProtect:     "",
+			newOrderRespType: "",
+			quantity:         decimal.Decimal{},
+			price:            decimal.Decimal{},
+			stopPrice:        decimal.Decimal{},
+			activationPrice:  decimal.Decimal{},
+			callbackRate:     decimal.Decimal{},
+		}, "", false},
+		{"Test_buildOrder", args{
+			symbol:           "test",
+			side:             "test",
+			positionSide:     "",
+			ordersType:       "test",
+			reduceOnly:       "",
+			newClientOrderID: "",
+			closePosition:    "test",
+			timeInForce:      "",
+			workingType:      "",
+			priceProtect:     "",
+			newOrderRespType: "",
+			quantity:         decimal.Decimal{},
+			price:            decimal.Decimal{},
+			stopPrice:        decimal.Decimal{},
+			activationPrice:  decimal.Decimal{},
+			callbackRate:     decimal.Decimal{},
+		}, "", false},
+		{"Test_buildOrder", args{
+			symbol:           "test",
+			side:             "test",
+			positionSide:     "",
+			ordersType:       orderType.Limit,
+			reduceOnly:       "",
+			newClientOrderID: "",
+			closePosition:    "",
+			timeInForce:      "",
+			workingType:      "",
+			priceProtect:     "",
+			newOrderRespType: "",
+			quantity:         decimal.Decimal{},
+			price:            decimal.Decimal{},
+			stopPrice:        decimal.Decimal{},
+			activationPrice:  decimal.Decimal{},
+			callbackRate:     decimal.Decimal{},
+		}, "", false},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := buildOrder(tt.args.symbol, tt.args.side, tt.args.positionSide, tt.args.ordersType, tt.args.reduceOnly, tt.args.newClientOrderID, tt.args.closePosition, tt.args.timeInForce, tt.args.workingType, tt.args.priceProtect, tt.args.newOrderRespType, tt.args.quantity, tt.args.price, tt.args.stopPrice, tt.args.activationPrice, tt.args.callbackRate)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("buildOrder() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("buildOrder() got = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_checker(t *testing.T) {
+	type args struct {
+		ordersType   string
+		timeInForce  string
+		quantity     decimal.Decimal
+		price        decimal.Decimal
+		stopPrice    decimal.Decimal
+		callbackRate decimal.Decimal
+	}
+	tests := []struct {
+		name    string
+		args    args
+		wantErr bool
+	}{
+		{"Test_checker", args{
+			ordersType:   orderType.Limit,
+			timeInForce:  "",
+			quantity:     decimal.Decimal{},
+			price:        decimal.Decimal{},
+			stopPrice:    decimal.Decimal{},
+			callbackRate: decimal.Decimal{},
+		}, true},
+		{"Test_checker", args{
+			ordersType:   orderType.TrailingStopMarket,
+			timeInForce:  "",
+			quantity:     decimal.Decimal{},
+			price:        decimal.Decimal{},
+			stopPrice:    decimal.Decimal{},
+			callbackRate: decimal.Decimal{},
+		}, true},
+		{"Test_checker", args{
+			ordersType:   orderType.Limit,
+			timeInForce:  "test",
+			quantity:     decimal.Decimal{},
+			price:        decimal.Decimal{},
+			stopPrice:    decimal.Decimal{},
+			callbackRate: decimal.Decimal{},
+		}, true},
+		{"Test_checker", args{
+			ordersType:   orderType.Limit,
+			timeInForce:  "test",
+			quantity:     decimal.Decimal{},
+			price:        decimal.NewFromInt(1),
+			stopPrice:    decimal.Decimal{},
+			callbackRate: decimal.Decimal{},
+		}, true},
+		{"Test_checker", args{
+			ordersType:   orderType.Limit,
+			timeInForce:  "test",
+			quantity:     decimal.Decimal{},
+			price:        decimal.NewFromInt(1),
+			stopPrice:    decimal.NewFromInt(1),
+			callbackRate: decimal.Decimal{},
+		}, true},
+		{"Test_checker", args{
+			ordersType:   orderType.Limit,
+			timeInForce:  "test",
+			quantity:     decimal.NewFromInt(1),
+			price:        decimal.NewFromInt(1),
+			stopPrice:    decimal.NewFromInt(1),
+			callbackRate: decimal.Decimal{},
+		}, true},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := checker(tt.args.ordersType, tt.args.timeInForce, tt.args.quantity, tt.args.price, tt.args.stopPrice, tt.args.callbackRate); (err != nil) != tt.wantErr {
+				t.Errorf("checker() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
 	}

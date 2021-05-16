@@ -1,6 +1,6 @@
 package autoCloseType
 
 const (
-	Liquidation = "LIQUIDATION"
-	ADL         = "ADL"
+	Liquidation = "LIQUIDATION" //Liquidation liquidation
+	ADL         = "ADL"         //ADL ADL
 )

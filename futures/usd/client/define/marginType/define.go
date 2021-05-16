@@ -1,11 +1,11 @@
 package marginType
 
 const (
-	Isolated = "ISOLATED"
-	Crossed  = "CROSSED"
+	Isolated = "ISOLATED" //Isolated isolated
+	Crossed  = "CROSSED"  //Crossed crossed
 )
 
 const (
-	AddIsolatedPositionMargin    = 1
-	ReduceIsolatedPositionMargin = 2
+	AddIsolatedPositionMargin    = 1 //AddIsolatedPositionMargin AddIsolatedPositionMargin
+	ReduceIsolatedPositionMargin = 2 //ReduceIsolatedPositionMargin ReduceIsolatedPositionMargin
 )

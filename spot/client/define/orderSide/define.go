@@ -1,6 +1,6 @@
 package orderSide
 
 const (
-	Buy  = "BUY"  // BUY
-	Sell = "SELL" // SELL
+	Buy  = "BUY"  //Buy buy
+	Sell = "SELL" //Sell sell
 )

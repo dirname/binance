@@ -381,7 +381,7 @@ func Test_buildOrder(t *testing.T) {
 			stopPrice:        decimal.Decimal{},
 			activationPrice:  decimal.Decimal{},
 			callbackRate:     decimal.Decimal{},
-		}, "", false},
+		}, "symbol=test&side=test&type=test", false},
 		{"Test_buildOrder", args{
 			symbol:           "test",
 			side:             "test",
@@ -399,7 +399,7 @@ func Test_buildOrder(t *testing.T) {
 			stopPrice:        decimal.Decimal{},
 			activationPrice:  decimal.Decimal{},
 			callbackRate:     decimal.Decimal{},
-		}, "", false},
+		}, "", true},
 		{"Test_buildOrder", args{
 			symbol:           "test",
 			side:             "test",
@@ -417,7 +417,7 @@ func Test_buildOrder(t *testing.T) {
 			stopPrice:        decimal.Decimal{},
 			activationPrice:  decimal.Decimal{},
 			callbackRate:     decimal.Decimal{},
-		}, "", false},
+		}, "", true},
 		{"Test_buildOrder", args{
 			symbol:           "test",
 			side:             "test",
@@ -435,7 +435,7 @@ func Test_buildOrder(t *testing.T) {
 			stopPrice:        decimal.Decimal{},
 			activationPrice:  decimal.Decimal{},
 			callbackRate:     decimal.Decimal{},
-		}, "", false},
+		}, "", true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {
@@ -513,7 +513,7 @@ func Test_checker(t *testing.T) {
 			price:        decimal.NewFromInt(1),
 			stopPrice:    decimal.NewFromInt(1),
 			callbackRate: decimal.Decimal{},
-		}, true},
+		}, false},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

@@ -858,6 +858,12 @@ func TestTradeClient_GetOpenOrder(t1 *testing.T) {
 			Code:    -2014,
 			Message: "API-key format invalid.",
 		}, false},
+		{"TestTradeClient_GetOpenOrder", fields{binance.NewPrivateUrlBuilder("", "", "")}, args{
+			symbol:            "test",
+			origClientOrderID: "",
+			orderID:           10,
+			recv:              0,
+		}, OpenOrderResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

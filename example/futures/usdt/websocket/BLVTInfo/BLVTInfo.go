@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	client := futuresusdt.NewUSDFuturesBLVTInfoClient("TRXDOWN@tokenNav")
+	client := futuresclient.NewUSDFuturesBLVTInfoClient("TRXDOWN@tokenNav")
 	client.SetReadTimerInterval(5 * time.Second)
 	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetHandler(func() {
@@ -17,10 +17,10 @@ func main() {
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case futuresusdt.BLVTInfoResponse:
-			logger.Info("BLVTInfo Response: %v", response.(futuresusdt.BLVTInfoResponse))
-		case futuresusdt.BLVTInfoCombinedResponse:
-			logger.Info("BLVTInfoCombinedResponse: %v", response.(futuresusdt.BLVTInfoCombinedResponse))
+		case futuresclient.BLVTInfoResponse:
+			logger.Info("BLVTInfo Response: %v", response.(futuresclient.BLVTInfoResponse))
+		case futuresclient.BLVTInfoCombinedResponse:
+			logger.Info("BLVTInfoCombinedResponse: %v", response.(futuresclient.BLVTInfoCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:

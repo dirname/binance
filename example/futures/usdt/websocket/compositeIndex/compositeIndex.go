@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	client := futuresusdt.NewUSDFuturesCompositeIndexWebsocketClient("defiusdt@compositeIndex")
+	client := futuresclient.NewUSDFuturesCompositeIndexWebsocketClient("defiusdt@compositeIndex")
 	client.SetReadTimerInterval(5 * time.Second)
 	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetHandler(func() {
@@ -17,10 +17,10 @@ func main() {
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case futuresusdt.CompositeIndexResponse:
-			logger.Info("CompositeIndex: %v", response.(futuresusdt.CompositeIndexResponse))
-		case futuresusdt.CompositeIndexCombinedResponse:
-			logger.Info("CompositeIndexCombinedResponse: %v", response.(futuresusdt.CompositeIndexCombinedResponse))
+		case futuresclient.CompositeIndexResponse:
+			logger.Info("CompositeIndex: %v", response.(futuresclient.CompositeIndexResponse))
+		case futuresclient.CompositeIndexCombinedResponse:
+			logger.Info("CompositeIndexCombinedResponse: %v", response.(futuresclient.CompositeIndexCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:

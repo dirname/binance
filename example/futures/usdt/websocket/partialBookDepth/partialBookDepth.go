@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	client := futuresusdt.NewUSDFuturesPartialBookDepthWebsocketClient("btcusdt@depth10")
+	client := futuresclient.NewUSDFuturesPartialBookDepthWebsocketClient("btcusdt@depth10")
 	client.SetReadTimerInterval(5 * time.Second)
 	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetHandler(func() {
@@ -17,10 +17,10 @@ func main() {
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case futuresusdt.PartialBookDepthResponse:
-			logger.Info("PartialBookDepth: %v", response.(futuresusdt.PartialBookDepthResponse))
-		case futuresusdt.PartialBookDepthCombinedResponse:
-			logger.Info("PartialBookDepthCombinedResponse: %v", response.(futuresusdt.PartialBookDepthCombinedResponse))
+		case futuresclient.PartialBookDepthResponse:
+			logger.Info("PartialBookDepth: %v", response.(futuresclient.PartialBookDepthResponse))
+		case futuresclient.PartialBookDepthCombinedResponse:
+			logger.Info("PartialBookDepthCombinedResponse: %v", response.(futuresclient.PartialBookDepthCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:

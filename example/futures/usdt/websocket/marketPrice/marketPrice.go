@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	client := futuresusdt.NewUSDFuturesMarketPriceWebsocketClient("btcusdt@markPrice")
+	client := futuresclient.NewUSDFuturesMarketPriceWebsocketClient("btcusdt@markPrice")
 	client.SetReadTimerInterval(5 * time.Second)
 	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetHandler(func() {
@@ -17,10 +17,10 @@ func main() {
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case futuresusdt.MarketPriceResponse:
-			logger.Info("MarketPrice: %v", response.(futuresusdt.MarketPriceResponse))
-		case futuresusdt.MarketPriceCombinedResponse:
-			logger.Info("MarketCombinedResponse: %v", response.(futuresusdt.MarketPriceCombinedResponse))
+		case futuresclient.MarketPriceResponse:
+			logger.Info("MarketPrice: %v", response.(futuresclient.MarketPriceResponse))
+		case futuresclient.MarketPriceCombinedResponse:
+			logger.Info("MarketCombinedResponse: %v", response.(futuresclient.MarketPriceCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:

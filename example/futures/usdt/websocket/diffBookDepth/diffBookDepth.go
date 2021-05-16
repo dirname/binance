@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	client := futuresusdt.NewUSDFuturesDiffBookDepthWebsocketClient("btcusdt@depth")
+	client := futuresclient.NewUSDFuturesDiffBookDepthWebsocketClient("btcusdt@depth")
 	client.SetReadTimerInterval(5 * time.Second)
 	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetHandler(func() {
@@ -17,10 +17,10 @@ func main() {
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case futuresusdt.DiffBookDepthResponse:
-			logger.Info("DiffBookDepth Response: %v", response.(futuresusdt.DiffBookDepthResponse))
-		case futuresusdt.DiffBookDepthCombinedResponse:
-			logger.Info("DiffBookDepthCombinedResponse: %v", response.(futuresusdt.DiffBookDepthCombinedResponse))
+		case futuresclient.DiffBookDepthResponse:
+			logger.Info("DiffBookDepth Response: %v", response.(futuresclient.DiffBookDepthResponse))
+		case futuresclient.DiffBookDepthCombinedResponse:
+			logger.Info("DiffBookDepthCombinedResponse: %v", response.(futuresclient.DiffBookDepthCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:

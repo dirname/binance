@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	client := futuresusdt.NewUSDFuturesLiquidationOrderWebsocketClient("xrpusdt@forceOrder")
+	client := futuresclient.NewUSDFuturesLiquidationOrderWebsocketClient("xrpusdt@forceOrder")
 	client.SetReadTimerInterval(5 * time.Second)
 	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetHandler(func() {
@@ -17,10 +17,10 @@ func main() {
 		//client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case futuresusdt.LiquidationOrderResponse:
-			logger.Info("LiquidationOrder Response: %v", response.(futuresusdt.LiquidationOrderResponse))
-		case futuresusdt.LiquidationOrderCombinedResponse:
-			logger.Info("LiquidationOrderCombinedResponse: %v", response.(futuresusdt.LiquidationOrderCombinedResponse))
+		case futuresclient.LiquidationOrderResponse:
+			logger.Info("LiquidationOrder Response: %v", response.(futuresclient.LiquidationOrderResponse))
+		case futuresclient.LiquidationOrderCombinedResponse:
+			logger.Info("LiquidationOrderCombinedResponse: %v", response.(futuresclient.LiquidationOrderCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:

@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	client := futuresusdt.NewUSDFuturesCandlestickWebsocketClient("btcusdt@kline_1m")
+	client := futuresclient.NewUSDFuturesCandlestickWebsocketClient("btcusdt@kline_1m")
 	client.SetReadTimerInterval(5 * time.Second)
 	client.SetReconnectWaitTime(5 * time.Second)
 	client.SetHandler(func() {
@@ -17,10 +17,10 @@ func main() {
 		client.SetCombined(true, 123)
 	}, func(response interface{}) {
 		switch response.(type) {
-		case futuresusdt.CandlestickResponse:
-			logger.Info("Candlestick Response: %v", response.(futuresusdt.CandlestickResponse))
-		case futuresusdt.CandlestickCombinedResponse:
-			logger.Info("CandlestickCombinedResponse: %v", response.(futuresusdt.CandlestickCombinedResponse))
+		case futuresclient.CandlestickResponse:
+			logger.Info("Candlestick Response: %v", response.(futuresclient.CandlestickResponse))
+		case futuresclient.CandlestickCombinedResponse:
+			logger.Info("CandlestickCombinedResponse: %v", response.(futuresclient.CandlestickCombinedResponse))
 		case model.WebsocketCommonResponse:
 			logger.Info("Websocket Response: %v", response.(model.WebsocketCommonResponse))
 		case model.WebsocketErrorResponse:

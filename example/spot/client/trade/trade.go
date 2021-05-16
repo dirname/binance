@@ -5,9 +5,7 @@ import (
 	logger "github.com/dirname/binance/logging"
 	"github.com/dirname/binance/model"
 	"github.com/dirname/binance/spot/client"
-	"github.com/dirname/binance/spot/client/define/orderSide"
-	"github.com/dirname/binance/spot/client/define/orderType"
-	"github.com/dirname/binance/spot/client/define/timeInForce"
+	"github.com/dirname/binance/spot/client/define/order"
 	"github.com/shopspring/decimal"
 )
 
@@ -36,7 +34,7 @@ func main() {
 }
 
 func testNewOrder() {
-	response, err := tradeClient.TestNewOrder("BTCUSDT", orderSide.Buy, orderType.Limit, timeInForce.FOK, "", "", decimal.NewFromFloat(0.001), decimal.Decimal{}, decimal.NewFromFloat(59700.12), decimal.Decimal{}, decimal.Decimal{}, 0)
+	response, err := tradeClient.TestNewOrder("BTCUSDT", order.Buy, order.Limit, order.FOK, "", "", decimal.NewFromFloat(0.001), decimal.Decimal{}, decimal.NewFromFloat(59700.12), decimal.Decimal{}, decimal.Decimal{}, 0)
 	if err != nil {
 		logger.Error("testNewOrder err: %s", err.Error())
 	}
@@ -49,7 +47,7 @@ func testNewOrder() {
 }
 
 func newOrder() {
-	response, err := tradeClient.NewOrder("CFXUSDT", orderSide.Sell, orderType.Limit, timeInForce.GTC, "", "", decimal.NewFromFloat(10.0), decimal.Decimal{}, decimal.NewFromFloat(1.21), decimal.Decimal{}, decimal.Decimal{}, 0)
+	response, err := tradeClient.NewOrder("CFXUSDT", order.Sell, order.Limit, order.GTC, "", "", decimal.NewFromFloat(10.0), decimal.Decimal{}, decimal.NewFromFloat(1.21), decimal.Decimal{}, decimal.Decimal{}, 0)
 	if err != nil {
 		logger.Error("testNewOrder err: %s", err.Error())
 	}
@@ -143,7 +141,7 @@ func getAllOrder() {
 }
 
 func newOCOOrder() {
-	response, err := tradeClient.NewOCO("CFXUSDT", "", orderSide.Buy, "", "", timeInForce.GTC, "", decimal.NewFromFloat(10), decimal.NewFromFloat(1.18), decimal.Decimal{}, decimal.NewFromFloat(1.24), decimal.NewFromFloat(1.23), decimal.Decimal{}, 0)
+	response, err := tradeClient.NewOCO("CFXUSDT", "", order.Buy, "", "", order.GTC, "", decimal.NewFromFloat(10), decimal.NewFromFloat(1.18), decimal.Decimal{}, decimal.NewFromFloat(1.24), decimal.NewFromFloat(1.23), decimal.Decimal{}, 0)
 	if err != nil {
 		logger.Error("newOCOOrder err: %s", err.Error())
 	}

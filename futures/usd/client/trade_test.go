@@ -1206,7 +1206,7 @@ func TestTradeClient_IsolatedPositionMargin(t1 *testing.T) {
 			amount:       decimal.NewFromInt(10),
 			sideType:     1,
 			recv:         0,
-		}, nil, true},
+		}, IsolatedPositionMarginResponse{}, true},
 		// TODO: Add test cases.
 	}
 	for _, tt := range tests {

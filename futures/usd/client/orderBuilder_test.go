@@ -499,6 +499,14 @@ func Test_checker(t *testing.T) {
 			callbackRate: decimal.Decimal{},
 		}, true},
 		{"Test_checker", args{
+			ordersType:   orderType.Stop,
+			timeInForce:  "test",
+			quantity:     decimal.Decimal{},
+			price:        decimal.NewFromInt(1),
+			stopPrice:    decimal.Decimal{},
+			callbackRate: decimal.Decimal{},
+		}, true},
+		{"Test_checker", args{
 			ordersType:   orderType.Limit,
 			timeInForce:  "test",
 			quantity:     decimal.Decimal{},

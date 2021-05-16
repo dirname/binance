@@ -25,7 +25,7 @@ func main() {
 	//changeMultiAssetsMode()
 	//getMultiAssetsMargin()
 	//testNewOrder()
-	//newOrder()
+	newOrder()
 	//getOrder()
 	//deleteOrder()
 	//deleteAllOrder()
@@ -36,15 +36,15 @@ func main() {
 	//getBalance()
 	//getUserInfo()
 	//leverage()
-	getPositionMargin()
-	getPositionRisk()
-	getTradeList()
-	getIncome()
-	getLeverageBracket()
-	getADLQuantile()
-	getForceOrders()
-	getQuantitativeRules()
-	getCommissionRate()
+	//getPositionMargin()
+	//getPositionRisk()
+	//getTradeList()
+	//getIncome()
+	//getLeverageBracket()
+	//getADLQuantile()
+	//getForceOrders()
+	//getQuantitativeRules()
+	//getCommissionRate()
 }
 
 func getPositionMargin() {
@@ -243,7 +243,7 @@ func getMultiAssetsMargin() {
 }
 
 func newOrder() {
-	response, err := tradeClient.NewOrder("BTCUSDT", order.Buy, order.Long, order.Market, "", "", "", "", working.MarkPrice, order.FALSE, order.ACK, decimal.NewFromInt(1), decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, 0)
+	response, err := tradeClient.NewOrder("BTCUSDT", order.Buy, order.Long, order.Market, "", "", "", "", working.MarkPrice, order.FALSE, order.ACK, decimal.NewFromFloat(0.001), decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, decimal.Decimal{}, 0)
 	if err != nil {
 		logger.Error("newOrder err: %s", err.Error())
 	}

@@ -215,7 +215,7 @@ func (t *TradeClient) GetAllOrder(symbol string, orderID, startTime, endTime int
 		params += fmt.Sprintf("&endTime=%d", endTime)
 	}
 	if limit > 0 {
-		params += fmt.Sprintf("&limi=%d", limit)
+		params += fmt.Sprintf("&limit=%d", limit)
 	}
 	req, err := t.Builder.Build(http.MethodGet, "/api/v3/allOrders", params, true, true, recv)
 	if err != nil {
